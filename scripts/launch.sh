@@ -27,6 +27,7 @@ docker run --runtime nvidia -d --gpus "\"device=$GPU_IDS\"" \
   -v vllm-hf-cache:/root/.cache/huggingface \
   -v vllm-cache:/root/.cache/vllm \
   --env "PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True" \
+  --env "VLLM_BT_POOL=5" \
   --env "CUDA_DEVICE_ORDER=PCI_BUS_ID" \
   --env "HUGGING_FACE_HUB_TOKEN=$HT" \
   --env "VLLM_PLE_CPU_OFFLOAD=1" \
@@ -39,6 +40,7 @@ docker run --runtime nvidia -d --gpus "\"device=$GPU_IDS\"" \
   --gpu-memory-utilization 0.9 \
   --max-num-seqs 8 \
   --mamba-cache-mode align \
+  --mamba-ssm-cache-dtype float32 \
   --speculative-config '{"method":"mtp","num_speculative_tokens":3}' \
   --enable-prefix-caching \
   --reasoning-parser qwen3 \

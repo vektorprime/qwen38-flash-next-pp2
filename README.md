@@ -11,13 +11,13 @@ Verified on 2026-08-29:
 
 | | |
 |---|---|
-| vLLM | `0.1.dev1+ga5530b90c.d20260829` — PR #53899 @ `a5530b9` + 6-site PP patch |
+| vLLM | `0.1.dev1+ga5530b90c.d20260829` — PR #53899 @ `a5530b9` + 6-site PP patch + P0 prefix-caching hardening (`VLLM_BT_POOL=5`, `mamba_ssm_cache_dtype=float32`) |
 | Context | `max-model-len` 262,144 (auto), KV cache 1,196,679 tokens, 4.56x concurrency |
 | Weights per GPU | PP0 39.48 GiB, PP1 45.53 GiB (of 64 GiB cards) |
 | PLE | 95 GiB ngram/PLE table offloaded to host RAM (`layers.1.ple`) |
 | API | OpenAI-compatible on `:8001` — reasoning + tool-call parsers live |
 
-**Part 1** gets you running in three commands. **Part 2** details every patch:
+**Part 1** gets you running in three commands. **Part 2** details the 6-site PP enablement; **Part 3** documents the P0 prefix-caching hardening (ported from `zebgop-ops/qwen38-flashnext-pp` — `mamba_utils req_idx` is the ablation-proven necessary+s sufficient fix).
 what upstream guards exist, why each is removable, and the exact wall you'll
 hit if something moves under us.
 
@@ -29,8 +29,9 @@ hit if something moves under us.
 
 | File | What it is |
 |---|---|
-| `Dockerfile` | Builds `qwen38-flash-next:pp2` from `vllm/vllm-openai:nightly` + PR #53899 + the PP patch |
-| `patch_pp.py` | The 6-site pipeline-parallel patch (runs at build time; prints one line per site) |
+| `Dockerfile` | Builds `qwen38-flash-next:pp2` from `vllm/vllm-openai:nightly` + PR #53899 + the PP + prefix-caching patches |
+| `patch_pp.py` | The 6-site pipeline-parallel patch (PP=2 + PLE offload enablement) |
+| `patch_p0.py` | Prefix-caching correctness: P0 (mamba ctx `req_idx`, block-table pool, drop_eagle_block, 53142 divisor, PLE tail zero-init, connector handshake) — from `zebgop-ops/qwen38-flashnext-pp` |
 | `scripts/launch.sh` | Verified `docker run` wrapper (token file as `$1`, or `HT` env var) |
 | `scripts/verify_pp.py` | Post-build check that the PP patches landed in the image |
 
@@ -50,7 +51,7 @@ docker build -t qwen38-flash-next-pp2:latest -f Dockerfile .
 
 (Or keep the original tag `qwen38-flash-next:pp2` and pass `IMAGE=...` to the
 launch script.) After the base `nightly` image is cached, the build takes ~2
-minutes. **The output must end with these 11 lines:**
+minutes. **The output must end with these 23 lines (11 from `patch_pp.py` + 12 from `patch_p0.py`):**
 
 ```
 patched vllm/models/qwen4_exp/nvidia/model_state.py
@@ -65,6 +66,20 @@ patched connector init
 patched connector setup
 patched connector launch
 all patched
+patched mamba_utils bt_row_idx
+patched mamba_utils batch_idx->req_idx second site
+patched block_table init
+patched block_table ptrs pool
+patched block_table rotate
+patched single_type MambaManager drop_eagle_block
+patched mamba_hybrid divisor
+patched ple_layer nvidia
+patched ple_layer amd
+patched connector init _staged
+patched connector exception _staged.set
+patched connector _copy staged.set
+patched connector put handshake
+all P0+ done
 ```
 
 Any `WARNING ... pattern not found` line means the PR source moved and the
@@ -577,6 +592,29 @@ p.write_text(t)
 print("all patched")
 ```
 
+# Part 3 — Prefix-Caching Hardening (P0)
+
+Ported from `zebgop-ops/qwen38-flashnext-pp` (validated on 3× CMP 170HX, PP=3, MTP, prefix caching ON, `0/168` clean after fix vs `14–27%` `duct` loops before).
+
+The 6-site PP patch gets the model to *boot* with `PP=2 + PLE offload`. It does **not** make `PP + MTP + prefix caching + mamba `align`` correct under concurrent load — that is a separate bug family fixed here. Without it, generation degenerates into `duct duct duct…` (token `1023`) from all-NaN logits after a few dozen 8-way requests. Root cause: the mamba spec-decode GPU context captures raw pointers to the *gathered* block tables and indexes by `batch_idx`; on non-last PP ranks the deferred postprocess runs `pp_size` steps late and walks stale rows through other requests' freed block ids, aliasing the CSA unified pages (main KV, GDN conv/SSM, PLE conv `12×10240`) and writing foreign bytes into `layers.1.ple`'s PLE conv state.
+
+| Patch | File | What it fixes |
+|---|---|---|
+| **P0-0010** | `vllm/v1/worker/mamba_utils.py` (2 sites) + `vllm/v1/worker/gpu/model_states/mamba_hybrid.py` ctx | **`THE FIX`** — ctx captures *source* per-request-slot tables (req-indexed, stable `data_ptr`), copy kernels index by `req_idx` not `batch_idx`. Ablation `0010-only 0/160 clean`, `0009-only 10/24 corrupt`. |
+| P0-0009 | `vllm/v1/worker/gpu/block_table.py` | Round-robin pool `VLLM_BT_POOL ≥ pp+2` (default `5`) — defense-in-depth for any late gathered-table read; stable `data_ptr` per slot, unlike per-step clones which `illegal memory access`. |
+| P0-0011 | `vllm/v1/core/single_type_kv_cache_manager.py` `MambaManager.find_longest_cache_hit` | Port of unmerged `vllm#48375` — `drop_eagle_block` must drop the final matched block; otherwise a cache-hit resume lands on a state snapshot taken over rejected draft tokens. `48/48` planted recalls at `60%` hit depend on this. |
+| P0-0012 | `vllm/v1/worker/gpu/model_states/mamba_hybrid.py` | `vllm#53142` (no upstream PR) — divisor must be mamba group block size, not `cache_config.block_size`; else out-of-range column reads garbage block id (IMA on sm_121, silent corruption on sm_80). |
+| P0-0013 | `vllm/models/qwen4_exp/{nvidia,amd}/ple_layer.py` | Zero-init spec-extension columns `[conv_state_len:]` tail on prefill — uninit VRAM NaN reservoir otherwise reached by spec rollback gather. |
+| P0-0006 | `vllm/v1/ple_offload/connector.py` | Staging-complete handshake (`_staged` Event, `wait/clear/set`) — rank 0 next-forward overwrites live input buffers before sender staged previous request → `queue.Full` kill or silent stale-input corrupt. |
+
+Also applied:
+
+* `patch_p0.py` is run after `patch_pp.py` in the `Dockerfile` (`COPY patch_pp.py patch_p0.py /tmp/ && RUN python3 /tmp/patch_pp.py && python3 /tmp/patch_p0.py` — expect 23 `patched …` lines).
+* `scripts/launch.sh` now exports `VLLM_BT_POOL=5` and passes `--mamba-ssm-cache-dtype float32` (required to unify GDN page sizes `816 vs 1584`; without it `mamba_cache_mode=align` picks mismatched dtypes per stage).
+* Running image on `10.0.0.187:8001` after this patch is `qwen38-flash-next:pp2-p0` (verified `176` UUID-first reqs `0` loops at `8-way`, `512` tok; boot also `0/16` at `1500` tok before).
+
+Do **not** apply `0008-WITHDRAWN` (falsified placeholder-verification gate — caps C1 MTP at ~1 tok/step).
+
 ## Dockerfile
 
 The base image `vllm/vllm-openai:nightly` has no `git`, so install it first.
@@ -592,8 +630,8 @@ RUN pip install --no-cache-dir "setuptools-scm>=8" "setuptools-rust>=1.9" cmake 
 RUN git init -q && git remote add origin https://github.com/vllm-project/vllm.git && \
     git fetch --depth 1 origin pull/${PR}/head:qwen38 && git checkout qwen38 && \
     git log --oneline -1 && ls vllm/models/qwen4_exp/nvidia/model_state.py
-COPY patch_pp.py /patch_pp.py
-RUN python3 /patch_pp.py
+COPY patch_pp.py patch_p0.py /tmp/
+RUN python3 /tmp/patch_pp.py && python3 /tmp/patch_p0.py
 RUN VLLM_USE_PRECOMPILED=1 pip install -e . --no-build-isolation --no-cache-dir 2>&1 | tail -30 && python3 -c "import vllm; print(vllm.__version__)"
 WORKDIR /workspace
 ENTRYPOINT ["vllm"]
