@@ -23,3 +23,13 @@ req_idx_gen in get_prev_sampled_outputs already covers truly-finished reqs.
 ## Apply
 python3 make_patch_53919.py && python3 make_patch_54436.py inside the
 container (paths are absolute /opt/vllm/...), then docker commit.
+
+## make_patch_zeb_0014_53877.py (2026-08-31, image c234557b+)
+Two zebgop-sync items (coverage matrix: /home/user/qwen3nextflash/zeb_coverage.md):
+- **0014 per-rank KV budgets** (APPLIED): `VLLM_KV_CACHE_MEMORY_RANK<i>` override
+  in gpu_worker.py — balance KV between heterogeneous PP ranks (PLE on rank 0,
+  drafter on last rank). Inert unless the env vars are set.
+- **#53877 fp32 GDN decode beta** (NOT APPLIED): our newer FLA kernel has the
+  anchor `tl.sigmoid(b_val)` more than once; the script's uniqueness assert
+  rejects it. Disambiguate the call site before running — the 0014 half applies
+  cleanly; run the script and re-apply only the 53877 hunk manually if wanted.
