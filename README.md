@@ -97,7 +97,7 @@ stores it. Overridable via env: `GPU_IDS` (default `0,1`), `PORT` (default
 `8001`), `IMAGE` (default `qwen38-flash-next:pp2`). The exact flags it runs
 equivalent to:
 
-<details>
+
 <summary>Full docker run command</summary>
 
 ```bash
@@ -131,7 +131,7 @@ docker run --runtime nvidia -d --gpus '"device=0,1"' \
   --default-chat-template-kwargs '{"enable_thinking":true,"preserve_thinking":true,"reasoning_effort":"medium"}' \
   --override-generation-config '{"temperature":1.0,"top_p":0.95,"top_k":20,"min_p":0.0,"repetition_penalty":1.0,"presence_penalty":0.0}'
 ```
-</details>
+
 
 ## 3. Verify
 
