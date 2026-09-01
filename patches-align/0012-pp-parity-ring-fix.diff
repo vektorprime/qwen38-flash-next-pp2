@@ -1,0 +1,226 @@
+--- a/v1/worker/gpu/pp_utils.py
++++ b/v1/worker/gpu/pp_utils.py
+@@ -206,6 +206,30 @@
+         )
+         return bool(need_sampled_mask.all())
+ 
++    def peek_pending_correction(
++        self,
++    ) -> tuple[np.ndarray, torch.Tensor, torch.cuda.Event] | None:
++        """FIX (0012): data for the exact-mirror peek correction at the start
++        of the current step S: the PREVIOUS step's PendingRecv (queue[-1],
++        written by st(S-1); the current pop of P(S-2) at queue[0] happens
++        later in the same engine step, in get_prev_sampled_outputs).
++        Returns (filtered idx_mapping_np with -1
++        for freed/unneeded rows, num_rejected GPU tensor, recv event), or None
++        when the previous step skipped the broadcast. Read-only: does NOT
++        consume the slot."""
++        if not self.queue:
++            return None
++        # queue[-1] holds the entry written by st(S-1) (`receive` writes
++        # queue[-1]); queue[0] is the entry the pop later in THIS engine step
++        # will consume. Peek target is the newest, i.e. queue[-1].
++        slot = self.queue[-1]
++        if slot is None:
++            return None
++        freed = self.req_idx_gen_np[slot.idx_mapping_np] != slot.gen_at_receive_np
++        exclude_mask = freed | ~slot.need_sampled_mask
++        idx_mapping_np = np.where(exclude_mask, -1, slot.idx_mapping_np)
++        return idx_mapping_np, slot.num_rejected, slot.event
++
+     def broadcast(
+         self,
+         sampled_token_ids: torch.Tensor,
+--- a/v1/worker/gpu/input_batch.py
++++ b/v1/worker/gpu/input_batch.py
+@@ -685,6 +685,73 @@
+ 
+ 
+ @triton.jit
++def _ring_zero_kernel(
++    # [max_num_reqs]
++    ring_ptr,
++    max_num_reqs,
++    BLOCK_SIZE: tl.constexpr,
++):
++    """FIX (0012): zero a parity-ring slot at the start of each real engine
++    step, so a step in which a request was NOT scheduled contributes 0 to the
++    deferred align correction (cadence/defer/async-safe)."""
++    offsets = tl.program_id(0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)
++    mask = offsets < max_num_reqs
++    tl.store(ring_ptr + offsets, 0, mask=mask)
++
++
++def ring_zero_(ring: torch.Tensor) -> None:
++    max_num_reqs = ring.numel()
++    _ring_zero_kernel[(triton.cdiv(max_num_reqs, 1024),)](
++        ring, max_num_reqs, BLOCK_SIZE=1024
++    )
++
++
++@triton.jit
++def _pp_peek_rej_correction_kernel(
++    # [num_reqs] batch_idx -> req_state_idx; negative means skip.
++    idx_mapping_ptr,
++    # [num_reqs] rejections for the peeked step (last-rank broadcast).
++    num_rejected_ptr,
++    # [max_num_reqs] parity-ring slot for the peeked step.
++    ring_ptr,
++    # [max_num_reqs] num_computed GPU mirror.
++    num_computed_ptr,
++    num_reqs,
++):
++    """FIX (0012, exact-mirror mode): at the start of step S, the previous
++    step's (S-1) sampled results are already received (peeked, not consumed).
++    Fold rejection(S-1) into the GPU mirror and the ring NOW, so the mirror is
++    exact (== last rank) for preprocess/positions/forward, and the ring entry
++    becomes the net advance q(S-1)-rej(S-1) that the deferred align decision
++    subtracts for the step it serves."""
++    batch_idx = tl.program_id(0)
++    if batch_idx >= num_reqs:
++        return
++    req_idx = tl.load(idx_mapping_ptr + batch_idx)
++    if req_idx < 0:
++        return
++    rej = tl.load(num_rejected_ptr + batch_idx)
++    if rej == 0:
++        return
++    ring = tl.load(ring_ptr + req_idx)
++    tl.store(ring_ptr + req_idx, ring - rej)
++    num_computed = tl.load(num_computed_ptr + req_idx)
++    tl.store(num_computed_ptr + req_idx, num_computed - rej)
++
++
++def pp_peek_rej_correction(
++    idx_mapping: torch.Tensor,
++    num_rejected: torch.Tensor,
++    ring: torch.Tensor,
++    num_computed_tokens: torch.Tensor,
++) -> None:
++    num_reqs = idx_mapping.shape[0]
++    _pp_peek_rej_correction_kernel[(num_reqs,)](
++        idx_mapping, num_rejected, ring, num_computed_tokens, num_reqs
++    )
++
++
++@triton.jit
+ def _expand_idx_mapping_kernel(
+     idx_mapping_ptr,
+     expanded_idx_mapping_ptr,
+--- a/v1/worker/gpu/model_runner.py
++++ b/v1/worker/gpu/model_runner.py
+@@ -19,6 +19,7 @@
+ 
+ import functools
+ import gc
++import os
+ import time
+ from copy import deepcopy
+ from typing import Any, NamedTuple
+@@ -303,17 +304,40 @@
+                 # also set num_speculative_steps > 0 but have no speculator.
+                 relay_draft_tokens=self.speculative_config is not None,
+             )
+-            # FIX: per-req record of the last optimistically-added query
+-            # length. Only used by the non-last PP rank's deferred align
+-            # postprocess to undo the optimistic advance exactly.
++            # FIX (0012): parity ring of the optimistically-added query
++            # length (decision mode) / net advance (exact-mirror mode), per
++            # request, per engine-step parity. The non-last PP rank's deferred
++            # align postprocess subtracts ring[(S-1)%2] to undo the optimistic
++            # advance the GPU num_computed mirror still carries for step S-1.
++            # Zero-filled at the start of every real step so requests NOT
++            # scheduled in a step contribute 0 (cadence/defer/async-safe).
++            # Replaces the 0011 single-slot ring, which read a stale S-2 value
++            # whenever a request was skipped at S-1.
+             if not get_pp_group().is_last_rank:
+-                self._pp_advance_gpu: torch.Tensor | None = torch.zeros(
+-                    self.max_num_reqs, dtype=torch.int32, device=self.device
++                self._pp_advance_ring: torch.Tensor | None = torch.zeros(
++                    2, self.max_num_reqs, dtype=torch.int32, device=self.device
+                 )
+             else:
+-                self._pp_advance_gpu = None
++                self._pp_advance_ring = None
++            # Engine-step counter (real steps only) for ring parity.
++            self._pp_step = 0
++            # Exact-mirror mode (F1b): fold rejection(S-1) into the GPU mirror
++            # at the start of step S via a read-only peek of the previous
++            # step's already-received sampled outputs, making the mirror (and
++            # hence positions/seq_lens/preprocess) exactly equal to the last
++            # rank. The pop then skips its -rej adjustment (already applied).
++            self._pp_exact_mirror = (
++                os.environ.get("VLLM_PP_EXACT_MIRROR", "0") == "1"
++                and bool(
++                    getattr(
++                        self.vllm_config.scheduler_config, "async_scheduling", False
++                    )
++                )
++            )
+         else:
+-            self._pp_advance_gpu = None
++            self._pp_advance_ring = None
++            self._pp_step = 0
++            self._pp_exact_mirror = False
+ 
+         # Samplers and decode_query_len created in load_model() after
+         # model_state exists (num_new_sampled_tokens_per_step from ModelState).
+@@ -1031,6 +1055,13 @@
+                 # accept this kwarg). idx_mapping has -1 for excluded/freed reqs.
+                 draft_tokens = outputs.pop("draft_tokens", None)
+                 idx_mapping = outputs["idx_mapping"]
++                if self._pp_exact_mirror:
++                    # FIX (0012): rejection(S-2) was already folded into the
++                    # GPU mirror at the start of this step via the peek of
++                    # P(S-1)... actually P(S-2)'s rejection was folded at the
++                    # previous step's peek (P(S-2) peeked one step earlier);
++                    # skip the pop-side -rej to avoid double subtraction.
++                    outputs["num_rejected"] = _ZERO_INT32
+                 self.postprocess_sampled(**outputs)
+                 if draft_tokens is not None:
+                     valid = idx_mapping >= 0
+@@ -1485,10 +1516,15 @@
+             idx_mapping,
+             num_sampled,
+             self.req_states.num_computed_tokens.gpu,
+-            # FIX: on non-last PP ranks the mirror above is truth + the
+-            # still-pending optimistic advance; the align kernel subtracts
+-            # this per-req ring to get exact truth for the consumed step.
+-            advance_gpu=self._pp_advance_gpu if not self.is_last_pp_rank else None,
++            # FIX (0012): on non-last PP ranks the mirror above still carries
++            # the step-S-1 optimistic advance (net in exact-mirror mode, raw
++            # qlen in decision mode); the align kernel subtracts
++            # ring[(S-1)%2] to get exact truth for the consumed step S-2.
++            advance_gpu=(
++                self._pp_advance_ring[(self._pp_step - 1) % 2]
++                if self._pp_advance_ring is not None
++                else None
++            ),
+         )
+ 
+     def _merge_ec_connector_no_forward(
+@@ -1512,6 +1548,24 @@
+     ) -> ModelRunnerOutput | IntermediateTensors | None:
+         if not dummy_run:
+             # Update the request states.
++            # FIX (0012): align-ring bookkeeping for the non-last PP rank.
++            if self._pp_advance_ring is not None:
++                self._pp_step += 1
++                slot = self._pp_advance_ring[self._pp_step % 2]
++                ring_zero_(slot)
++                if self._pp_exact_mirror:
++                    peek = self.pp_handler.peek_pending_correction()
++                    if peek is not None:
++                        idx_np, num_rejected, recv_event = peek
++                        # The recv must be complete before reading rej(S-1).
++                        torch.cuda.current_stream().wait_event(recv_event)
++                        idx = async_copy_to_gpu(idx_np, device=self.device)
++                        pp_peek_rej_correction(
++                            idx,
++                            num_rejected,
++                            self._pp_advance_ring[(self._pp_step - 1) % 2],
++                            self.req_states.num_computed_tokens.gpu,
++                        )
+             self.update_pp_decode_requests()
+             self.finish_requests(scheduler_output)
+             self.free_states(scheduler_output)

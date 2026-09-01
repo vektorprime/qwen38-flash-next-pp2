@@ -1,0 +1,157 @@
+--- a/v1/worker/gpu/input_batch.py
++++ b/v1/worker/gpu/input_batch.py
+@@ -647,6 +647,8 @@
+     idx_mapping_ptr,
+     num_computed_tokens_ptr,
+     query_start_loc_ptr,
++    advance_out_ptr,
++    RECORD_ADVANCE: tl.constexpr = False,
+ ):
+     batch_id = tl.program_id(0)
+     query_start = tl.load(query_start_loc_ptr + batch_id)
+@@ -656,6 +658,8 @@
+     req_state_idx = tl.load(idx_mapping_ptr + batch_id)
+     num_computed = tl.load(num_computed_tokens_ptr + req_state_idx)
+     tl.store(num_computed_tokens_ptr + req_state_idx, num_computed + query_len)
++    if RECORD_ADVANCE:
++        tl.store(advance_out_ptr + req_state_idx, query_len)
+ 
+ 
+ def post_update_num_computed_tokens(
+@@ -665,12 +669,18 @@
+     num_computed_tokens: torch.Tensor,
+     # [num_reqs + 1]
+     query_start_loc: torch.Tensor,
++    # [max_num_reqs] optional: per-req ring receiving the qlen that was
++    # added, so deferred consumers (PP align postprocess) can undo the
++    # optimistic advance exactly.
++    advance_out: torch.Tensor | None = None,
+ ) -> None:
+     num_reqs = idx_mapping.shape[0]
+     _post_update_num_computed_tokens_kernel[(num_reqs,)](
+         idx_mapping,
+         num_computed_tokens,
+         query_start_loc,
++        advance_out,
++        RECORD_ADVANCE=advance_out is not None,
+     )
+ 
+ 
+--- a/v1/worker/gpu/model_runner.py
++++ b/v1/worker/gpu/model_runner.py
+@@ -303,6 +303,17 @@
+                 # also set num_speculative_steps > 0 but have no speculator.
+                 relay_draft_tokens=self.speculative_config is not None,
+             )
++            # FIX: per-req record of the last optimistically-added query
++            # length. Only used by the non-last PP rank's deferred align
++            # postprocess to undo the optimistic advance exactly.
++            if not get_pp_group().is_last_rank:
++                self._pp_advance_gpu: torch.Tensor | None = torch.zeros(
++                    self.max_num_reqs, dtype=torch.int32, device=self.device
++                )
++            else:
++                self._pp_advance_gpu = None
++        else:
++            self._pp_advance_gpu = None
+ 
+         # Samplers and decode_query_len created in load_model() after
+         # model_state exists (num_new_sampled_tokens_per_step from ModelState).
+@@ -1471,7 +1482,13 @@
+         )
+ 
+         self.model_state.postprocess_state(
+-            idx_mapping, num_sampled, self.req_states.num_computed_tokens.gpu
++            idx_mapping,
++            num_sampled,
++            self.req_states.num_computed_tokens.gpu,
++            # FIX: on non-last PP ranks the mirror above is truth + the
++            # still-pending optimistic advance; the align kernel subtracts
++            # this per-req ring to get exact truth for the consumed step.
++            advance_gpu=self._pp_advance_gpu if not self.is_last_pp_rank else None,
+         )
+ 
+     def _merge_ec_connector_no_forward(
+@@ -2030,6 +2047,7 @@
+             input_batch.idx_mapping,
+             self.req_states.num_computed_tokens.gpu,
+             input_batch.query_start_loc,
++            advance_out=self._pp_advance_gpu,
+         )
+ 
+     def shutdown(self) -> None:
+--- a/v1/worker/gpu/model_states/interface.py
++++ b/v1/worker/gpu/model_states/interface.py
+@@ -149,6 +149,7 @@
+         idx_mapping: torch.Tensor,
+         num_sampled: torch.Tensor,
+         num_computed_tokens: torch.Tensor | None = None,
++        advance_gpu: torch.Tensor | None = None,
+     ) -> None:
+         return None
+ 
+--- a/v1/worker/gpu/model_states/mamba_hybrid.py
++++ b/v1/worker/gpu/model_states/mamba_hybrid.py
+@@ -321,6 +321,7 @@
+         idx_mapping: torch.Tensor,
+         num_sampled: torch.Tensor | int,
+         num_computed_tokens: torch.Tensor | None = None,
++        advance_gpu: torch.Tensor | None = None,
+     ) -> None:
+         # Chunked prefill does not sample a token, so num_sampled can be 0.
+         # Mamba treats num_accepted_tokens=1 as the neutral non-spec value.
+@@ -355,6 +356,7 @@
+                 self._mamba_state_idx_gpu,
+                 num_computed_tokens,
+                 idx_mapping,
++                advance_gpu=advance_gpu,
+             )
+ 
+ 
+--- a/v1/worker/mamba_utils.py
++++ b/v1/worker/mamba_utils.py
+@@ -282,6 +282,9 @@
+     # per-request decision arrays are in req-state-slot order; the block table
+     # is in batch order, so HAS_IDX_MAPPING splits the two indexings.
+     idx_mapping_ptr,
++    # Optional per-req optimistic-advance ring (PP non-last rank). Under
++    # PRECOMPUTED_NEW_COMPUTED the value is truth + advance; subtract first.
++    advance_ptr,
+     # Runtime parameter (varies per batch - NOT constexpr to avoid recompilation)
+     num_reqs,
+     # Compile-time constants (fixed after model initialization)
+@@ -335,6 +338,8 @@
+ 
+     if PRECOMPUTED_NEW_COMPUTED:
+         new_num_computed = tl.load(num_computed_tokens_ptr + req_idx)
++        if advance_ptr is not None:
++            new_num_computed -= tl.load(advance_ptr + req_idx)
+         num_tokens_running_state = new_num_computed - num_accepted + 1
+     else:
+         num_scheduled = tl.load(num_scheduled_tokens_ptr + req_idx)
+@@ -1014,6 +1019,7 @@
+             self.state_dim_row_stride,
+             self.num_accepted_tokens_out,
+             None,  # idx_mapping: V1 decision arrays are already in req order
++            None,  # advance_ptr: V1 has no optimistic PP mirror
+             num_reqs,
+             block_size=self.block_size,
+             COPY_BLOCK_SIZE=1024,
+@@ -1073,6 +1079,7 @@
+         state_idx_gpu: torch.Tensor,
+         new_num_computed_tokens_gpu: torch.Tensor,
+         idx_mapping: torch.Tensor,
++        advance_gpu: torch.Tensor | None = None,
+     ) -> None:
+         """V2 align postprocess: save the running state to the block-aligned
+         position after spec-decode acceptance leaves the sequence non-aligned.
+@@ -1119,6 +1126,9 @@
+             HAS_IDX_MAPPING=True,
+             PRECOMPUTED_NEW_COMPUTED=True,
+             TEMPORAL_TILES=_TEMPORAL_TILES,
++            # FIX: subtract the per-req optimistic advance still baked into
++            # the PP GPU mirror before deciding.
++            advance_ptr=advance_gpu,
+         )
+ 
+ 
