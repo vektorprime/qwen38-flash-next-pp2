@@ -11,13 +11,14 @@ Verified on 2026-08-29:
 
 | | |
 |---|---|
-| vLLM | `0.1.dev1+ga5530b90c.d20260829` — PR #53899 @ `a5530b9` + 6-site PP patch + P0 prefix-caching hardening (`VLLM_BT_POOL=5`, `mamba_ssm_cache_dtype=float32`) |
+| vLLM | `0.1.dev1+ga5530b90c.d20260829` — PR #53899 @ `a5530b9` + 6-site PP patch + P0 prefix-caching hardening + **MTP-over-PP relay overlay** + **2026-08-31 correctness patches** (see Parts 4–5) |
 | Context | `max-model-len` 262,144 (auto), KV cache 1,196,679 tokens, 4.56x concurrency |
 | Weights per GPU | PP0 39.48 GiB, PP1 45.53 GiB (of 64 GiB cards) |
 | PLE | 95 GiB ngram/PLE table offloaded to host RAM (`layers.1.ple`) |
+| MTP | **k=1 recommended: 75.4–75.8 tok/s single-stream (+29% vs no-MTP)**; k=3 only +11% |
 | API | OpenAI-compatible on `:8001` — reasoning + tool-call parsers live |
 
-**Part 1** gets you running in three commands. **Part 2** details the 6-site PP enablement; **Part 3** documents the P0 prefix-caching hardening (ported from `zebgop-ops/qwen38-flashnext-pp` — `mamba_utils req_idx` is the ablation-proven necessary+s sufficient fix).
+**Part 1** gets you running in three commands. **Part 2** details the 6-site PP enablement; **Part 3** documents the P0 prefix-caching hardening (ported from `zebgop-ops/qwen38-flashnext-pp` — `mamba_utils req_idx` is the ablation-proven necessary+sufficient fix). **Part 4** documents the MTP-over-PP relay overlay (`p0-overlay/`, whole-file docker-cp replacements — without it MTP under PP deadlocks). **Part 5** documents the 2026-08-31 correctness patches (`patches-v2/`: #54436, #53919, zebgop 0014, #53877 status) and the open cross-request state-bleed investigation.
 what upstream guards exist, why each is removable, and the exact wall you'll
 hit if something moves under us.
 
@@ -32,6 +33,8 @@ hit if something moves under us.
 | `Dockerfile` | Builds `qwen38-flash-next:pp2` from `vllm/vllm-openai:nightly` + PR #53899 + the PP + prefix-caching patches |
 | `patch_pp.py` | The 6-site pipeline-parallel patch (PP=2 + PLE offload enablement) |
 | `patch_p0.py` | Prefix-caching correctness: P0 (mamba ctx `req_idx`, block-table pool, drop_eagle_block, 53142 divisor, PLE tail zero-init, connector handshake) — from `zebgop-ops/qwen38-flashnext-pp` |
+| `p0-overlay/` | **Whole-file overlays applied after build** (`pp_utils.py`, `model_runner.py`, `qwen4_exp_nvidia_mtp.py` + README with the docker cp/commit recipe) — the MTP-over-PP relay lives here |
+| `patches-v2/` | **2026-08-31 era patches** (apply scripts + README): #53919 V1 accepted-count race, #54436 PP broadcast mask, zebgop 0014 per-rank KV budgets, #53877 fp32 GDN beta |
 | `scripts/launch.sh` | Verified `docker run` wrapper (token file as `$1`, or `HT` env var) |
 | `scripts/verify_pp.py` | Post-build check that the PP patches landed in the image |
 
@@ -610,10 +613,125 @@ The 6-site PP patch gets the model to *boot* with `PP=2 + PLE offload`. It does 
 Also applied:
 
 * `patch_p0.py` is run after `patch_pp.py` in the `Dockerfile` (`COPY patch_pp.py patch_p0.py /tmp/ && RUN python3 /tmp/patch_pp.py && python3 /tmp/patch_p0.py` — expect 23 `patched …` lines).
-* `scripts/launch.sh` now exports `VLLM_BT_POOL=5` and passes `--mamba-ssm-cache-dtype float32` (required to unify GDN page sizes `816 vs 1584`; without it `mamba_cache_mode=align` picks mismatched dtypes per stage).
+* `scripts/launch.sh` now exports `VLLM_BT_POOL=5` and passes `--mamba-ssm-cache-dtype float32` (required to unify GDN page sizes `816 vs 1584`; without it `mamba_cache_mode=align` picks mismatched dtypes per stage). **2026-08-31 note:** on the current AWQ-INT4 checkpoint the `float32` SSM dtype is NOT needed (it was for the FP8 checkpoint's page-size mismatch) and the current canonical launch runs `VLLM_BT_POOL=4` with no `--mamba-ssm-cache-dtype` — see `p0-overlay/README.md` for the current working command.
 * Running image on `10.0.0.187:8001` after this patch is `qwen38-flash-next:pp2-p0` (verified `176` UUID-first reqs `0` loops at `8-way`, `512` tok; boot also `0/16` at `1500` tok before).
 
 Do **not** apply `0008-WITHDRAWN` (falsified placeholder-verification gate — caps C1 MTP at ~1 tok/step).
+
+---
+
+# Part 4 — MTP-over-PP Relay Overlay (p0-overlay/)
+
+The build-time patches above make PP=2 **boot** and make mamba state **correct**.
+They do NOT make MTP work under PP: upstream's sampled-token protocol has only
+**two** collectives per step, but spec decode needs a **third** — the proposed
+draft tokens — relayed from the last rank to the earlier ranks. Without it, MTP
+under PP deadlocks in warmup (`NCCL BROADCAST timeout 600s` at
+`pp_utils.py:146`) or verifies against zero-init draft buffers (acceptance ~0).
+
+Fix: three whole files overlaid on the built image via `docker cp` +
+`docker commit` (exact recipe in `p0-overlay/README.md`):
+
+| File | Change |
+|---|---|
+| `vllm/v1/worker/gpu/pp_utils.py` | `PPHandler` gains `broadcast_draft()` — a 3rd NCCL broadcast on a sibling communicator, issued AFTER `broadcast()` so op order matches the receiver (`[sampled, combined, draft]`); `receive()` posts the matching recv and queues it; `get_prev_sampled_outputs()` returns `draft_tokens` with generation-counter invalidation of freed slots. |
+| `vllm/v1/worker/gpu/model_runner.py` | `update_pp_decode_requests()` pops `draft_tokens` from the relayed outputs and scatters into `req_states.draft_tokens[idx_mapping[valid]]` so the next step's `combine_sampled_and_draft_tokens` reads real values. |
+| `vllm/models/qwen4_exp/{nvidia,amd}/mtp.py` | MTP entry gate widened: `is_first_rank or is_last_rank or hidden_states is not None` — the PP-last rank enters the MTP block directly. |
+
+Verified on PP=2 (2x CMP 170HX): MTP k=1 **75.4–75.8 tok/s** steady single-stream
+(vs 58.1–58.6 no-MTP, **+29%**); k=3 only +11% (positions 2–3 acceptance decay
+makes extra drafts net-negative — **use k=1**). Per-position acceptance at k=3:
+~0.61/0.40/0.22.
+
+Metric semantics: vLLM's `Accepted throughput` counts ONLY verifier-accepted
+draft tokens; client-visible output is `Avg generation throughput` (at k=1,
+acceptance 1.0 -> total = 2 x accepted).
+
+---
+
+# Part 5 — 2026-08-31 Correctness Patches (patches-v2/)
+
+Applied to the running image via apply scripts (`patches-v2/make_patch_*.py`,
+docker cp + commit; image `c234557b`). These target the **V2 model runner**
+(this fork logs `Using V2 Model Runner` — the V1 file is inactive).
+
+## 5.1 — vllm#54436 port: never drop a decoding request from the sampled-token broadcast (ACTIVE)
+
+`vllm/v1/worker/gpu/pp_utils.py :: compute_need_sampled_mask`
+
+Upstream bug (open PR vllm-project/vllm#54436): the `not_finishing` guard
+(`max(old_computed, prefill_len) + 1 < max_seq_len`) excludes rows whose
+`num_computed_tokens` has overrun `prompt_len + max_tokens` — but under
+speculative decoding that overrun happens WHILE the request is still decoding
+(whether it stops is only known after sampling). The dropped row's
+`last_sampled_tokens` / `draft_tokens` freeze on earlier PP ranks while the
+last rank advances: degenerate repeating output, KV written at positions the
+last stage never used. Truly-finished requests are already handled by the
+`req_idx_gen` generation check in `get_prev_sampled_outputs`, so the guard
+bought nothing.
+
+Fix: drop the `not_finishing` term; keep only the (sound) non-final-prefill-chunk
+exclusion.
+
+## 5.2 — vllm#53919 port: await the accepted-token copy before moving batch rows (V1-only, INERT here but kept)
+
+`vllm/v1/worker/gpu_model_runner.py` (V1 runner)
+
+Upstream bug (open PR vllm-project/vllm#53919, labeled `mrv1-only`): step N
+copies spec-decode accepted-token counts D2H non-blocking into a pinned
+buffer; step N+1's `_update_states` row moves (`add_request`/`swap_states`/
+`condense`) permute that same buffer BEFORE waiting on the copy event; the
+later `prev_positions` gather can then re-permute already-correct values. A
+request receives ANOTHER request's accepted count -> wrong conv-window shift
+and GDN snapshot selector -> state written back into the SSM cache wrong.
+Upstream ablation: 29/1248 corrupted -> 0 with fix.
+
+Fix (both halves required): wait on `num_accepted_tokens_event` at the TOP of
+`_update_states` (sync on an unrecorded event is a no-op, so non-hybrid models
+are unaffected), and delete the async double-permute gather in `_prepare_inputs`.
+
+**Status in this fork:** we run the V2 runner, so this path never executes —
+kept so any V1-path use is safe. Our cross-request state bleed (below) was
+NOT fixed by this patch; the V1 race is a sibling of whatever still bleeds
+under V2.
+
+## 5.3 — zebgop 0014: per-rank KV cache memory budgets (APPLIED, inert unless env set)
+
+`vllm/v1/worker/gpu_worker.py`
+
+`--kv-cache-memory` is one value for every worker, but PP ranks are
+heterogeneous (rank 0 carries PLE machinery; the last rank carries the MTP
+drafter; per-token KV costs differ), so a single value binds to the tightest
+rank and strands memory on the other. New env vars
+`VLLM_KV_CACHE_MEMORY_RANK0` / `..._RANK1` take absolute byte budgets per PP
+rank (only when `--kv-cache-memory` is not given). From
+`zebgop-ops/qwen38-flashnext-pp` patch 0014 (+19.4% pool on their PP3 setup).
+
+## 5.4 — vllm#53877: fp32 GDN decode beta (NOT yet applied — blocked)
+
+One line in `vllm/third_party/flash_linear_attention/ops/fused_recurrent.py`:
+`tl.sigmoid(b_val)` -> `tl.sigmoid(b_val).to(b.dtype.element_ty).to(tl.float32)`
+(keeps beta fp32 through the cast chain; output-quality fix). **Blocked:** our
+newer FLA kernel contains the anchor string more than once (zebgop's tree had
+exactly one); the apply script's uniqueness assert correctly refuses. Needs
+call-site disambiguation before applying.
+
+## Cross-request state bleed — OPEN investigation
+
+With concurrent streams (max_num_seqs >= 2), content from one conversation
+appears in another (verified with per-stream unique codewords; one victim's
+codeword surfaces in 3–6 other streams). Bisected and EXONERATED: MTP (bleeds
+with it off), prefix caching (bleeds at 0.0% hit rate), async vs sync
+scheduling, PLE offload, temperature, V1 #53919 race (V2 active), #54436 mask
+(fixed, bleeds continue). **max_num_seqs=1 produces zero bleeds** — the bug
+requires >= 2 resident requests. PP=2 is mandatory infrastructure (PCIe Gen2
+cards; TP2 not viable), and is the remaining structural suspect. Suspects:
+V2 PP-deferred mamba align `idx_mapping` interleave, GDN conv-state kernels
+with mixed spec/non-spec rows in one batch (the Intel XPU fork crashes loudly
+on exactly this shape; CUDA may fail silently), block-table pool slot recycling.
+Detection harness: `/tmp/contam_soak3.py`, `/tmp/contam_probe.py`,
+`/tmp/contam_hitz.py` on the deployment host; findings doc:
+`/home/user/qwen3nextflash/qwen38_pp2_findings.md` + `zeb_coverage.md` there.
 
 ## Dockerfile
 
