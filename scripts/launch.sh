@@ -4,7 +4,7 @@ set -uo pipefail
 # Token input (pick one, never commit a token):
 #   bash scripts/launch.sh /path/to/token.txt
 #   HT=$(cat /path/to/token.txt) bash scripts/launch.sh
-IMAGE="${IMAGE:-qwen38-flash-next:pp2}"
+IMAGE="${IMAGE:-qwen38-flash-next:pp2-p1}"
 GPU_IDS="${GPU_IDS:-0,1}"
 PORT="${PORT:-8001}"
 

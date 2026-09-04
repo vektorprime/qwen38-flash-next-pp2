@@ -29,7 +29,7 @@ hit if something moves under us.
 
 | File | What it is |
 |---|---|
-| `Dockerfile` | Builds `qwen38-flash-next:pp2` from `vllm/vllm-openai:nightly` + PR #53899 + the PP + prefix-caching patches |
+| `Dockerfile` | Builds `qwen38-flash-next:pp2` from `vllm/vllm-openai:nightly` + PR #53899 + the PP + prefix-caching patches. Applying `patches-align/0011-0012-combined-pp2-p1.diff` on top yields **`qwen38-flash-next:pp2-p1` (current, see Part 4)** |
 | `patch_pp.py` | The 6-site pipeline-parallel patch (PP=2 + PLE offload enablement) |
 | `patch_p0.py` | Prefix-caching correctness: P0 (mamba ctx `req_idx`, block-table pool, drop_eagle_block, 53142 divisor, PLE tail zero-init, connector handshake) — from `zebgop-ops/qwen38-flashnext-pp` |
 | `scripts/launch.sh` | Verified `docker run` wrapper (token file as `$1`, or `HT` env var) |
@@ -94,7 +94,7 @@ bash scripts/launch.sh /path/to/hf_token.txt
 
 The script takes the token from a file (or from `HT=...` in the env) and never
 stores it. Overridable via env: `GPU_IDS` (default `0,1`), `PORT` (default
-`8001`), `IMAGE` (default `qwen38-flash-next:pp2`). The exact flags it runs
+`8001`), `IMAGE` (default `qwen38-flash-next:pp2-p1`). The exact flags it runs
 equivalent to:
 
 
@@ -112,7 +112,7 @@ docker run --runtime nvidia -d --gpus '"device=0,1"' \
   --env "HUGGING_FACE_HUB_TOKEN=***" \
   --env "VLLM_PLE_CPU_OFFLOAD=1" \
   --env "VLLM_GDN_DECODE_KERNEL=triton" \
-  qwen38-flash-next:pp2 \
+  qwen38-flash-next:pp2-p1 \
   serve cyankiwi/Qwen3.8-Flash-Next-AWQ-INT4 \
   --served-model-name qwen38-flash-next-awq \
   --max-model-len auto \
@@ -611,9 +611,34 @@ Also applied:
 
 * `patch_p0.py` is run after `patch_pp.py` in the `Dockerfile` (`COPY patch_pp.py patch_p0.py /tmp/ && RUN python3 /tmp/patch_pp.py && python3 /tmp/patch_p0.py` — expect 23 `patched …` lines).
 * `scripts/launch.sh` now exports `VLLM_BT_POOL=5` and passes `--mamba-ssm-cache-dtype float32` (required to unify GDN page sizes `816 vs 1584`; without it `mamba_cache_mode=align` picks mismatched dtypes per stage).
-* Running image on `10.0.0.187:8001` after this patch is `qwen38-flash-next:pp2-p0` (verified `176` UUID-first reqs `0` loops at `8-way`, `512` tok; boot also `0/16` at `1500` tok before).
+* Running image on `10.0.0.187:8001` after this patch is `qwen38-flash-next:pp2-p1` (pp2-p0 + the Part 4 ring fix; verified `176` UUID-first reqs `0` loops at `8-way`, `512` tok on pp2-p0, plus `130`-req + `~1150`-req soaks at `0` bleed markers on pp2-p1).
 
 Do **not** apply `0008-WITHDRAWN` (falsified placeholder-verification gate — caps C1 MTP at ~1 tok/step).
+
+# Part 4 — PP align skew + parity ring (F1 0011/0012 → pp2-p1, current)
+
+On non-last PP ranks the GPU `num_computed_tokens` mirror runs optimistic:
+`sample_tokens` tail adds `+qlen` unconditionally while the deferred
+`post_update` (which arrives `pp_size` steps late with
+`query_start_loc=None`) subtracts rejections only. At the deferred align
+consume the mirror sits exactly `qlen(S-1)` ahead — 3 tokens every step at
+MTP k=2, 1 token even with MTP off — in sync AND async (async can reach ~2x).
+The align save decision then skips or short-writes every 1600-block boundary
+crossing on rank 0 while the scheduler publishes the boundary block as
+correct → persistent cross-request state bleed on prefix-cache hits.
+Full arithmetic: `patches-align/README-0012-parity-ring.md`.
+
+| File | Fix |
+|---|---|
+| `patches-align/0011-f1-pp-align-skew-fix.diff` | 0011: record the optimistic advance per step, subtract at deferred save (`RECORD_ADVANCE` scatter, `advance_out` plumbing, kernel subtract under `PRECOMPUTED`) |
+| `patches-align/0012-pp-parity-ring-fix.diff` | 0012: zero-filled parity ring (skipped steps read 0, never stale) + exact-mirror mode (rank-0 token/position relay; async-only, sync falls back to decision) |
+| `patches-align/0011-0012-combined-pp2-p1.diff` | Combined, `git apply --check` clean on pp2-p0 → **pp2-p1**. Never ship 0011 alone (stale-slot subtract on skipped steps). |
+
+`VLLM_PP_EXACT_MIRROR=1` + `--async-scheduling` enables exact-mirror (fixes
+align + KV-slot shift + preprocess); without the env var the ring still fixes
+the align decision in both sync and async. Validated: `130`-req soak +
+`~1150`-req long soak, `0` bleed markers; `T3 8x8 + 8x24`, `T2 8x6 + 8x16`,
+NIAH 5 depths + 4-way concurrent — all clean.
 
 ## Dockerfile
 

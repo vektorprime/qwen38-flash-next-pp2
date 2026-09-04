@@ -16,6 +16,10 @@ for f, needle in [
     ('/opt/vllm/vllm/v1/core/single_type_kv_cache_manager.py', 'if drop_eagle_block:'),
     ('/opt/vllm/vllm/v1/worker/gpu/model_states/mamba_hybrid.py', 'mamba_bs ='),
     ('/opt/vllm/vllm/models/qwen4_exp/nvidia/ple_layer.py', 'HARDENING'),
+    ('/opt/vllm/vllm/v1/worker/gpu/model_runner.py', '_pp_advance_ring'),
+    ('/opt/vllm/vllm/v1/worker/gpu/pp_utils.py', 'peek_pending_correction'),
+    ('/opt/vllm/vllm/v1/worker/gpu/input_batch.py', 'ring_zero_'),
+    ('/opt/vllm/vllm/v1/worker/mamba_utils.py', 'advance_ptr'),
 ]:
     try:
         txt=open(f).read()
