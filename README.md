@@ -17,7 +17,7 @@ Verified on 2026-08-29:
 | PLE | 95 GiB ngram/PLE table offloaded to host RAM (`layers.1.ple`) |
 | API | OpenAI-compatible on `:8001` — reasoning + tool-call parsers live |
 
-**Part 1** gets you running in three commands. **Part 2** details the 6-site PP enablement; **Part 3** documents the P0 prefix-caching hardening (ported from `zebgop-ops/qwen38-flashnext-pp` — `mamba_utils req_idx` is the ablation-proven necessary+s sufficient fix).
+**Part 1** gets you running in three commands. **Part 2** details the 6-site PP enablement; **Part 3** documents the P0 prefix-caching hardening (ported from `zebgop-ops/qwen38-flashnext-pp` — `mamba_utils req_idx` is the ablation-proven necessary+s sufficient fix). **Part 5** covers the deterministic-MoE patch (0015) and the INT4 / INT4+8 / INT8 quality eval.
 what upstream guards exist, why each is removable, and the exact wall you'll
 hit if something moves under us.
 
@@ -34,6 +34,8 @@ hit if something moves under us.
 | `patch_p0.py` | Prefix-caching correctness: P0 (mamba ctx `req_idx`, block-table pool, drop_eagle_block, 53142 divisor, PLE tail zero-init, connector handshake) — from `zebgop-ops/qwen38-flashnext-pp` |
 | `scripts/launch.sh` | Verified `docker run` wrapper (token file as `$1`, or `HT` env var) |
 | `scripts/verify_pp.py` | Post-build check that the PP patches landed in the image |
+| `detmoe/` | Patch 0015: deterministic MoE token order (bit-reproducible logprobs); diff, apply script, Dockerfile, tests (Part 5) |
+| `kld-eval/` | INT4 vs INT4+8 vs INT8 output-distribution eval: KLD, top-1/top-k, sampling-set agreement, perplexity (Part 5) |
 
 ## Prerequisites
 
@@ -614,6 +616,41 @@ Also applied:
 * Running image on `10.0.0.187:8001` after this patch is `qwen38-flash-next:pp2-p0` (verified `176` UUID-first reqs `0` loops at `8-way`, `512` tok; boot also `0/16` at `1500` tok before).
 
 Do **not** apply `0008-WITHDRAWN` (falsified placeholder-verification gate — caps C1 MTP at ~1 tok/step).
+
+# Part 5 — Deterministic MoE (patch 0015) + INT4 / INT4+8 / INT8 quality eval (2026-09-29)
+
+**Determinism.** Before this patch, identical requests (same token ids,
+`temperature 0`, one at a time) returned different logprobs once a prompt had
+more than 16 tokens. Two scoring passes of the same model disagreed on the
+top-1 token at 3.6% of positions and on the full top_k/top_p sampling set at
+27%.
+
+The cause is `ops.moe_align_block_size`, which orders tokens inside each
+expert's segment with GPU atomics. Marlin MoE output depends on that order at
+the rounding level, and MoE routing amplifies it. Patch 0015 rewrites each
+segment in ascending order with one small Triton kernel. It is CUDA-graph safe,
+costs about 5 us per MoE layer at decode, and is on by default
+(`VLLM_MOE_DETERMINISTIC_ALIGN=0` disables it).
+
+With the patch, prompt logprobs, greedy outputs and MTP acceptance are
+bit-reproducible on PP=2 + MTP + async + prefix caching, and on PP=3.
+`VLLM_BATCH_INVARIANT=1` is not an alternative: it refuses asymmetric-INT4 MoE.
+Root cause, evidence, build and validation: [`detmoe/README.md`](detmoe/README.md).
+
+**Quality eval** ([`kld-eval/README.md`](kld-eval/README.md)): 77 x 2048-token
+windows published after the model's release, scored against an all-INT8-expert
+reference.
+
+| | INT4+8 (layers 2,4,30,46,47 INT8) | INT4 (AWQ) |
+|---|---|---|
+| KLD vs INT8 | 0.0383 | 0.0413 |
+| Top-1 same as INT8 | 93.54% | 93.27% |
+| Same sampled token as INT8 (top_k 20 / top_p 0.95) | 94.24% | 94.01% |
+| Perplexity vs INT8 | -0.78% | -0.90% |
+
+INT4+8 closes 7.3% [5.2-9.3%] of INT4's KLD gap and is better on every fidelity
+measure (paired over windows, all significant). Perplexity doesn't separate the
+two, and is not a fidelity measure here.
 
 ## Dockerfile
 
