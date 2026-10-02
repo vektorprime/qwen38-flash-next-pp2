@@ -1,0 +1,604 @@
+{
+ "tag": "S3_ABC",
+ "url": "http://127.0.0.1:8002",
+ "started": "2026-10-02T19:05:12Z",
+ "t1": {
+  "all": {
+   "n_req": 24,
+   "tokens": 30884,
+   "secs": 502.95565605163574,
+   "tok_per_s": 61.40501578697687,
+   "accept_rate": 0.6050856726212176,
+   "mean_accept_len": 2.8152570178636527,
+   "per_pos": [
+    0.7602989427633977,
+    0.5914145096609552,
+    0.46354356543930003
+   ]
+  },
+  "clean": {
+   "n_req": 24,
+   "tokens": 30884,
+   "secs": 502.95565605163574,
+   "tok_per_s": 61.40501578697687,
+   "accept_rate": 0.6050856726212176,
+   "mean_accept_len": 2.8152570178636527,
+   "per_pos": [
+    0.7602989427633977,
+    0.5914145096609552,
+    0.46354356543930003
+   ]
+  },
+  "calibration": {
+   "n_tokens": 30884,
+   "n_evaluated": 28927,
+   "n_not_reconstructible": 1957,
+   "outside_nucleus": 8,
+   "outside_strict": 2,
+   "nll_mean": 0.5811651490192559,
+   "exp_nll_mean": 0.5760191167113493,
+   "z_nll": 0.9226974159347111,
+   "argmax_rate": 0.7976976527119992,
+   "exp_argmax_rate": 0.8008729193306618,
+   "z_argmax": -1.7334419257400122,
+   "pit_ks": 0.0044663436571357185,
+   "pit_ks_p": 0.6308934463911524,
+   "pit_decile_chi2_df9": 12.109305301013176,
+   "pit_deciles": [
+    2890,
+    2947,
+    2895,
+    2771,
+    2963,
+    2860,
+    2811,
+    2928,
+    2905,
+    2949
+   ],
+   "outside_examples": [
+    {
+     "token": 733,
+     "rank": 13,
+     "cum_before": 0.9523532864076897,
+     "last_kept": 12
+    },
+    {
+     "token": 11,
+     "rank": 2,
+     "cum_before": 0.9501790503983868,
+     "last_kept": 1
+    },
+    {
+     "token": 1788,
+     "rank": 7,
+     "cum_before": 0.9507875851414779,
+     "last_kept": 6
+    },
+    {
+     "token": 11,
+     "rank": 12,
+     "cum_before": 0.9545078366636723,
+     "last_kept": 11
+    },
+    {
+     "token": 4346,
+     "rank": 10,
+     "cum_before": 0.9592321307802376,
+     "last_kept": 8
+    },
+    {
+     "token": 57496,
+     "rank": 9,
+     "cum_before": 0.9619254593592174,
+     "last_kept": 6
+    },
+    {
+     "token": 7106,
+     "rank": 15,
+     "cum_before": 0.9526650265942028,
+     "last_kept": 14
+    },
+    {
+     "token": 13262,
+     "rank": 6,
+     "cum_before": 0.9503812234998289,
+     "last_kept": 5
+    }
+   ]
+  },
+  "requests": [
+   {
+    "i": 0,
+    "tokens": 1500,
+    "secs": 23.240264654159546,
+    "clean": true,
+    "drafts": 507.0,
+    "draft_tokens": 1521.0,
+    "accepted": 993.0,
+    "pos": [
+     400.0,
+     331.0,
+     262.0
+    ]
+   },
+   {
+    "i": 1,
+    "tokens": 1500,
+    "secs": 28.708504676818848,
+    "clean": true,
+    "drafts": 627.0,
+    "draft_tokens": 1881.0,
+    "accepted": 874.0,
+    "pos": [
+     410.0,
+     286.0,
+     178.0
+    ]
+   },
+   {
+    "i": 2,
+    "tokens": 1500,
+    "secs": 23.243207931518555,
+    "clean": true,
+    "drafts": 510.0,
+    "draft_tokens": 1530.0,
+    "accepted": 991.0,
+    "pos": [
+     409.0,
+     329.0,
+     253.0
+    ]
+   },
+   {
+    "i": 3,
+    "tokens": 1500,
+    "secs": 25.130411863327026,
+    "clean": true,
+    "drafts": 550.0,
+    "draft_tokens": 1650.0,
+    "accepted": 949.0,
+    "pos": [
+     393.0,
+     309.0,
+     247.0
+    ]
+   },
+   {
+    "i": 4,
+    "tokens": 1074,
+    "secs": 13.330630779266357,
+    "clean": true,
+    "drafts": 288.0,
+    "draft_tokens": 864.0,
+    "accepted": 786.0,
+    "pos": [
+     272.0,
+     264.0,
+     250.0
+    ]
+   },
+   {
+    "i": 5,
+    "tokens": 1500,
+    "secs": 24.294455528259277,
+    "clean": true,
+    "drafts": 534.0,
+    "draft_tokens": 1602.0,
+    "accepted": 966.0,
+    "pos": [
+     401.0,
+     311.0,
+     254.0
+    ]
+   },
+   {
+    "i": 6,
+    "tokens": 745,
+    "secs": 11.46892237663269,
+    "clean": true,
+    "drafts": 242.0,
+    "draft_tokens": 726.0,
+    "accepted": 503.0,
+    "pos": [
+     198.0,
+     167.0,
+     138.0
+    ]
+   },
+   {
+    "i": 7,
+    "tokens": 1500,
+    "secs": 22.8557448387146,
+    "clean": true,
+    "drafts": 499.0,
+    "draft_tokens": 1497.0,
+    "accepted": 1000.0,
+    "pos": [
+     396.0,
+     328.0,
+     276.0
+    ]
+   },
+   {
+    "i": 8,
+    "tokens": 1500,
+    "secs": 25.467745542526245,
+    "clean": true,
+    "drafts": 562.0,
+    "draft_tokens": 1686.0,
+    "accepted": 937.0,
+    "pos": [
+     410.0,
+     303.0,
+     224.0
+    ]
+   },
+   {
+    "i": 9,
+    "tokens": 1500,
+    "secs": 29.28818368911743,
+    "clean": true,
+    "drafts": 646.0,
+    "draft_tokens": 1938.0,
+    "accepted": 855.0,
+    "pos": [
+     419.0,
+     256.0,
+     180.0
+    ]
+   },
+   {
+    "i": 10,
+    "tokens": 1500,
+    "secs": 19.912277460098267,
+    "clean": true,
+    "drafts": 432.0,
+    "draft_tokens": 1296.0,
+    "accepted": 1067.0,
+    "pos": [
+     395.0,
+     354.0,
+     318.0
+    ]
+   },
+   {
+    "i": 11,
+    "tokens": 642,
+    "secs": 9.4249849319458,
+    "clean": true,
+    "drafts": 201.0,
+    "draft_tokens": 603.0,
+    "accepted": 440.0,
+    "pos": [
+     170.0,
+     144.0,
+     126.0
+    ]
+   },
+   {
+    "i": 12,
+    "tokens": 353,
+    "secs": 5.306189775466919,
+    "clean": true,
+    "drafts": 112.0,
+    "draft_tokens": 336.0,
+    "accepted": 241.0,
+    "pos": [
+     94.0,
+     79.0,
+     68.0
+    ]
+   },
+   {
+    "i": 13,
+    "tokens": 1500,
+    "secs": 27.96177649497986,
+    "clean": true,
+    "drafts": 613.0,
+    "draft_tokens": 1839.0,
+    "accepted": 887.0,
+    "pos": [
+     426.0,
+     275.0,
+     186.0
+    ]
+   },
+   {
+    "i": 14,
+    "tokens": 399,
+    "secs": 7.408774375915527,
+    "clean": true,
+    "drafts": 155.0,
+    "draft_tokens": 465.0,
+    "accepted": 245.0,
+    "pos": [
+     118.0,
+     77.0,
+     50.0
+    ]
+   },
+   {
+    "i": 15,
+    "tokens": 1500,
+    "secs": 22.977567672729492,
+    "clean": true,
+    "drafts": 502.0,
+    "draft_tokens": 1506.0,
+    "accepted": 998.0,
+    "pos": [
+     399.0,
+     330.0,
+     269.0
+    ]
+   },
+   {
+    "i": 16,
+    "tokens": 1500,
+    "secs": 24.282291889190674,
+    "clean": true,
+    "drafts": 529.0,
+    "draft_tokens": 1587.0,
+    "accepted": 971.0,
+    "pos": [
+     407.0,
+     314.0,
+     250.0
+    ]
+   },
+   {
+    "i": 17,
+    "tokens": 1500,
+    "secs": 23.59750485420227,
+    "clean": true,
+    "drafts": 517.0,
+    "draft_tokens": 1551.0,
+    "accepted": 985.0,
+    "pos": [
+     401.0,
+     324.0,
+     260.0
+    ]
+   },
+   {
+    "i": 18,
+    "tokens": 1265,
+    "secs": 18.64456295967102,
+    "clean": true,
+    "drafts": 405.0,
+    "draft_tokens": 1215.0,
+    "accepted": 862.0,
+    "pos": [
+     340.0,
+     286.0,
+     236.0
+    ]
+   },
+   {
+    "i": 19,
+    "tokens": 906,
+    "secs": 14.624359846115112,
+    "clean": true,
+    "drafts": 318.0,
+    "draft_tokens": 954.0,
+    "accepted": 590.0,
+    "pos": [
+     252.0,
+     193.0,
+     145.0
+    ]
+   },
+   {
+    "i": 20,
+    "tokens": 1500,
+    "secs": 28.83562421798706,
+    "clean": true,
+    "drafts": 636.0,
+    "draft_tokens": 1908.0,
+    "accepted": 866.0,
+    "pos": [
+     407.0,
+     275.0,
+     184.0
+    ]
+   },
+   {
+    "i": 21,
+    "tokens": 1500,
+    "secs": 22.65558123588562,
+    "clean": true,
+    "drafts": 493.0,
+    "draft_tokens": 1479.0,
+    "accepted": 1007.0,
+    "pos": [
+     408.0,
+     336.0,
+     263.0
+    ]
+   },
+   {
+    "i": 22,
+    "tokens": 1500,
+    "secs": 24.430668592453003,
+    "clean": true,
+    "drafts": 531.0,
+    "draft_tokens": 1593.0,
+    "accepted": 968.0,
+    "pos": [
+     403.0,
+     317.0,
+     248.0
+    ]
+   },
+   {
+    "i": 23,
+    "tokens": 1500,
+    "secs": 25.86541986465454,
+    "clean": true,
+    "drafts": 563.0,
+    "draft_tokens": 1689.0,
+    "accepted": 936.0,
+    "pos": [
+     414.0,
+     301.0,
+     221.0
+    ]
+   }
+  ]
+ },
+ "t1_secs": 506.8124170303345,
+ "cal": {
+  "calibration": {
+   "n_tokens": 17424,
+   "n_evaluated": 14286,
+   "n_not_reconstructible": 3138,
+   "outside_nucleus": 0,
+   "outside_strict": 0,
+   "nll_mean": 0.38465332422684473,
+   "exp_nll_mean": 0.3822106972177087,
+   "z_nll": 0.36870612238950745,
+   "argmax_rate": 0.8653926921461571,
+   "exp_argmax_rate": 0.865215455185049,
+   "z_argmax": 0.07781143829826427,
+   "pit_ks": 0.009395580628001388,
+   "pit_ks_p": 0.1605577776397756,
+   "pit_decile_chi2_df9": 10.173876522469552,
+   "pit_deciles": [
+    1422,
+    1456,
+    1511,
+    1421,
+    1449,
+    1404,
+    1373,
+    1401,
+    1456,
+    1393
+   ],
+   "outside_examples": []
+  }
+ },
+ "cal_secs": 272.4341688156128,
+ "pad": {
+  "n": 1,
+  "errors": [
+   {
+    "j": 1,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 2,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 3,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 4,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 5,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 6,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 7,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 8,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 9,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 10,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 11,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 12,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 13,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 14,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 15,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 16,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 17,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 18,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 19,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 20,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 21,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 22,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   },
+   {
+    "j": 23,
+    "error": "HTTP 400: {\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}"
+   }
+  ],
+  "first_is_bang": 0,
+  "cached_tokens": [
+   0
+  ],
+  "expected_bang": 0.0,
+  "max_bang_run": 0,
+  "trials": [
+   {
+    "j": 0,
+    "tokens": [
+     2034,
+     90,
+     198,
+     33,
+     3414,
+     71163
+    ],
+    "cached_tokens": 0,
+    "cached_tokens_warm": null,
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   }
+  ]
+ },
+ "pad_secs": 21.513702154159546
+}

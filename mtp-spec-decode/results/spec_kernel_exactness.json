@@ -1,0 +1,442 @@
+[
+ {
+  "variant": "V0 prod today: greedy drafts, token-wise",
+  "draft": "greedy",
+  "indep_noise": false,
+  "topkp": false,
+  "tau": 1.0,
+  "block": false,
+  "step_unique": false,
+  "sequences": 32768,
+  "mean_accepted_per_step": 0.3913,
+  "min_p_value": 0.0892,
+  "max_tv": 0.0054,
+  "indep_p01": 0.9277,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 4.83,
+    "df": 2,
+    "p_value": 0.0892,
+    "tv": 0.0054
+   },
+   {
+    "pos": 1,
+    "chi2": 1.47,
+    "df": 2,
+    "p_value": 0.4799,
+    "tv": 0.0032
+   },
+   {
+    "pos": 2,
+    "chi2": 1.02,
+    "df": 3,
+    "p_value": 0.7976,
+    "tv": 0.0021
+   },
+   {
+    "pos": 3,
+    "chi2": 1.15,
+    "df": 2,
+    "p_value": 0.5639,
+    "tv": 0.0026
+   }
+  ]
+ },
+ {
+  "variant": "V1 stock probabilistic (shared noise)",
+  "draft": "prob",
+  "indep_noise": false,
+  "topkp": false,
+  "tau": 1.0,
+  "block": false,
+  "step_unique": false,
+  "sequences": 32768,
+  "mean_accepted_per_step": 1.056,
+  "min_p_value": 0.0,
+  "max_tv": 0.0596,
+  "indep_p01": 0.4588,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 509.74,
+    "df": 2,
+    "p_value": 0.0,
+    "tv": 0.0596
+   },
+   {
+    "pos": 1,
+    "chi2": 381.4,
+    "df": 2,
+    "p_value": 0.0,
+    "tv": 0.0483
+   },
+   {
+    "pos": 2,
+    "chi2": 485.14,
+    "df": 3,
+    "p_value": 0.0,
+    "tv": 0.0589
+   },
+   {
+    "pos": 3,
+    "chi2": 16.03,
+    "df": 2,
+    "p_value": 0.0003,
+    "tv": 0.0078
+   }
+  ]
+ },
+ {
+  "variant": "V2 A: probabilistic + independent noise",
+  "draft": "prob",
+  "indep_noise": true,
+  "topkp": false,
+  "tau": 1.0,
+  "block": false,
+  "step_unique": false,
+  "sequences": 32768,
+  "mean_accepted_per_step": 1.0533,
+  "min_p_value": 0.3394,
+  "max_tv": 0.0036,
+  "indep_p01": 0.8675,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 0.41,
+    "df": 2,
+    "p_value": 0.8139,
+    "tv": 0.0013
+   },
+   {
+    "pos": 1,
+    "chi2": 2.16,
+    "df": 2,
+    "p_value": 0.3394,
+    "tv": 0.0036
+   },
+   {
+    "pos": 2,
+    "chi2": 0.59,
+    "df": 3,
+    "p_value": 0.8994,
+    "tv": 0.0014
+   },
+   {
+    "pos": 3,
+    "chi2": 0.1,
+    "df": 2,
+    "p_value": 0.9535,
+    "tv": 0.0006
+   }
+  ]
+ },
+ {
+  "variant": "V3 A+B: + draft top-k/top-p",
+  "draft": "prob",
+  "indep_noise": true,
+  "topkp": true,
+  "tau": 1.0,
+  "block": false,
+  "step_unique": false,
+  "sequences": 32768,
+  "mean_accepted_per_step": 1.0951,
+  "min_p_value": 0.1527,
+  "max_tv": 0.0046,
+  "indep_p01": 0.6807,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 0.01,
+    "df": 2,
+    "p_value": 0.9955,
+    "tv": 0.0002
+   },
+   {
+    "pos": 1,
+    "chi2": 3.76,
+    "df": 2,
+    "p_value": 0.1527,
+    "tv": 0.0046
+   },
+   {
+    "pos": 2,
+    "chi2": 0.6,
+    "df": 3,
+    "p_value": 0.8965,
+    "tv": 0.0019
+   },
+   {
+    "pos": 3,
+    "chi2": 0.37,
+    "df": 2,
+    "p_value": 0.8301,
+    "tv": 0.0011
+   }
+  ]
+ },
+ {
+  "variant": "V4 A+B: tau 0.7",
+  "draft": "prob",
+  "indep_noise": true,
+  "topkp": true,
+  "tau": 0.7,
+  "block": false,
+  "step_unique": false,
+  "sequences": 32768,
+  "mean_accepted_per_step": 0.9887,
+  "min_p_value": 0.4614,
+  "max_tv": 0.0033,
+  "indep_p01": 0.8676,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 1.55,
+    "df": 2,
+    "p_value": 0.4614,
+    "tv": 0.0033
+   },
+   {
+    "pos": 1,
+    "chi2": 1.06,
+    "df": 2,
+    "p_value": 0.5891,
+    "tv": 0.0023
+   },
+   {
+    "pos": 2,
+    "chi2": 0.69,
+    "df": 3,
+    "p_value": 0.8748,
+    "tv": 0.0013
+   },
+   {
+    "pos": 3,
+    "chi2": 0.26,
+    "df": 2,
+    "p_value": 0.877,
+    "tv": 0.0012
+   }
+  ]
+ },
+ {
+  "variant": "V5 A+B+C: block, stock RNG keys",
+  "draft": "prob",
+  "indep_noise": true,
+  "topkp": true,
+  "tau": 1.0,
+  "block": true,
+  "step_unique": false,
+  "sequences": 32768,
+  "mean_accepted_per_step": 1.0771,
+  "min_p_value": 0.0,
+  "max_tv": 0.0463,
+  "indep_p01": 0.0,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 0.77,
+    "df": 2,
+    "p_value": 0.6809,
+    "tv": 0.0016
+   },
+   {
+    "pos": 1,
+    "chi2": 62.2,
+    "df": 2,
+    "p_value": 0.0,
+    "tv": 0.0203
+   },
+   {
+    "pos": 2,
+    "chi2": 291.5,
+    "df": 3,
+    "p_value": 0.0,
+    "tv": 0.0463
+   },
+   {
+    "pos": 3,
+    "chi2": 1.63,
+    "df": 2,
+    "p_value": 0.4429,
+    "tv": 0.0031
+   }
+  ]
+ },
+ {
+  "variant": "V6 A+B+C: block + step-unique RNG",
+  "draft": "prob",
+  "indep_noise": true,
+  "topkp": true,
+  "tau": 1.0,
+  "block": true,
+  "step_unique": true,
+  "sequences": 32768,
+  "mean_accepted_per_step": 1.1473,
+  "min_p_value": 0.6492,
+  "max_tv": 0.0025,
+  "indep_p01": 0.0685,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 0.86,
+    "df": 2,
+    "p_value": 0.6492,
+    "tv": 0.0025
+   },
+   {
+    "pos": 1,
+    "chi2": 0.4,
+    "df": 2,
+    "p_value": 0.818,
+    "tv": 0.0014
+   },
+   {
+    "pos": 2,
+    "chi2": 1.64,
+    "df": 3,
+    "p_value": 0.6503,
+    "tv": 0.0021
+   },
+   {
+    "pos": 3,
+    "chi2": 0.76,
+    "df": 2,
+    "p_value": 0.6851,
+    "tv": 0.0016
+   }
+  ]
+ },
+ {
+  "variant": "V7 A+B+C: tau 0.7, block + step-unique RNG",
+  "draft": "prob",
+  "indep_noise": true,
+  "topkp": true,
+  "tau": 0.7,
+  "block": true,
+  "step_unique": true,
+  "sequences": 32768,
+  "mean_accepted_per_step": 1.0406,
+  "min_p_value": 0.5129,
+  "max_tv": 0.0029,
+  "indep_p01": 0.6991,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 0.41,
+    "df": 2,
+    "p_value": 0.8151,
+    "tv": 0.0017
+   },
+   {
+    "pos": 1,
+    "chi2": 1.34,
+    "df": 2,
+    "p_value": 0.5129,
+    "tv": 0.0029
+   },
+   {
+    "pos": 2,
+    "chi2": 0.43,
+    "df": 3,
+    "p_value": 0.935,
+    "tv": 0.0013
+   },
+   {
+    "pos": 3,
+    "chi2": 0.94,
+    "df": 2,
+    "p_value": 0.6257,
+    "tv": 0.002
+   }
+  ]
+ },
+ {
+  "variant": "V8 greedy + block + step-unique RNG",
+  "draft": "greedy",
+  "indep_noise": false,
+  "topkp": false,
+  "tau": 1.0,
+  "block": true,
+  "step_unique": true,
+  "sequences": 32768,
+  "mean_accepted_per_step": 0.393,
+  "min_p_value": 0.0312,
+  "max_tv": 0.0054,
+  "indep_p01": 0.9645,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 1.02,
+    "df": 2,
+    "p_value": 0.6006,
+    "tv": 0.0027
+   },
+   {
+    "pos": 1,
+    "chi2": 6.94,
+    "df": 2,
+    "p_value": 0.0312,
+    "tv": 0.0054
+   },
+   {
+    "pos": 2,
+    "chi2": 0.62,
+    "df": 3,
+    "p_value": 0.8925,
+    "tv": 0.0018
+   },
+   {
+    "pos": 3,
+    "chi2": 0.55,
+    "df": 2,
+    "p_value": 0.7611,
+    "tv": 0.0017
+   }
+  ]
+ },
+ {
+  "variant": "V9 A+B token-wise + step-unique RNG keys",
+  "draft": "prob",
+  "indep_noise": true,
+  "topkp": true,
+  "tau": 1.0,
+  "block": false,
+  "step_unique": true,
+  "sequences": 32768,
+  "mean_accepted_per_step": 1.0953,
+  "min_p_value": 0.1637,
+  "max_tv": 0.0051,
+  "indep_p01": 0.1049,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 0.73,
+    "df": 2,
+    "p_value": 0.6933,
+    "tv": 0.0014
+   },
+   {
+    "pos": 1,
+    "chi2": 2.61,
+    "df": 2,
+    "p_value": 0.2715,
+    "tv": 0.0035
+   },
+   {
+    "pos": 2,
+    "chi2": 0.2,
+    "df": 3,
+    "p_value": 0.9775,
+    "tv": 0.001
+   },
+   {
+    "pos": 3,
+    "chi2": 3.62,
+    "df": 2,
+    "p_value": 0.1637,
+    "tv": 0.0051
+   }
+  ]
+ }
+]

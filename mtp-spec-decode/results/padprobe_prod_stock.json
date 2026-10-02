@@ -1,0 +1,180 @@
+[
+ {
+  "j": 0,
+  "code": 200,
+  "logprobs": true,
+  "text": ")\\)\\')\\&!",
+  "metrics": {
+   "time_to_first_token_ms": 270.60428395634517,
+   "generation_time_ms": 397.5920230150223,
+   "queue_time_ms": 0.013606040738523006,
+   "mean_itl_ms": 79.51840460300446,
+   "tokens_per_second": 8.979397128360818
+  }
+ },
+ {
+  "j": 1,
+  "code": 400,
+  "logprobs": true,
+  "error": "{\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}",
+  "retry_without_logprobs": 200,
+  "retry_text": "ductductductductductduct",
+  "retry_metrics": {
+   "time_to_first_token_ms": 246.54913297854364,
+   "generation_time_ms": 626.6076110186987,
+   "queue_time_ms": 0.010670977644622326,
+   "mean_itl_ms": 125.32152220373973,
+   "tokens_per_second": 6.871618459398797
+  }
+ },
+ {
+  "j": 2,
+  "code": 400,
+  "logprobs": true,
+  "error": "{\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}",
+  "retry_without_logprobs": 200,
+  "retry_text": "ductductductductductduct",
+  "retry_metrics": {
+   "time_to_first_token_ms": 237.96378902625293,
+   "generation_time_ms": 612.5229480094276,
+   "queue_time_ms": 0.007902970537543297,
+   "mean_itl_ms": 122.50458960188553,
+   "tokens_per_second": 7.054783735855344
+  }
+ },
+ {
+  "j": 3,
+  "code": 400,
+  "logprobs": true,
+  "error": "{\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}",
+  "retry_without_logprobs": 200,
+  "retry_text": "ductductductductductduct",
+  "retry_metrics": {
+   "time_to_first_token_ms": 241.69830500613898,
+   "generation_time_ms": 648.3574460144155,
+   "queue_time_ms": 0.014060991816222668,
+   "mean_itl_ms": 129.6714892028831,
+   "tokens_per_second": 6.741150757264687
+  }
+ },
+ {
+  "j": 4,
+  "code": 400,
+  "logprobs": true,
+  "error": "{\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}",
+  "retry_without_logprobs": 200,
+  "retry_text": "ductductductductductduct",
+  "retry_metrics": {
+   "time_to_first_token_ms": 248.67698998423293,
+   "generation_time_ms": 650.2709179767407,
+   "queue_time_ms": 0.0125730293802917,
+   "mean_itl_ms": 130.05418359534815,
+   "tokens_per_second": 6.674469061960908
+  }
+ },
+ {
+  "j": 5,
+  "code": 400,
+  "logprobs": true,
+  "error": "{\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}",
+  "retry_without_logprobs": 200,
+  "retry_text": "ductductductductductduct",
+  "retry_metrics": {
+   "time_to_first_token_ms": 261.5960040129721,
+   "generation_time_ms": 665.2222599950619,
+   "queue_time_ms": 0.015072000678628683,
+   "mean_itl_ms": 133.04445199901238,
+   "tokens_per_second": 6.473761073776153
+  }
+ },
+ {
+  "j": 6,
+  "code": 400,
+  "logprobs": true,
+  "error": "{\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}",
+  "retry_without_logprobs": 200,
+  "retry_text": "ductductductductductduct",
+  "retry_metrics": {
+   "time_to_first_token_ms": 240.71581300813705,
+   "generation_time_ms": 700.8503199904226,
+   "queue_time_ms": 0.016749952919781208,
+   "mean_itl_ms": 140.17006399808452,
+   "tokens_per_second": 6.3723617383009445
+  }
+ },
+ {
+  "j": 7,
+  "code": 400,
+  "logprobs": true,
+  "error": "{\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}",
+  "retry_without_logprobs": 200,
+  "retry_text": "ductductductductductduct",
+  "retry_metrics": {
+   "time_to_first_token_ms": 271.1975139682181,
+   "generation_time_ms": 680.8452690020204,
+   "queue_time_ms": 0.016234989743679762,
+   "mean_itl_ms": 136.16905380040407,
+   "tokens_per_second": 6.302237785239915
+  }
+ },
+ {
+  "j": 8,
+  "code": 400,
+  "logprobs": true,
+  "error": "{\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}",
+  "retry_without_logprobs": 200,
+  "retry_text": "ductductductductductduct",
+  "retry_metrics": {
+   "time_to_first_token_ms": 249.05855301767588,
+   "generation_time_ms": 674.6929899672978,
+   "queue_time_ms": 0.016039994079619646,
+   "mean_itl_ms": 134.93859799345955,
+   "tokens_per_second": 6.495253020754737
+  }
+ },
+ {
+  "j": 9,
+  "code": 400,
+  "logprobs": true,
+  "error": "{\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}",
+  "retry_without_logprobs": 200,
+  "retry_text": "ductductductductductduct",
+  "retry_metrics": {
+   "time_to_first_token_ms": 259.20183601556346,
+   "generation_time_ms": 698.2985209906474,
+   "queue_time_ms": 0.01658598193898797,
+   "mean_itl_ms": 139.65970419812948,
+   "tokens_per_second": 6.266316201447726
+  }
+ },
+ {
+  "j": 10,
+  "code": 400,
+  "logprobs": true,
+  "error": "{\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}",
+  "retry_without_logprobs": 200,
+  "retry_text": "ductductductductductduct",
+  "retry_metrics": {
+   "time_to_first_token_ms": 269.2381920060143,
+   "generation_time_ms": 694.635487976484,
+   "queue_time_ms": 0.015188008546829224,
+   "mean_itl_ms": 138.9270975952968,
+   "tokens_per_second": 6.2248820821717485
+  }
+ },
+ {
+  "j": 11,
+  "code": 400,
+  "logprobs": true,
+  "error": "{\"error\":{\"message\":\"Out of range float values are not JSON compliant: nan\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}",
+  "retry_without_logprobs": 200,
+  "retry_text": "ductductductductductduct",
+  "retry_metrics": {
+   "time_to_first_token_ms": 261.3365480210632,
+   "generation_time_ms": 694.2578299785964,
+   "queue_time_ms": 0.01370999962091446,
+   "mean_itl_ms": 138.85156599571928,
+   "tokens_per_second": 6.278814670885534
+  }
+ }
+]

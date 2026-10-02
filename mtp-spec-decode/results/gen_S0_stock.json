@@ -1,0 +1,890 @@
+{
+ "tag": "S0_stock",
+ "url": "http://127.0.0.1:8002",
+ "started": "2026-10-02T17:32:16Z",
+ "t1": {
+  "all": {
+   "n_req": 24,
+   "tokens": 30788,
+   "secs": 586.3333425521851,
+   "tok_per_s": 52.509379504133854,
+   "accept_rate": 0.4513071395811038,
+   "mean_accept_len": 2.3539214187433117,
+   "per_pos": [
+    0.6255159761504357,
+    0.4237119706466901,
+    0.3046934719461856
+   ]
+  },
+  "clean": {
+   "n_req": 24,
+   "tokens": 30788,
+   "secs": 586.3333425521851,
+   "tok_per_s": 52.509379504133854,
+   "accept_rate": 0.4513071395811038,
+   "mean_accept_len": 2.3539214187433117,
+   "per_pos": [
+    0.6255159761504357,
+    0.4237119706466901,
+    0.3046934719461856
+   ]
+  },
+  "calibration": {
+   "n_tokens": 30788,
+   "n_evaluated": 28824,
+   "n_not_reconstructible": 1964,
+   "outside_nucleus": 12,
+   "outside_strict": 6,
+   "nll_mean": 0.5994755701912245,
+   "exp_nll_mean": 0.5999110862464713,
+   "z_nll": -0.07749250789874011,
+   "argmax_rate": 0.7944768248681654,
+   "exp_argmax_rate": 0.79338974685435,
+   "z_argmax": 0.5819886161648257,
+   "pit_ks": 0.0060489743347113545,
+   "pit_ks_p": 0.2428478424484099,
+   "pit_decile_chi2_df9": 5.392058864362072,
+   "pit_deciles": [
+    2945,
+    2918,
+    2914,
+    2845,
+    2882,
+    2849,
+    2843,
+    2879,
+    2918,
+    2819
+   ],
+   "outside_examples": [
+    {
+     "token": 14377,
+     "rank": 12,
+     "cum_before": 0.9521967209639378,
+     "last_kept": 11
+    },
+    {
+     "token": 22151,
+     "rank": 11,
+     "cum_before": 0.9510192379186104,
+     "last_kept": 10
+    },
+    {
+     "token": 6807,
+     "rank": 15,
+     "cum_before": 0.9621434476486533,
+     "last_kept": 13
+    },
+    {
+     "token": 28073,
+     "rank": 11,
+     "cum_before": 0.9520814603638159,
+     "last_kept": 10
+    },
+    {
+     "token": 1534,
+     "rank": 11,
+     "cum_before": 0.951043564941182,
+     "last_kept": 10
+    },
+    {
+     "token": 32254,
+     "rank": 18,
+     "cum_before": 0.9781643089162365,
+     "last_kept": 15
+    },
+    {
+     "token": 4092,
+     "rank": 18,
+     "cum_before": 0.9732812229766821,
+     "last_kept": 16
+    },
+    {
+     "token": 4091,
+     "rank": 10,
+     "cum_before": 0.9504560644925878,
+     "last_kept": 9
+    },
+    {
+     "token": 4545,
+     "rank": 16,
+     "cum_before": 0.9659509039795883,
+     "last_kept": 14
+    },
+    {
+     "token": 24919,
+     "rank": 16,
+     "cum_before": 0.9575004125119846,
+     "last_kept": 15
+    },
+    {
+     "token": 6558,
+     "rank": 19,
+     "cum_before": 0.9849706786112828,
+     "last_kept": 16
+    },
+    {
+     "token": 1238,
+     "rank": 11,
+     "cum_before": 0.957341346488773,
+     "last_kept": 9
+    }
+   ]
+  },
+  "requests": [
+   {
+    "i": 0,
+    "tokens": 1500,
+    "secs": 29.41272521018982,
+    "clean": true,
+    "drafts": 663.0,
+    "draft_tokens": 1989.0,
+    "accepted": 836.0,
+    "pos": [
+     386.0,
+     264.0,
+     186.0
+    ]
+   },
+   {
+    "i": 1,
+    "tokens": 1500,
+    "secs": 37.90763807296753,
+    "clean": true,
+    "drafts": 850.0,
+    "draft_tokens": 2550.0,
+    "accepted": 652.0,
+    "pos": [
+     402.0,
+     172.0,
+     78.0
+    ]
+   },
+   {
+    "i": 2,
+    "tokens": 1500,
+    "secs": 26.545214653015137,
+    "clean": true,
+    "drafts": 590.0,
+    "draft_tokens": 1770.0,
+    "accepted": 909.0,
+    "pos": [
+     405.0,
+     288.0,
+     216.0
+    ]
+   },
+   {
+    "i": 3,
+    "tokens": 1500,
+    "secs": 29.46644401550293,
+    "clean": true,
+    "drafts": 667.0,
+    "draft_tokens": 2001.0,
+    "accepted": 834.0,
+    "pos": [
+     412.0,
+     255.0,
+     167.0
+    ]
+   },
+   {
+    "i": 4,
+    "tokens": 998,
+    "secs": 12.564242839813232,
+    "clean": true,
+    "drafts": 275.0,
+    "draft_tokens": 825.0,
+    "accepted": 722.0,
+    "pos": [
+     260.0,
+     240.0,
+     222.0
+    ]
+   },
+   {
+    "i": 5,
+    "tokens": 1500,
+    "secs": 24.066520929336548,
+    "clean": true,
+    "drafts": 539.0,
+    "draft_tokens": 1617.0,
+    "accepted": 960.0,
+    "pos": [
+     391.0,
+     305.0,
+     264.0
+    ]
+   },
+   {
+    "i": 6,
+    "tokens": 900,
+    "secs": 17.200065851211548,
+    "clean": true,
+    "drafts": 377.0,
+    "draft_tokens": 1131.0,
+    "accepted": 523.0,
+    "pos": [
+     234.0,
+     168.0,
+     121.0
+    ]
+   },
+   {
+    "i": 7,
+    "tokens": 1500,
+    "secs": 24.19491744041443,
+    "clean": true,
+    "drafts": 535.0,
+    "draft_tokens": 1605.0,
+    "accepted": 964.0,
+    "pos": [
+     389.0,
+     320.0,
+     255.0
+    ]
+   },
+   {
+    "i": 8,
+    "tokens": 1500,
+    "secs": 31.183143615722656,
+    "clean": true,
+    "drafts": 701.0,
+    "draft_tokens": 2103.0,
+    "accepted": 798.0,
+    "pos": [
+     400.0,
+     243.0,
+     155.0
+    ]
+   },
+   {
+    "i": 9,
+    "tokens": 1500,
+    "secs": 36.051180362701416,
+    "clean": true,
+    "drafts": 811.0,
+    "draft_tokens": 2433.0,
+    "accepted": 689.0,
+    "pos": [
+     389.0,
+     198.0,
+     102.0
+    ]
+   },
+   {
+    "i": 10,
+    "tokens": 1500,
+    "secs": 24.20990300178528,
+    "clean": true,
+    "drafts": 541.0,
+    "draft_tokens": 1623.0,
+    "accepted": 961.0,
+    "pos": [
+     399.0,
+     308.0,
+     254.0
+    ]
+   },
+   {
+    "i": 11,
+    "tokens": 1170,
+    "secs": 18.91470742225647,
+    "clean": true,
+    "drafts": 416.0,
+    "draft_tokens": 1248.0,
+    "accepted": 754.0,
+    "pos": [
+     318.0,
+     247.0,
+     189.0
+    ]
+   },
+   {
+    "i": 12,
+    "tokens": 404,
+    "secs": 6.1267170906066895,
+    "clean": true,
+    "drafts": 134.0,
+    "draft_tokens": 402.0,
+    "accepted": 269.0,
+    "pos": [
+     108.0,
+     90.0,
+     71.0
+    ]
+   },
+   {
+    "i": 13,
+    "tokens": 1500,
+    "secs": 35.17430830001831,
+    "clean": true,
+    "drafts": 790.0,
+    "draft_tokens": 2370.0,
+    "accepted": 710.0,
+    "pos": [
+     394.0,
+     209.0,
+     107.0
+    ]
+   },
+   {
+    "i": 14,
+    "tokens": 465,
+    "secs": 8.979525327682495,
+    "clean": true,
+    "drafts": 193.0,
+    "draft_tokens": 579.0,
+    "accepted": 272.0,
+    "pos": [
+     135.0,
+     80.0,
+     57.0
+    ]
+   },
+   {
+    "i": 15,
+    "tokens": 1500,
+    "secs": 31.586681604385376,
+    "clean": true,
+    "drafts": 704.0,
+    "draft_tokens": 2112.0,
+    "accepted": 796.0,
+    "pos": [
+     396.0,
+     231.0,
+     169.0
+    ]
+   },
+   {
+    "i": 16,
+    "tokens": 1500,
+    "secs": 25.72869038581848,
+    "clean": true,
+    "drafts": 570.0,
+    "draft_tokens": 1710.0,
+    "accepted": 932.0,
+    "pos": [
+     407.0,
+     304.0,
+     221.0
+    ]
+   },
+   {
+    "i": 17,
+    "tokens": 1500,
+    "secs": 26.51240849494934,
+    "clean": true,
+    "drafts": 590.0,
+    "draft_tokens": 1770.0,
+    "accepted": 909.0,
+    "pos": [
+     403.0,
+     286.0,
+     220.0
+    ]
+   },
+   {
+    "i": 18,
+    "tokens": 1030,
+    "secs": 18.20287275314331,
+    "clean": true,
+    "drafts": 405.0,
+    "draft_tokens": 1215.0,
+    "accepted": 626.0,
+    "pos": [
+     272.0,
+     201.0,
+     153.0
+    ]
+   },
+   {
+    "i": 19,
+    "tokens": 321,
+    "secs": 5.088583946228027,
+    "clean": true,
+    "drafts": 109.0,
+    "draft_tokens": 327.0,
+    "accepted": 211.0,
+    "pos": [
+     85.0,
+     70.0,
+     56.0
+    ]
+   },
+   {
+    "i": 20,
+    "tokens": 1500,
+    "secs": 28.799357891082764,
+    "clean": true,
+    "drafts": 644.0,
+    "draft_tokens": 1932.0,
+    "accepted": 858.0,
+    "pos": [
+     399.0,
+     268.0,
+     191.0
+    ]
+   },
+   {
+    "i": 21,
+    "tokens": 1500,
+    "secs": 26.7808358669281,
+    "clean": true,
+    "drafts": 603.0,
+    "draft_tokens": 1809.0,
+    "accepted": 899.0,
+    "pos": [
+     389.0,
+     284.0,
+     226.0
+    ]
+   },
+   {
+    "i": 22,
+    "tokens": 1500,
+    "secs": 32.681891679763794,
+    "clean": true,
+    "drafts": 731.0,
+    "draft_tokens": 2193.0,
+    "accepted": 770.0,
+    "pos": [
+     391.0,
+     235.0,
+     144.0
+    ]
+   },
+   {
+    "i": 23,
+    "tokens": 1500,
+    "secs": 28.954765796661377,
+    "clean": true,
+    "drafts": 644.0,
+    "draft_tokens": 1932.0,
+    "accepted": 858.0,
+    "pos": [
+     419.0,
+     277.0,
+     162.0
+    ]
+   }
+  ]
+ },
+ "t1_secs": 590.1136457920074,
+ "cal": {
+  "calibration": {
+   "n_tokens": 17643,
+   "n_evaluated": 14177,
+   "n_not_reconstructible": 3466,
+   "outside_nucleus": 0,
+   "outside_strict": 0,
+   "nll_mean": 0.39457160820530546,
+   "exp_nll_mean": 0.39131624765017864,
+   "z_nll": 0.48396507238900954,
+   "argmax_rate": 0.8615362911758482,
+   "exp_argmax_rate": 0.8629939288136209,
+   "z_argmax": -0.6347602889886981,
+   "pit_ks": 0.011891727595875201,
+   "pit_ks_p": 0.036280231493376947,
+   "pit_decile_chi2_df9": 10.500176341962332,
+   "pit_deciles": [
+    1400,
+    1440,
+    1503,
+    1390,
+    1436,
+    1453,
+    1376,
+    1372,
+    1393,
+    1414
+   ],
+   "outside_examples": []
+  }
+ },
+ "cal_secs": 339.1344840526581,
+ "pad": {
+  "n": 24,
+  "first_is_bang": 0,
+  "expected_bang": 0.0,
+  "max_bang_run": 0,
+  "trials": [
+   {
+    "j": 0,
+    "tokens": [
+     494,
+     864,
+     264,
+     8240,
+     314,
+     10156
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 1,
+    "tokens": [
+     27041,
+     198,
+     7700,
+     441,
+     2803,
+     557
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 2,
+    "tokens": [
+     15,
+     16,
+     17,
+     11,
+     3194,
+     1588
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 3,
+    "tokens": [
+     20627,
+     8722,
+     87,
+     1347,
+     8698,
+     8722
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 4,
+    "tokens": [
+     689,
+     272,
+     11,
+     3312,
+     272,
+     61
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 5,
+    "tokens": [
+     7030,
+     44,
+     7,
+     16,
+     43867,
+     61
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 6,
+    "tokens": [
+     430,
+     264,
+     13094,
+     12669,
+     11,
+     695
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 7,
+    "tokens": [
+     10713,
+     15504,
+     1054,
+     198,
+     33289,
+     832
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 8,
+    "tokens": [
+     35790,
+     90,
+     64,
+     1054,
+     14728,
+     77
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 9,
+    "tokens": [
+     282,
+     11524,
+     279,
+     1330,
+     12417,
+     4203
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 10,
+    "tokens": [
+     23752,
+     314,
+     279,
+     393,
+     43,
+     220
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 11,
+    "tokens": [
+     13559,
+     5242,
+     61,
+     34521,
+     3369,
+     92
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 12,
+    "tokens": [
+     92,
+     198,
+     2005,
+     51123,
+     3874,
+     18414
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 13,
+    "tokens": [
+     321,
+     279,
+     92927,
+     13806,
+     14984,
+     314
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 14,
+    "tokens": [
+     76068,
+     7346,
+     314,
+     328,
+     40,
+     17011
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 15,
+    "tokens": [
+     90,
+     73,
+     456,
+     17,
+     15,
+     17
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 16,
+    "tokens": [
+     354,
+     1806,
+     7563,
+     6558,
+     393,
+     39
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 17,
+    "tokens": [
+     18854,
+     77,
+     5136,
+     14646,
+     364,
+     799
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 18,
+    "tokens": [
+     61,
+     9,
+     14717,
+     77,
+     12709,
+     15415
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 19,
+    "tokens": [
+     220,
+     4213,
+     11,
+     7551,
+     660,
+     198
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 20,
+    "tokens": [
+     323,
+     67291,
+     1140,
+     300,
+     2195,
+     839
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 21,
+    "tokens": [
+     401,
+     326,
+     3143,
+     321,
+     6923,
+     6596
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 22,
+    "tokens": [
+     487,
+     1318,
+     5202,
+     25,
+     51515,
+     16
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   },
+   {
+    "j": 23,
+    "tokens": [
+     22,
+     17,
+     15,
+     18,
+     21,
+     23
+    ],
+    "first_is_bang": false,
+    "bang_run": 0,
+    "p_bang_first": 0.0
+   }
+  ]
+ },
+ "pad_secs": 39.52944493293762,
+ "greedy": {
+  "outputs": [
+   "# B-Tree Insertion: Step-by-Step Explanation\n\n## What Is a B-Tree?\n\nA B-tree of order **m** is a self-balancing search tree where:\n- Each node has at most **m** children (and thus at most **m\u22121** keys).\n- Each internal node (except the root) has at least **\u2308m/2\u2309** children.\n- All leaves are at the same depth.\n- Keys within a node are stored in sorted order.\n\nFor simplicity, we'll use a **B-tree of order 4** (max 3 keys, max 4 children per node).\n\n---\n\n## Insertion Algorithm\n\n### Step 1: Find the Correct Leaf\n\nStart at the root and traverse down, comparing the new key with keys in each node to find the appropriate child pointer, until you reach a **leaf node**.\n\n### Step 2: Insert the Key into the Leaf\n\nInsert the new key into the leaf in **sorted order**.\n\n### Step 3: Check for Overflow\n\nIf the leaf now has **more than m\u22121 keys** (i.e., it's overfull), it must be **split**.\n\n### Step ",
+   "```python\nimport re\nfrom datetime import timedelta\n\n\ndef parse_iso8601_duration(duration_str: str) -> timedelta:\n    \"\"\"\n    Parse an ISO-8601 duration string and return a timedelta object.\n    \n    ISO-8601 duration format: P[n]Y[n]M[n]DT[n]H[n]M[n]S\n    Examples:\n        \"P1Y2M3DT4H5M6S\" -> 1 year, 2 months, 3 days, 4 hours, 5 minutes, 6 seconds\n        \"PT1H30M\" -> 1 hour, 30 minutes\n        \"P3D\" -> 3 days\n    \n    Note: Years and months are approximated as 365 days and 30 days respectively,\n    since timedelta doesn't support variable-length months/years.\n    \n    Args:\n        duration_str: An ISO-8601 duration string.\n        \n    Returns:\n        A timedelta object representing the duration.\n        \n    Raises:\n        ValueError: If the duration string is invalid.\n    \"\"\"\n    if not isinstance(duration_str, str):\n        raise",
+   "The French Revolution (1789\u20131799) was not triggered by a single event, but rather by a complex convergence of long-term structural issues and immediate crises. Historians generally categorize the causes into four main areas: social, economic, political, and intellectual.\n\n### 1. Social Inequality: The Ancien R\u00e9gime\nFrench society was rigidly divided into three estates, creating deep resentment:\n- **First Estate (Clergy):** Owned ~10% of the land, paid no taxes, and held significant political power.\n- **Second Estate (Nobility):** Owned ~25% of the land, held top government and military positions, and were largely exempt from taxes.\n- **Third Estate (Commoners):** Comprised ~97% of the population (peasants, urban workers, and the bourgeoisie). They bore the entire tax burden, had no political voice, and suffered from feudal dues and restrictions.\n\nThe **bourgeoisie** (wealthy middle class) were particularly frustrated because, despite their economic power, they were excluded from high social and political status.\n\n### 2. Economic Crisis\nFrance faced a severe financial collapse in the late 18th century:\n",
+   "To derive the formula for the sum of a finite geometric series, we will use the method of algebraic manipulation, specifically involving subtraction of equations.\n\n### 1. Definition of a Geometric Series\n\nA geometric series is the sum of the terms of a geometric sequence. Let:\n*   $a$ be the first term.\n*   $r$ be the common ratio.\n*   $n$ be the number of terms.\n\nThe sum of the first $n$ terms, denoted as $S_n$, is written as:\n$$ S_n = a + ar + ar^2 + ar^3 + \\dots + ar^{n-1} \\quad \\text{--- (Equation 1)} $$\n\n### 2. Derivation Steps\n\n**Step 1: Multiply the sum by the common ratio $r$**\n\nMultiply both sides of Equation 1 by $r$:\n$$ rS_n = r(a + ar + ar^2 + \\dots + ar^{n-1}) $$\n\nDistributing $r$ into the parentheses gives:\n$$ rS_n = ar + ar^2 + ar^3 + \\dots + ar^{n-1} + ar^n \\quad",
+   "```bash\n#!/bin/bash\n\n# Find the 10 largest files under a directory\n# Usage: ./largest_files.sh [directory]\n# If no directory is provided, defaults to current directory\n\nDIR=\"${1:-.}\"\n\n# Check if the directory exists\nif [ ! -d \"$DIR\" ]; then\n    echo \"Error: '$DIR' is not a valid directory.\" >&2\n    exit 1\nfi\n\n# Find all files, get their sizes, sort by size descending, and take top 10\nfind \"$DIR\" -type f -printf '%s\\t%p\\n' 2>/dev/null | sort -rn | head -n 10\n```",
+   "# TCP vs UDP: A Detailed Comparison\n\n## Overview\n\n**TCP (Transmission Control Protocol)** and **UDP (User Datagram Protocol)** are both transport-layer protocols in the OSI model (Layer 4) and the TCP/IP model. They serve fundamentally different purposes and make different trade-offs between reliability, speed, and overhead.\n\n---\n\n## 1. Connection Model\n\n### TCP: Connection-Oriented\n- Establishes a connection **before** data transfer using a **three-way handshake**:\n  1. **SYN** \u2013 Client sends a synchronize packet to the server.\n  2. **SYN-ACK** \u2013 Server acknowledges and sends its own synchronize packet.\n  3. **ACK** \u2013 Client acknowledges the server's synchronize packet.\n- After data transfer, a **four-way handshake** (FIN-ACK sequence) gracefully closes the connection.\n- Maintains **state** for each connection (sequence numbers, window sizes, etc.).\n\n### UDP: Connectionless\n- **No handshake** is required. Data is sent immediately.\n- **Stateless** \u2013 The sender does not track whether the receiver got the data.\n- Each packet (datagram) is treated independently.\n\n---\n\n## 2",
+   "```rust\n/// Quicksort implementation in Rust.\n///\n/// This function sorts a mutable slice of elements that implement `Ord`\n/// using the quicksort algorithm with Lomuto partition scheme.\n///\n/// # Arguments\n/// * `arr` - A mutable slice of elements to be sorted in place.\n///\n/// # Examples\n/// ```\n/// let mut data = vec![3, 6, 8, 10, 1, 2, 1];\n/// quicksort(&mut data);\n/// assert_eq!(data, vec![1, 1, 2, 3, 6, 8, 10]);\n/// ```\npub fn quicksort<T: Ord>(arr: &mut [T]) {\n    // Base case: slices of length 0 or 1 are already sorted\n    if arr.len() <= 1 {\n        return;\n    }\n\n    // Choose a pivot and partition the array around it.\n    // The pivot index is returned after partitioning.\n    let pivot_index = partition(arr);\n\n    // Recursively sort the left partition (elements less than pivot)\n    quicksort(&mut arr[..pivot_index]);",
+   "# The Attention Mechanism in Transformers: A Mathematical Explanation\n\n## 1. Core Idea\n\nAttention allows a model to dynamically weigh the importance of different input tokens when processing each token. Instead of treating all inputs equally, it computes a **weighted sum** of value vectors, where weights are determined by the compatibility between query and key vectors.\n\n---\n\n## 2. Scaled Dot-Product Attention\n\nGiven three matrices derived from the input:\n\n- **Queries** $Q \\in \\mathbb{R}^{n \\times d_k}$\n- **Keys** $K \\in \\mathbb{R}^{m \\times d_k}$\n- **Values** $V \\in \\mathbb{R}^{m \\times d_v}$\n\nwhere $n$ is the number of query positions, $m$ is the number of key/value positions, and $d_k, d_v$ are the dimensions.\n\n### Step-by-step computation:\n\n### Step 1: Compute similarity scores\n$$\n\\text{Scores} = QK^\\top \\in \\mathbb{R}^{n \\times m}\n$$\n\nEach element $\\text{Scores}_{ij} = \\mathbf{q}_i \\cdot",
+   "# Finding the Second Highest Salary Per Department\n\n## SQL Query\n\n```sql\nSELECT \n    department,\n    salary AS second_highest_salary\nFROM (\n    SELECT \n        department,\n        salary,\n        DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS rank\n    FROM employees\n) ranked\nWHERE rank = 2;\n```\n\n## Step-by-Step Explanation\n\n### 1. Inner Subquery: Ranking Salaries Within Each Department\n\n```sql\nSELECT \n    department,\n    salary,\n    DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS rank\nFROM employees\n```\n\n- **`PARTITION BY department`**: Divides the data into separate groups (one per department). The ranking restarts for each department.\n- **`ORDER BY salary DESC`**: Sorts salaries from highest to lowest within each department.\n- **`DENSE_RANK()`**: Assigns a rank to each row. Unlike `RANK()`, `DENSE_RANK()` does **not** skip ranks when there are ties.\n\n| department | salary | rank |\n|------------|--------|------|\n| Engineering | 120000 | ",
+   "Photosynthesis is the biochemical process by which photoautotrophs (plants, algae, and cyanobacteria) convert light energy into chemical energy. At the molecular level, this process occurs within the **chloroplasts** of plant cells and is divided into two distinct stages: the **Light-Dependent Reactions** and the **Light-Independent Reactions** (Calvin Cycle).\n\nThe overall chemical equation is:\n$$6CO_2 + 6H_2O + \\text{Light Energy} \\rightarrow C_6H_{12}O_6 + 6O_2$$\n\nBelow is the step-by-step molecular mechanism.\n\n---\n\n### Part 1: The Light-Dependent Reactions\n**Location:** Thylakoid membranes of the chloroplast.\n**Goal:** Convert solar energy into chemical energy carriers (ATP and NADPH) and release oxygen.\n\n#### 1. Photon Absorption and Excitation\nThe process begins in the **Photosystems** (PSII and PSI), which are protein complexes embedded in the thylakoid membrane containing pigment molecules (chlorophyll $a$, chlorophyll $b$, and carotenoids).\n*   When a photon of light",
+   "To prove that $\\sqrt{2}$ is irrational, we will use a method called **proof by contradiction**.\n\n### Step 1: Assumption\nAssume the opposite of what we want to prove. That is, assume that $\\sqrt{2}$ is **rational**.\n\nBy definition, a rational number can be expressed as a fraction $\\frac{a}{b}$, where:\n1. $a$ and $b$ are integers.\n2. $b \\neq 0$.\n3. The fraction $\\frac{a}{b}$ is in **lowest terms** (i.e., $a$ and $b$ share no common factors other than 1; they are coprime).\n\nSo, we write:\n$$ \\sqrt{2} = \\frac{a}{b} $$\n\n### Step 2: Algebraic Manipulation\nSquare both sides of the equation to eliminate the square root:\n$$ 2 = \\frac{a^2}{b^2} $$\n\nMultiply both sides by $b^2$:\n$$ 2b^2 = a^2 $$\n\n### Step 3: Analyze Parity of $a$\nFrom the equation $a^2 = 2",
+   "# JavaScript Debounce Function\n\n## What is Debouncing?\n\nDebouncing is a technique that ensures a function is only executed **after a specified delay** has passed since the last time it was called. If the function is called again within that delay window, the timer resets. This is useful for limiting the rate at which a function can fire, especially in response to rapid, repeated events.\n\n## Implementation\n\n```javascript\n/**\n * Creates a debounced version of the provided function.\n *\n * @param {Function} func - The function to debounce.\n * @param {number} wait - The number of milliseconds to delay execution.\n * @param {boolean} immediate - If true, the function is called on the leading edge\n *                              instead of the trailing edge.\n * @returns {Function} The debounced function.\n */\nfunction debounce(func, wait, immediate = false) {\n  let timeoutId;\n\n  return function executedFunction(...args) {\n    const context = this;\n\n    // Clear the existing timeout if the function is called again\n    clearTimeout(timeoutId);\n\n    if (immediate) {\n      // If immediate, call the function on the leading edge\n      const callNow =",
+   "# CAP Theorem Explained\n\n## What is the CAP Theorem?\n\nThe **CAP theorem** (also known as **Brewer's theorem**) states that a distributed data store can only guarantee **two** of the following three properties at the same time:\n\n| Property | Meaning |\n|----------|---------|\n| **C**onsistency | Every read receives the most recent write or an error. All nodes see the same data at the same time. |\n| **A**vailability | Every request receives a (non-error) response, without the guarantee that it contains the most recent write. |\n| **P**artition Tolerance | The system continues to operate despite arbitrary message loss or failure of part of the network. |\n\n> **Key Insight:** In a distributed system, network partitions are **inevitable** (networks fail, cables get cut, etc.). Therefore, **P is always required**. The real choice is between **C** and **A** when a partition occurs.\n\n---\n\n## The Three Choices\n\n### 1. **CP** (Consistency + Partition Tolerance)\n- When a network partition occurs, the system **sacrifices availability** to maintain consistency.\n-",
+   "The Kalman filter is a recursive algorithm used to estimate the state of a dynamic system from a series of noisy measurements. It is optimal in the sense that it minimizes the mean squared error of the estimated state, assuming the system is linear and the noise is Gaussian.\n\nThe algorithm operates in two main phases: **Prediction** (Time Update) and **Correction** (Measurement Update).\n\n### 1. System Model\n\nBefore defining the equations, we define the linear state-space model:\n\n**State Equation (Process Model):**\n$$ x_k = F_k x_{k-1} + B_k u_k + w_k $$\n\n**Measurement Equation (Observation Model):**\n$$ z_k = H_k x_k + v_k $$\n\nWhere:\n*   $x_k$: State vector at time $k$.\n*   $z_k$: Measurement vector at time $k$.\n*   $F_k$: State transition matrix (maps state $k-1$ to $k$).\n*   $B_k$: Control input matrix.\n*   $u_k$: Control vector (optional).\n*   $H_k$: Observation matrix (maps state space to measurement space).\n*   $w_k$: Process noise (G",
+   "```c\n#include <stdlib.h>\n\n// Definition for singly-linked list node\nstruct ListNode {\n    int val;\n    struct ListNode *next;\n};\n\n/**\n * Reverses a singly linked list in place.\n * @param head: pointer to the head of the linked list\n * @return: pointer to the new head of the reversed linked list\n */\nstruct ListNode* reverseList(struct ListNode* head) {\n    struct ListNode *prev = NULL;\n    struct ListNode *current = head;\n    struct ListNode *next = NULL;\n\n    while (current != NULL) {\n        next = current->next;   // Store next node\n        current->next = prev;   // Reverse the link\n        prev = current;         // Move prev one step forward\n        current = next;         // Move current one step forward\n    }\n\n    return prev; // prev is the new head\n}\n```",
+   "### Bayes' Theorem Explained with a Medical Testing Example\n\nBayes' Theorem is a fundamental concept in probability theory that describes how to update the probability of a hypothesis as more evidence or information becomes available. In the context of medical testing, it helps us answer the critical question: **\"If a test result is positive, what is the actual probability that the patient has the disease?\"**\n\nMany people intuitively assume that if a test is 99% accurate, a positive result means there is a 99% chance of having the disease. Bayes' Theorem shows why this is often incorrect, especially for rare diseases.\n\n---\n\n### 1. The Formula\n\nBayes' Theorem is expressed as:\n\n$$\nP(A|B) = \\frac{P(B|A) \\cdot P(A)}{P(B)}\n$$\n\nIn the context of medical testing:\n*   $P(D|+)$: **Posterior Probability** \u2013 The probability that the patient has the Disease ($D$) given a Positive test result ($+$). This is what we want to find.\n*   $P(+|D)$: **Sensitivity** \u2013 The probability of testing Positive given that the patient has the"
+  ],
+  "sha": [
+   "ff86bfe2501ced0a",
+   "70375c7c0bb7862e",
+   "c7be2f050de60444",
+   "6261619798331a28",
+   "482ec1a3fff0bfb4",
+   "75acb1c24273cd4d",
+   "bdbf5c17caab3c77",
+   "ba97c3b6913f0245",
+   "3bf8594d45c6f9a4",
+   "c81bd27f19258582",
+   "b722b7533da44132",
+   "e142867764887229",
+   "5523891c2d2651ac",
+   "2e85adc843b32854",
+   "1fbf4c47d67b1af7",
+   "660119962d9a3272"
+  ]
+ },
+ "greedy_secs": 92.17686343193054
+}

@@ -1,0 +1,174 @@
+[
+ {
+  "variant": "D1 greedy + block, fresh seed per step",
+  "draft": "greedy",
+  "indep_noise": false,
+  "topkp": false,
+  "tau": 1.0,
+  "block": true,
+  "sequences": 16384,
+  "mean_accepted_per_step": 0.3926,
+  "min_p_value": 0.3819,
+  "max_tv": 0.0039,
+  "indep_p01": 0.2214,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 0.48,
+    "df": 2,
+    "p_value": 0.7878,
+    "tv": 0.0026
+   },
+   {
+    "pos": 1,
+    "chi2": 0.91,
+    "df": 2,
+    "p_value": 0.6332,
+    "tv": 0.0028
+   },
+   {
+    "pos": 2,
+    "chi2": 0.2,
+    "df": 3,
+    "p_value": 0.9772,
+    "tv": 0.0012
+   },
+   {
+    "pos": 3,
+    "chi2": 1.93,
+    "df": 2,
+    "p_value": 0.3819,
+    "tv": 0.0039
+   }
+  ]
+ },
+ {
+  "variant": "D2 A+B+C, fresh seed per step",
+  "draft": "prob",
+  "indep_noise": true,
+  "topkp": true,
+  "tau": 1.0,
+  "block": true,
+  "sequences": 16384,
+  "mean_accepted_per_step": 1.1491,
+  "min_p_value": 0.0977,
+  "max_tv": 0.0082,
+  "indep_p01": 0.4418,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 4.65,
+    "df": 2,
+    "p_value": 0.0977,
+    "tv": 0.0082
+   },
+   {
+    "pos": 1,
+    "chi2": 1.12,
+    "df": 2,
+    "p_value": 0.5724,
+    "tv": 0.0031
+   },
+   {
+    "pos": 2,
+    "chi2": 0.35,
+    "df": 3,
+    "p_value": 0.951,
+    "tv": 0.0021
+   },
+   {
+    "pos": 3,
+    "chi2": 2.47,
+    "df": 2,
+    "p_value": 0.291,
+    "tv": 0.0059
+   }
+  ]
+ },
+ {
+  "variant": "D3 A+B (token-wise), fresh seed per step",
+  "draft": "prob",
+  "indep_noise": true,
+  "topkp": true,
+  "tau": 1.0,
+  "block": false,
+  "sequences": 16384,
+  "mean_accepted_per_step": 1.0936,
+  "min_p_value": 0.0234,
+  "max_tv": 0.0089,
+  "indep_p01": 0.5475,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 3.29,
+    "df": 2,
+    "p_value": 0.193,
+    "tv": 0.0069
+   },
+   {
+    "pos": 1,
+    "chi2": 0.28,
+    "df": 2,
+    "p_value": 0.8693,
+    "tv": 0.002
+   },
+   {
+    "pos": 2,
+    "chi2": 1.92,
+    "df": 3,
+    "p_value": 0.5902,
+    "tv": 0.0048
+   },
+   {
+    "pos": 3,
+    "chi2": 7.51,
+    "df": 2,
+    "p_value": 0.0234,
+    "tv": 0.0089
+   }
+  ]
+ },
+ {
+  "variant": "D4 greedy + block (stock keys, repeat)",
+  "draft": "greedy",
+  "indep_noise": false,
+  "topkp": false,
+  "tau": 1.0,
+  "block": true,
+  "sequences": 16384,
+  "mean_accepted_per_step": 0.3697,
+  "min_p_value": 0.0,
+  "max_tv": 0.0143,
+  "indep_p01": 0.2981,
+  "positions": [
+   {
+    "pos": 0,
+    "chi2": 6.05,
+    "df": 2,
+    "p_value": 0.0485,
+    "tv": 0.0084
+   },
+   {
+    "pos": 1,
+    "chi2": 24.51,
+    "df": 2,
+    "p_value": 0.0,
+    "tv": 0.0143
+   },
+   {
+    "pos": 2,
+    "chi2": 19.86,
+    "df": 3,
+    "p_value": 0.0002,
+    "tv": 0.0077
+   },
+   {
+    "pos": 3,
+    "chi2": 6.14,
+    "df": 2,
+    "p_value": 0.0464,
+    "tv": 0.0095
+   }
+  ]
+ }
+]

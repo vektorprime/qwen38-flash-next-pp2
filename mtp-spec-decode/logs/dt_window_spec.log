@@ -1,0 +1,564 @@
+=== DT WINDOW SPEC START Fri Oct  2 05:24:12 PM UTC 2026 ===
+[17:24:12] --- Step 0: preconditions ---
+[17:24:14] --- Step 1: stop prod ---
+[17:24:25] ===== stage S0_stock  spec={"method":"mtp","num_speculative_tokens":3}  env=
+[17:30:28] qwen38-spec-test ready after 370s
+[17:30:33] S0_stock served: qwen38-flash-next-awq 524288
+smoke: ' Paris. Paris is'
+      1 10-02 17:24:37 [api_utils.py:272] non-default args: {'model_tag': '/root/.cache/huggingface/ple-bf16-int8all-38f', 'default_chat_template_kwargs': {'enable_thinking': True, 'preserve_thinking': True, 'reasoning_effort': 'xhigh'}, 'enable_auto_tool_choice': Tru
+      1 10-02 17:25:03 [core.py:122] Initializing a V1 LLM engine (v0.1.dev1+ga5530b90c.d20260829) with config: model='/root/.cache/huggingface/ple-bf16-int8all-38f', speculative_config=SpeculativeConfig(method='mtp', model='/root/.cache/huggingface/ple-bf16-int8all-3
+      1 (APIServer pid=1) [hook3] default_unquantized_gemm patched (invariant Triton GEMM)
+      1 (APIServer pid=1) [hook3] marlin_moe patched (smart padding + pinned exec config)
+      1 (EngineCore pid=134) [hook3] marlin_moe patched (smart padding + pinned exec config)
+      1 (EngineCore pid=134) [hook3] Scheduler: non-final prefill chunks aligned to multiples of 64 (lookahead + mamba split)
+      5 [hook3] default_unquantized_gemm patched (invariant Triton GEMM)
+      3 [hook3] marlin_moe patched (smart padding + pinned exec config)
+77/77 E_vllm_59132_0 done
+wrote /home/user/qwen3nextflash/mtp/results/S0_stock_k20.npz
+    },
+    {
+     "token": 24919,
+     "rank": 16,
+     "cum_before": 0.9575004125119846,
+     "last_kept": 15
+    },
+    {
+     "token": 6558,
+     "rank": 19,
+     "cum_before": 0.9849706786112828,
+     "last_kept": 16
+    },
+    {
+     "token": 1238,
+     "rank": 11,
+     "cum_before": 0.957341346488773,
+     "last_kept": 9
+    }
+   ]
+  }
+ },
+ "cal": {
+  "n_tokens": 17643,
+  "n_evaluated": 14177,
+  "n_not_reconstructible": 3466,
+  "outside_nucleus": 0,
+  "outside_strict": 0,
+  "nll_mean": 0.39457160820530546,
+  "exp_nll_mean": 0.39131624765017864,
+  "z_nll": 0.48396507238900954,
+  "argmax_rate": 0.8615362911758482,
+  "exp_argmax_rate": 0.8629939288136209,
+  "z_argmax": -0.6347602889886981,
+  "pit_ks": 0.011891727595875201,
+  "pit_ks_p": 0.036280231493376947,
+  "pit_decile_chi2_df9": 10.500176341962332
+ },
+ "pad": {
+  "n": 24,
+  "first_is_bang": 0,
+  "expected_bang": 0.0,
+  "max_bang_run": 0
+ }
+}
+[17:49:57] S0_stock spec-fix log: 
+{
+ "tag": "S0_stock",
+ "base": "PROD_base",
+ "gates": {
+  "kld_bit_identical": true,
+  "greedy_identical": true,
+  "calibration_t1": true,
+  "calibration_exact": true,
+  "pad": true
+ },
+ "kld": {
+  "kld_mean": 0.0,
+  "kld_p99": 0.0,
+  "kld_max": 0.0,
+  "top1_same": 1.0,
+  "sampling_set_identical": 1.0,
+  "sampling_same_token_prob": 1.0,
+  "ppl_ref": 3.926888105505486,
+  "ppl_test": 3.926888105505486,
+  "dnll_mean": 0.0
+ },
+ "greedy_same": "16/16",
+ "calibration_cal": {
+  "n_tokens": 17643,
+  "n_evaluated": 14177,
+  "outside_nucleus": 0,
+  "z_nll": 0.48396507238900954,
+  "z_argmax": -0.6347602889886981,
+  "pit_ks_p": 0.036280231493376947
+ },
+ "accept": {
+  "all": {
+   "n_req": 24,
+   "tokens": 30788,
+   "secs": 586.3333425521851,
+   "tok_per_s": 52.509379504133854,
+   "accept_rate": 0.4513071395811038,
+   "mean_accept_len": 2.3539214187433117,
+   "per_pos": [
+    0.6255159761504357,
+    0.4237119706466901,
+    0.3046934719461856
+   ]
+  },
+  "clean": {
+   "n_req": 24,
+   "tokens": 30788,
+   "secs": 586.3333425521851,
+   "tok_per_s": 52.509379504133854,
+   "accept_rate": 0.4513071395811038,
+   "mean_accept_len": 2.3539214187433117,
+   "per_pos": [
+    0.6255159761504357,
+    0.4237119706466901,
+    0.3046934719461856
+   ]
+  }
+ },
+ "pad": {
+  "n": 24,
+  "first_is_bang": 0,
+  "expected_bang": 0.0,
+  "max_bang_run": 0
+ },
+ "pass": true,
+ "calib": {
+  "n_tokens": 30788,
+  "n_evaluated": 28824,
+  "outside_nucleus": 12,
+  "outside_strict": 6,
+  "z_nll": -0.07749250789874011,
+  "z_argmax": 0.5819886161648257,
+  "pit_ks_p": 0.2428478424484099
+ }
+}
+[17:50:00] ===== stage S0_stock PASS=1
+[17:50:06] ===== stage S1_A  spec={"method":"mtp","num_speculative_tokens":3,"draft_sample_method":"probabilistic"}  env=VLLM_SPEC_REJECT_UNPROPOSED=1 VLLM_SPEC_DRAFT_INDEP_NOISE=1
+[17:55:59] qwen38-spec-test ready after 360s
+[17:56:04] S1_A served: qwen38-flash-next-awq 524288
+smoke: ' Paris. Paris is'
+      1 10-02 17:50:18 [api_utils.py:272] non-default args: {'model_tag': '/root/.cache/huggingface/ple-bf16-int8all-38f', 'default_chat_template_kwargs': {'enable_thinking': True, 'preserve_thinking': True, 'reasoning_effort': 'xhigh'}, 'enable_auto_tool_choice': Tru
+      1 10-02 17:50:44 [core.py:122] Initializing a V1 LLM engine (v0.1.dev1+ga5530b90c.d20260829) with config: model='/root/.cache/huggingface/ple-bf16-int8all-38f', speculative_config=SpeculativeConfig(method='mtp', model='/root/.cache/huggingface/ple-bf16-int8all-3
+      1 10-02 17:51:13 [speculator.py:189] spec-draft: probabilistic drafting with indep_noise=True topkp=False (kmax=64) tau=1.0 step_unique_rng=False
+      1 (APIServer pid=1) [hook3] default_unquantized_gemm patched (invariant Triton GEMM)
+      1 (APIServer pid=1) [hook3] marlin_moe patched (smart padding + pinned exec config)
+      1 (EngineCore pid=133) [hook3] marlin_moe patched (smart padding + pinned exec config)
+      1 (EngineCore pid=133) [hook3] Scheduler: non-final prefill chunks aligned to multiples of 64 (lookahead + mamba split)
+      5 [hook3] default_unquantized_gemm patched (invariant Triton GEMM)
+77/77 E_vllm_59132_0 done
+wrote /home/user/qwen3nextflash/mtp/results/S1_A_k20.npz
+    },
+    {
+     "token": 874,
+     "rank": 6,
+     "cum_before": 0.9521844536372428,
+     "last_kept": 5
+    },
+    {
+     "token": 5533,
+     "rank": 11,
+     "cum_before": 0.9577582316810805,
+     "last_kept": 9
+    },
+    {
+     "token": 2715,
+     "rank": 17,
+     "cum_before": 0.9699285781210017,
+     "last_kept": 15
+    }
+   ]
+  }
+ },
+ "cal": {
+  "n_tokens": 16644,
+  "n_evaluated": 13186,
+  "n_not_reconstructible": 3458,
+  "outside_nucleus": 0,
+  "outside_strict": 0,
+  "nll_mean": 0.44150716239191723,
+  "exp_nll_mean": 0.44344905477031077,
+  "z_nll": -0.26581554703361226,
+  "argmax_rate": 0.8474897618686486,
+  "exp_argmax_rate": 0.8448201409531026,
+  "z_argmax": 1.0558340606485888,
+  "pit_ks": 0.013987211183548398,
+  "pit_ks_p": 0.01148945448072078,
+  "pit_decile_chi2_df9": 15.98392234187775
+ },
+ "pad": {
+  "n": 24,
+  "first_is_bang": 0,
+  "expected_bang": 0.0,
+  "max_bang_run": 0
+ }
+}
+[18:13:06] S1_A spec-fix log: 
+{
+ "tag": "S1_A",
+ "base": "PROD_base",
+ "gates": {
+  "kld_bit_identical": true,
+  "greedy_identical": true,
+  "calibration_t1": true,
+  "calibration_exact": true,
+  "pad": true
+ },
+ "kld": {
+  "kld_mean": 0.0,
+  "kld_p99": 0.0,
+  "kld_max": 0.0,
+  "top1_same": 1.0,
+  "sampling_set_identical": 1.0,
+  "sampling_same_token_prob": 1.0,
+  "ppl_ref": 3.926888105505486,
+  "ppl_test": 3.926888105505486,
+  "dnll_mean": 0.0
+ },
+ "greedy_same": "16/16",
+ "calibration_cal": {
+  "n_tokens": 16644,
+  "n_evaluated": 13186,
+  "outside_nucleus": 0,
+  "z_nll": -0.26581554703361226,
+  "z_argmax": 1.0558340606485888,
+  "pit_ks_p": 0.01148945448072078
+ },
+ "accept": {
+  "all": {
+   "n_req": 24,
+   "tokens": 31360,
+   "secs": 508.7994713783264,
+   "tok_per_s": 61.63528416223873,
+   "accept_rate": 0.5906251841376465,
+   "mean_accept_len": 2.77187555241294,
+   "per_pos": [
+    0.7640975782216722,
+    0.5729185080431324,
+    0.43485946614813503
+   ]
+  },
+  "clean": {
+   "n_req": 24,
+   "tokens": 31360,
+   "secs": 508.7994713783264,
+   "tok_per_s": 61.63528416223873,
+   "accept_rate": 0.5906251841376465,
+   "mean_accept_len": 2.77187555241294,
+   "per_pos": [
+    0.7640975782216722,
+    0.5729185080431324,
+    0.43485946614813503
+   ]
+  }
+ },
+ "pad": {
+  "n": 24,
+  "first_is_bang": 0,
+  "expected_bang": 0.0,
+  "max_bang_run": 0
+ },
+ "pass": true,
+ "calib": {
+  "n_tokens": 31360,
+  "n_evaluated": 29465,
+  "outside_nucleus": 11,
+  "outside_strict": 4,
+  "z_nll": -0.5887865547264532,
+  "z_argmax": -1.0707334620421551,
+  "pit_ks_p": 0.2716445337841968
+ }
+}
+[18:13:09] ===== stage S1_A PASS=1
+[18:13:15] ===== stage S2_AB_t10  spec={"method":"mtp","num_speculative_tokens":3,"draft_sample_method":"probabilistic"}  env=VLLM_SPEC_REJECT_UNPROPOSED=1 VLLM_SPEC_DRAFT_INDEP_NOISE=1 VLLM_SPEC_DRAFT_TOPKP=1
+[18:19:09] qwen38-spec-test ready after 360s
+[18:19:14] S2_AB_t10 served: qwen38-flash-next-awq 524288
+smoke: ' Paris. Paris is'
+      1 10-02 18:13:30 [api_utils.py:272] non-default args: {'model_tag': '/root/.cache/huggingface/ple-bf16-int8all-38f', 'default_chat_template_kwargs': {'enable_thinking': True, 'preserve_thinking': True, 'reasoning_effort': 'xhigh'}, 'enable_auto_tool_choice': Tru
+      1 10-02 18:13:55 [core.py:122] Initializing a V1 LLM engine (v0.1.dev1+ga5530b90c.d20260829) with config: model='/root/.cache/huggingface/ple-bf16-int8all-38f', speculative_config=SpeculativeConfig(method='mtp', model='/root/.cache/huggingface/ple-bf16-int8all-3
+      1 10-02 18:14:24 [speculator.py:189] spec-draft: probabilistic drafting with indep_noise=True topkp=True (kmax=64) tau=1.0 step_unique_rng=False
+      1 (APIServer pid=1) [hook3] default_unquantized_gemm patched (invariant Triton GEMM)
+      1 (APIServer pid=1) [hook3] marlin_moe patched (smart padding + pinned exec config)
+      1 (EngineCore pid=133) [hook3] marlin_moe patched (smart padding + pinned exec config)
+      1 (EngineCore pid=133) [hook3] Scheduler: non-final prefill chunks aligned to multiples of 64 (lookahead + mamba split)
+      5 [hook3] default_unquantized_gemm patched (invariant Triton GEMM)
+77/77 E_vllm_59132_0 done
+wrote /home/user/qwen3nextflash/mtp/results/S2_AB_t10_k20.npz
+  "outside_nucleus": 0,
+  "outside_strict": 0,
+  "nll_mean": 0.38488996986857,
+  "exp_nll_mean": 0.39344187783621426,
+  "z_nll": -1.2881966848208868,
+  "argmax_rate": 0.8649196467351962,
+  "exp_argmax_rate": 0.8613458006299826,
+  "z_argmax": 1.5213246388194146,
+  "pit_ks": 0.009510519408277102,
+  "pit_ks_p": 0.1643421324494887,
+  "pit_decile_chi2_df9": 13.97307079774142
+ },
+ "pad": {
+  "n": 24,
+  "first_is_bang": 0,
+  "cached_tokens": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "expected_bang": 0.0015109941190461775,
+  "max_bang_run": 0
+ }
+}
+[18:35:50] S2_AB_t10 spec-fix log: 
+{
+ "tag": "S2_AB_t10",
+ "base": "PROD_base",
+ "gates": {
+  "kld_bit_identical": true,
+  "greedy_identical": true,
+  "calibration_t1": true,
+  "calibration_exact": true,
+  "pad": true
+ },
+ "kld": {
+  "kld_mean": 0.0,
+  "kld_p99": 0.0,
+  "kld_max": 0.0,
+  "top1_same": 1.0,
+  "sampling_set_identical": 1.0,
+  "sampling_same_token_prob": 1.0,
+  "ppl_ref": 3.926888105505486,
+  "ppl_test": 3.926888105505486,
+  "dnll_mean": 0.0
+ },
+ "greedy_same": "16/16",
+ "calibration_cal": {
+  "n_tokens": 16979,
+  "n_evaluated": 13814,
+  "outside_nucleus": 0,
+  "z_nll": -1.2881966848208868,
+  "z_argmax": 1.5213246388194146,
+  "pit_ks_p": 0.1643421324494887
+ },
+ "accept": {
+  "all": {
+   "n_req": 24,
+   "tokens": 31719,
+   "secs": 513.3386197090149,
+   "tok_per_s": 61.78962342241046,
+   "accept_rate": 0.6019755270529265,
+   "mean_accept_len": 2.8059265811587792,
+   "per_pos": [
+    0.7687748783724015,
+    0.5863777089783282,
+    0.45077399380804956
+   ]
+  },
+  "clean": {
+   "n_req": 24,
+   "tokens": 31719,
+   "secs": 513.3386197090149,
+   "tok_per_s": 61.78962342241046,
+   "accept_rate": 0.6019755270529265,
+   "mean_accept_len": 2.8059265811587792,
+   "per_pos": [
+    0.7687748783724015,
+    0.5863777089783282,
+    0.45077399380804956
+   ]
+  }
+ },
+ "pad": {
+  "n": 24,
+  "first_is_bang": 0,
+  "expected_bang": 0.0015109941190461775,
+  "max_bang_run": 0
+ },
+ "pass": true,
+ "calib": {
+  "n_tokens": 31719,
+  "n_evaluated": 29734,
+  "outside_nucleus": 5,
+  "outside_strict": 0,
+  "z_nll": 0.2531067110433809,
+  "z_argmax": -0.6049867840799118,
+  "pit_ks_p": 0.604498649449351
+ }
+}
+[18:35:53] ===== stage S2_AB_t10 PASS=1
+[18:35:59] ===== stage S2_AB_t08  spec={"method":"mtp","num_speculative_tokens":3,"draft_sample_method":"probabilistic"}  env=VLLM_SPEC_REJECT_UNPROPOSED=1 VLLM_SPEC_DRAFT_INDEP_NOISE=1 VLLM_SPEC_DRAFT_TOPKP=1 VLLM_SPEC_DRAFT_TAU=0.8
+[18:42:03] qwen38-spec-test ready after 370s
+[18:42:08] S2_AB_t08 served: qwen38-flash-next-awq 524288
+smoke: ' Paris. Paris is'
+      1 10-02 18:36:12 [api_utils.py:272] non-default args: {'model_tag': '/root/.cache/huggingface/ple-bf16-int8all-38f', 'default_chat_template_kwargs': {'enable_thinking': True, 'preserve_thinking': True, 'reasoning_effort': 'xhigh'}, 'enable_auto_tool_choice': Tru
+      1 10-02 18:36:37 [core.py:122] Initializing a V1 LLM engine (v0.1.dev1+ga5530b90c.d20260829) with config: model='/root/.cache/huggingface/ple-bf16-int8all-38f', speculative_config=SpeculativeConfig(method='mtp', model='/root/.cache/huggingface/ple-bf16-int8all-3
+      1 10-02 18:37:08 [speculator.py:189] spec-draft: probabilistic drafting with indep_noise=True topkp=True (kmax=64) tau=0.8 step_unique_rng=False
+      1 (APIServer pid=1) [hook3] default_unquantized_gemm patched (invariant Triton GEMM)
+      1 (APIServer pid=1) [hook3] marlin_moe patched (smart padding + pinned exec config)
+      1 (EngineCore pid=134) [hook3] marlin_moe patched (smart padding + pinned exec config)
+      1 (EngineCore pid=134) [hook3] Scheduler: non-final prefill chunks aligned to multiples of 64 (lookahead + mamba split)
+      5 [hook3] default_unquantized_gemm patched (invariant Triton GEMM)
+77/77 E_vllm_59132_0 done
+wrote /home/user/qwen3nextflash/mtp/results/S2_AB_t08_k20.npz
+[S2_AB_t08] part t1
+[S2_AB_t08] part cal
+  cal  0 tok=1500
+  cal  1 tok=1500
+  cal  2 tok=1500
+  cal  3 tok=1500
+  cal  4 tok=1124
+  cal  5 tok=1500
+  cal  6 tok=1093
+  cal  7 tok=1500
+  cal  8 tok=1500
+  cal  9 tok=1500
+  cal 10 tok=1390
+  cal 11 tok=1376
+[S2_AB_t08] part pad
+Traceback (most recent call last):
+  File "/home/user/qwen3nextflash/mtp/gen_suite.py", line 270, in <module>
+    summary[part] = {"t1": part_t1, "cal": part_cal, "pad": part_pad, "greedy": part_greedy}[part]()
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/user/qwen3nextflash/mtp/gen_suite.py", line 238, in part_pad
+    r = post("/v1/completions", body)
+  File "/home/user/qwen3nextflash/mtp/gen_suite.py", line 67, in post
+    return json.load(urllib.request.urlopen(req, timeout=timeout))
+                     ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/urllib/request.py", line 187, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/urllib/request.py", line 493, in open
+    response = meth(req, response)
+  File "/usr/lib/python3.14/urllib/request.py", line 602, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "/usr/lib/python3.14/urllib/request.py", line 531, in error
+    return self._call_chain(*args)
+           ~~~~~~~~~~~~~~~~^^^^^^^
+  File "/usr/lib/python3.14/urllib/request.py", line 464, in _call_chain
+    result = func(*args)
+  File "/usr/lib/python3.14/urllib/request.py", line 611, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 400: Bad Request
+[18:57:22] S2_AB_t08 spec-fix log: 
+{
+ "tag": "S2_AB_t08",
+ "base": "PROD_base",
+ "gates": {
+  "kld_bit_identical": true,
+  "calibration_t1": true,
+  "calibration_exact": true
+ },
+ "kld": {
+  "kld_mean": 0.0,
+  "kld_p99": 0.0,
+  "kld_max": 0.0,
+  "top1_same": 1.0,
+  "sampling_set_identical": 1.0,
+  "sampling_same_token_prob": 1.0,
+  "ppl_ref": 3.926888105505486,
+  "ppl_test": 3.926888105505486,
+  "dnll_mean": 0.0
+ },
+ "calibration_cal": {
+  "n_tokens": 16983,
+  "n_evaluated": 13855,
+  "outside_nucleus": 0,
+  "z_nll": 0.6695918399396393,
+  "z_argmax": -0.7527623120268055,
+  "pit_ks_p": 0.14824494212973674
+ },
+ "accept": {
+  "all": {
+   "n_req": 24,
+   "tokens": 31850,
+   "secs": 525.3573110103607,
+   "tok_per_s": 60.62540547641085,
+   "accept_rate": 0.5876926636013996,
+   "mean_accept_len": 2.7630779908041987,
+   "per_pos": [
+    0.7583065845406437,
+    0.570226424915416,
+    0.4345449813481391
+   ]
+  },
+  "clean": {
+   "n_req": 24,
+   "tokens": 31850,
+   "secs": 525.3573110103607,
+   "tok_per_s": 60.62540547641085,
+   "accept_rate": 0.5876926636013996,
+   "mean_accept_len": 2.7630779908041987,
+   "per_pos": [
+    0.7583065845406437,
+    0.570226424915416,
+    0.4345449813481391
+   ]
+  }
+ },
+ "pass": true,
+ "calib": {
+  "n_tokens": 31850,
+  "n_evaluated": 29810,
+  "outside_nucleus": 11,
+  "outside_strict": 2,
+  "z_nll": -1.243143952303381,
+  "z_argmax": 1.6614427224665143,
+  "pit_ks_p": 0.002341103927726697
+ }
+}
+[18:57:25] ===== stage S2_AB_t08 PASS=1
+[18:57:31] B tau choice: mean accept len tau1.0=2.8059 tau0.8=2.7631
+[18:57:31] ===== stage S3_ABC  spec={"method":"mtp","num_speculative_tokens":3,"draft_sample_method":"probabilistic","rejection_sample_method":"block"}  env=VLLM_SPEC_REJECT_UNPROPOSED=1 VLLM_SPEC_DRAFT_INDEP_NOISE=1 VLLM_SPEC_DRAFT_TOPKP=1 VLLM_SPEC_DRAFT_TAU=1.0 VLLM_SPEC_STEP_UNIQUE_RNG=1
+[19:03:25] qwen38-spec-test ready after 360s
+[19:03:30] S3_ABC served: qwen38-flash-next-awq 524288
+smoke: ' Paris. Paris is'
+      1 10-02 18:57:42 [api_utils.py:272] non-default args: {'model_tag': '/root/.cache/huggingface/ple-bf16-int8all-38f', 'default_chat_template_kwargs': {'enable_thinking': True, 'preserve_thinking': True, 'reasoning_effort': 'xhigh'}, 'enable_auto_tool_choice': Tru
+      1 10-02 18:58:09 [core.py:122] Initializing a V1 LLM engine (v0.1.dev1+ga5530b90c.d20260829) with config: model='/root/.cache/huggingface/ple-bf16-int8all-38f', speculative_config=SpeculativeConfig(method='mtp', model='/root/.cache/huggingface/ple-bf16-int8all-3
+      1 10-02 18:58:37 [speculator.py:189] spec-draft: probabilistic drafting with indep_noise=True topkp=True (kmax=64) tau=1.0 step_unique_rng=True
+      1 (APIServer pid=1) [hook3] default_unquantized_gemm patched (invariant Triton GEMM)
+      1 (APIServer pid=1) [hook3] marlin_moe patched (smart padding + pinned exec config)
+      1 (EngineCore pid=133) [hook3] marlin_moe patched (smart padding + pinned exec config)
+      1 (EngineCore pid=133) [hook3] Scheduler: non-final prefill chunks aligned to multiples of 64 (lookahead + mamba split)
+      5 [hook3] default_unquantized_gemm patched (invariant Triton GEMM)
+77/77 E_vllm_59132_0 done
+wrote /home/user/qwen3nextflash/mtp/results/S3_ABC_k20.npz
+[S3_ABC] part t1
+[S3_ABC] part cal
+  cal  0 tok=1500
+  cal  1 tok=1500
+  cal  2 tok=1500
+  cal  3 tok=1500
+  cal  4 tok=1041
+  cal  5 tok=1500
+  cal  6 tok=1460
+  cal  7 tok=1500
+  cal  8 tok=1500
+  cal  9 tok=1500
+  cal 10 tok=1500
+  cal 11 tok=1423
+[S3_ABC] part pad
+[S3_ABC] part greedy

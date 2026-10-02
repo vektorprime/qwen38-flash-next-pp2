@@ -17,7 +17,7 @@ Verified on 2026-08-29:
 | PLE | 95 GiB ngram/PLE table offloaded to host RAM (`layers.1.ple`) |
 | API | OpenAI-compatible on `:8001` — reasoning + tool-call parsers live |
 
-**Part 1** gets you running in three commands. **Part 2** details the 6-site PP enablement; **Part 3** documents the P0 prefix-caching hardening (ported from `zebgop-ops/qwen38-flashnext-pp` — `mamba_utils req_idx` is the ablation-proven necessary+s sufficient fix). **Part 5** covers the deterministic-MoE patch (0015) and the INT4 / INT4+8 / INT8 quality eval. **Part 6** makes serving batch- and instance-invariant (bit-identical logprobs under any load and across containers) and re-measures INT4 and FP8 PLE on that stack.
+**Part 1** gets you running in three commands. **Part 2** details the 6-site PP enablement; **Part 3** documents the P0 prefix-caching hardening (ported from `zebgop-ops/qwen38-flashnext-pp` — `mamba_utils req_idx` is the ablation-proven necessary+s sufficient fix). **Part 5** covers the deterministic-MoE patch (0015) and the INT4 / INT4+8 / INT8 quality eval. **Part 6** makes serving batch- and instance-invariant (bit-identical logprobs under any load and across containers) and re-measures INT4 and FP8 PLE on that stack. **Part 7** raises MTP acceptance with sampled drafting and fixes three speculative-decoding bugs, with the target model's logprobs unchanged.
 what upstream guards exist, why each is removable, and the exact wall you'll
 hit if something moves under us.
 
@@ -38,6 +38,7 @@ hit if something moves under us.
 | `detmoe/` | Patch 0015: deterministic MoE token order (bit-reproducible logprobs); diff, apply script, Dockerfile, tests (Part 5) |
 | `kld-eval/` | INT4 vs INT4+8 vs INT8 output-distribution eval: KLD, top-1/top-k, sampling-set agreement, perplexity (Part 5) |
 | `batch-invariance/` | Batch- and instance-invariant serving on PP3 (hook, Dockerfiles, tuning/validation scripts, results); INT4 vs INT8 and FP8 vs BF16 PLE on a zero-noise stack (Part 6) |
+| `mtp-spec-decode/` | Sampled MTP drafting (+19% acceptance length), three spec-decode bug fixes, T=1 acceptance/calibration harness, deploy scripts, results (Part 7) |
 
 ## Prerequisites
 
@@ -715,6 +716,40 @@ On that stack (noise floor exactly 0), with BF16 PLE:
 - **FP8 PLE vs BF16 PLE:** KLD 0.016, top-1 96.0%, perplexity unchanged.
 
 Details: [`batch-invariance/README.md`](batch-invariance/README.md).
+
+# Part 7 — MTP acceptance: sampled drafting + spec-decode fixes (2026-10-02)
+
+Prod sampled at T=1 (top_k 20, top_p 0.95) but drafted greedily. MTP k=3 accepted 2.35 tokens per step on a fixed T=1
+suite. The image is `qwen38-flash-next:ple-fp8-pp3-detmoe-inv-det-spec`: the `-inv-det` image plus 5 patched vLLM
+files (`mtp-spec-decode/files/`, readable as `spec.diff`). Every change is behind an env switch; with all switches off
+the image is stock.
+
+| Switch | What it does |
+|---|---|
+| `VLLM_SPEC_DRAFT_INDEP_NOISE=1` | Probabilistic drafting drew the draft token with the same Gumbel noise the rejection sampler reuses for the residual resample, which biased the output (TV ≈ 0.06 in an offline kernel test). The draft now gets its own seed. |
+| `VLLM_SPEC_DRAFT_TOPKP=1`, `VLLM_SPEC_DRAFT_TAU=1.0` | Applies the request's top-k/top-p to the draft distribution, plus an optional draft temperature. |
+| `VLLM_SPEC_REJECT_UNPROPOSED=1` | Backport of vllm#58784, which rejects scheduler-padded placeholder drafts ('!' / NUL tokens). |
+| `VLLM_SPEC_PAD_NEW_REQS=0` | Stops the scheduler padding a fresh 1-token prompt to the 1+k spec shape. On this hybrid model, GDN then ran that row from an uninitialised state, giving NaN logprobs (HTTP 400) or garbage text. The stock image failed 11 of 12 such trials under load. Upstream main pads the same way. |
+| `VLLM_SPEC_STEP_UNIQUE_RNG=1` | Not deployed. Block verification keys its uniforms and draft noise by absolute position, so the same draws are reused across steps, which biased the output (TV ≈ 0.046). Upstream main has the same code. This switch keys them per step, and block verification then gives no acceptance gain here. |
+
+The T=1 suite is 24 fixed prompts and seeds, ~31k tokens, prod sampling.
+
+| Config | Accept length | tok/s |
+|---|---|---|
+| Greedy drafting (old prod) | 2.354 | 52.5 |
+| Sampled drafting, independent noise | 2.772 | 61.6 |
+| **+ draft top-k/top-p, tau 1.0 (deployed)** | **2.806** | **61.9** |
+| + block verification | 2.815 | 61.4 |
+
+Every stage left the target model bit-identical:
+- 77×2048 corpus: KLD 0, same top-1 and same top-p set 100%, PPL 3.926888 both.
+- Greedy decodes: 16/16 identical.
+
+Sampling stayed exact:
+- Tie-aware calibration of sampled tokens against the target distribution: |z| ≤ 1.8.
+- With top_k off: 0 tokens outside the top-p set.
+
+Details, harness and logs: [`mtp-spec-decode/README.md`](mtp-spec-decode/README.md).
 
 ## Dockerfile
 

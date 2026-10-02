@@ -1,0 +1,39 @@
+=== DT WINDOW SPEC START Fri Oct  2 04:57:34 PM UTC 2026 ===
+[16:57:34] --- Step 0: preconditions ---
+[16:57:35] --- Step 1: stop prod ---
+[16:57:47] ===== stage S0_stock  spec={"method":"mtp","num_speculative_tokens":3}  env=
+[17:03:50] qwen38-spec-test ready after 370s
+[17:03:55] S0_stock served: qwen38-flash-next-awq 524288
+smoke: ' Paris. Paris is'
+      1 10-02 16:57:58 [api_utils.py:272] non-default args: {'model_tag': '/root/.cache/huggingface/ple-bf16-int8all-38f', 'default_chat_template_kwargs': {'enable_thinking': True, 'preserve_thinking': True, 'reasoning_effort': 'xhigh'}, 'enable_auto_tool_choice': Tru
+      1 10-02 16:58:24 [core.py:122] Initializing a V1 LLM engine (v0.1.dev1+ga5530b90c.d20260829) with config: model='/root/.cache/huggingface/ple-bf16-int8all-38f', speculative_config=SpeculativeConfig(method='mtp', model='/root/.cache/huggingface/ple-bf16-int8all-3
+      1 (APIServer pid=1) [hook3] default_unquantized_gemm patched (invariant Triton GEMM)
+      1 (APIServer pid=1) [hook3] marlin_moe patched (smart padding + pinned exec config)
+      1 (EngineCore pid=133) [hook3] marlin_moe patched (smart padding + pinned exec config)
+      1 (EngineCore pid=133) [hook3] Scheduler: non-final prefill chunks aligned to multiples of 64 (lookahead + mamba split)
+      5 [hook3] default_unquantized_gemm patched (invariant Triton GEMM)
+      3 [hook3] marlin_moe patched (smart padding + pinned exec config)
+77/77 E_vllm_59132_0 done
+wrote /home/user/qwen3nextflash/mtp/results/S0_stock_k20.npz
+[S0_stock] part t1
+Traceback (most recent call last):
+  File "/home/user/qwen3nextflash/mtp/gen_suite.py", line 268, in <module>
+    summary[part] = {"t1": part_t1, "cal": part_cal, "pad": part_pad, "greedy": part_greedy}[part]()
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/user/qwen3nextflash/mtp/gen_suite.py", line 198, in part_t1
+    np.savez_compressed(R + f"gen_{A.tag}_tokens.npz", rows=a)
+                                                            ^
+NameError: name 'a' is not defined. Did you mean: 'A'?
+[17:15:27] S0_stock spec-fix log: 
+Traceback (most recent call last):
+  File "/home/user/qwen3nextflash/mtp/stage_check.py", line 35, in <module>
+    g = json.load(open(R + f"gen_{tag}.json"))
+                  ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/user/qwen3nextflash/mtp/results/gen_S0_stock.json'
+[17:15:30] ===== stage S0_stock PASS=0
+[17:15:36] ABORT: S0 (switches off) does not reproduce the prod baseline
+[17:15:36] --- ROLLBACK ---
+[17:21:41] qwen38-flash-next-pp3-int8all ready after 370s
+[17:21:46] prod served: qwen38-flash-next-awq 524288
+smoke: ' Paris. Paris is'
+=== DT WINDOW SPEC: ROLLED BACK Fri Oct  2 05:21:46 PM UTC 2026 ===

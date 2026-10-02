@@ -1,0 +1,194 @@
+[
+ {
+  "case": "upstream-like: no top-k/top-p, p(!)=1e-7",
+  "draft": "greedy",
+  "block": false,
+  "bang_first": 0.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.0
+ },
+ {
+  "case": "upstream-like: no top-k/top-p, p(!)=1e-7",
+  "draft": "greedy",
+  "block": true,
+  "bang_first": 0.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.0
+ },
+ {
+  "case": "upstream-like: no top-k/top-p, p(!)=1e-7",
+  "draft": "stale_zero",
+  "block": false,
+  "bang_first": 0.0249,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.025
+ },
+ {
+  "case": "upstream-like: no top-k/top-p, p(!)=1e-7",
+  "draft": "stale_zero",
+  "block": true,
+  "bang_first": 0.0308,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.031
+ },
+ {
+  "case": "upstream-like: no top-k/top-p, p(!)=1e-7",
+  "draft": "stale_prev",
+  "block": false,
+  "bang_first": 1.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 3.0
+ },
+ {
+  "case": "upstream-like: no top-k/top-p, p(!)=1e-7",
+  "draft": "stale_prev",
+  "block": true,
+  "bang_first": 1.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 3.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' outside nucleus (raw 1e-3)",
+  "draft": "greedy",
+  "block": false,
+  "bang_first": 0.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' outside nucleus (raw 1e-3)",
+  "draft": "greedy",
+  "block": true,
+  "bang_first": 0.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' outside nucleus (raw 1e-3)",
+  "draft": "stale_zero",
+  "block": false,
+  "bang_first": 0.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' outside nucleus (raw 1e-3)",
+  "draft": "stale_zero",
+  "block": true,
+  "bang_first": 0.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' outside nucleus (raw 1e-3)",
+  "draft": "stale_prev",
+  "block": false,
+  "bang_first": 0.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' outside nucleus (raw 1e-3)",
+  "draft": "stale_prev",
+  "block": true,
+  "bang_first": 0.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' inside nucleus (raw 0.10)",
+  "draft": "greedy",
+  "block": false,
+  "bang_first": 0.1042,
+  "correct_p_bang": 0.104737,
+  "mean_accepted": 0.117
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' inside nucleus (raw 0.10)",
+  "draft": "greedy",
+  "block": true,
+  "bang_first": 0.1099,
+  "correct_p_bang": 0.104737,
+  "mean_accepted": 0.123
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' inside nucleus (raw 0.10)",
+  "draft": "stale_zero",
+  "block": false,
+  "bang_first": 1.0,
+  "correct_p_bang": 0.104737,
+  "mean_accepted": 3.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' inside nucleus (raw 0.10)",
+  "draft": "stale_zero",
+  "block": true,
+  "bang_first": 1.0,
+  "correct_p_bang": 0.104737,
+  "mean_accepted": 3.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' inside nucleus (raw 0.10)",
+  "draft": "stale_prev",
+  "block": false,
+  "bang_first": 1.0,
+  "correct_p_bang": 0.104737,
+  "mean_accepted": 3.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' inside nucleus (raw 0.10)",
+  "draft": "stale_prev",
+  "block": true,
+  "bang_first": 1.0,
+  "correct_p_bang": 0.104737,
+  "mean_accepted": 3.0
+ },
+ {
+  "case": "upstream-like: no top-k/top-p, p(!)=1e-7",
+  "draft": "stale_prev+FIXED(-1 rows)",
+  "block": false,
+  "bang_first": 0.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.0
+ },
+ {
+  "case": "upstream-like: no top-k/top-p, p(!)=1e-7",
+  "draft": "stale_prev+FIXED(-1 rows)",
+  "block": true,
+  "bang_first": 0.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' outside nucleus (raw 1e-3)",
+  "draft": "stale_prev+FIXED(-1 rows)",
+  "block": false,
+  "bang_first": 0.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' outside nucleus (raw 1e-3)",
+  "draft": "stale_prev+FIXED(-1 rows)",
+  "block": true,
+  "bang_first": 0.0,
+  "correct_p_bang": 0.0,
+  "mean_accepted": 0.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' inside nucleus (raw 0.10)",
+  "draft": "stale_prev+FIXED(-1 rows)",
+  "block": false,
+  "bang_first": 0.0986,
+  "correct_p_bang": 0.104737,
+  "mean_accepted": 0.0
+ },
+ {
+  "case": "ours: top-k20/top-p.95, '!' inside nucleus (raw 0.10)",
+  "draft": "stale_prev+FIXED(-1 rows)",
+  "block": true,
+  "bang_first": 0.1011,
+  "correct_p_bang": 0.104737,
+  "mean_accepted": 0.0
+ }
+]

@@ -1,0 +1,31 @@
+[PROD_base] part t1
+  t1  0 tok=1500  51.0 tok/s clean=True acc_len=2.26
+  t1  1 tok=1500  40.6 tok/s clean=True acc_len=1.77
+  t1  2 tok=1500  56.9 tok/s clean=True acc_len=2.54
+  t1  3 tok=1500  50.6 tok/s clean=True acc_len=2.25
+  t1  4 tok=998  79.9 tok/s clean=True acc_len=3.63
+  t1  5 tok=1500  62.0 tok/s clean=True acc_len=2.78
+  t1  6 tok=900  52.7 tok/s clean=True acc_len=2.39
+  t1  7 tok=1500  62.7 tok/s clean=True acc_len=2.80
+  t1  8 tok=1500  48.3 tok/s clean=True acc_len=2.14
+  t1  9 tok=1500  41.5 tok/s clean=True acc_len=1.85
+  t1 10 tok=1500  61.9 tok/s clean=True acc_len=2.78
+  t1 11 tok=1170  61.8 tok/s clean=True acc_len=2.81
+  t1 12 tok=404  66.5 tok/s clean=True acc_len=3.01
+  t1 13 tok=1500  42.5 tok/s clean=True acc_len=1.90
+  t1 14 tok=465  51.8 tok/s clean=True acc_len=2.41
+  t1 15 tok=1500  48.4 tok/s clean=True acc_len=2.13
+  t1 16 tok=1500  58.4 tok/s clean=True acc_len=2.64
+  t1 17 tok=1500  56.7 tok/s clean=True acc_len=2.54
+  t1 18 tok=1030  56.4 tok/s clean=True acc_len=2.55
+  t1 19 tok=321  63.6 tok/s clean=True acc_len=2.94
+  t1 20 tok=1500  51.9 tok/s clean=True acc_len=2.33
+  t1 21 tok=1500  55.6 tok/s clean=True acc_len=2.49
+  t1 22 tok=1500  45.9 tok/s clean=True acc_len=2.05
+  t1 23 tok=1500  52.1 tok/s clean=True acc_len=2.33
+Traceback (most recent call last):
+  File "/home/user/qwen3nextflash/mtp/gen_suite.py", line 237, in <module>
+  File "/home/user/qwen3nextflash/mtp/gen_suite.py", line 181, in part_t1
+    tok_per_s=agg(qs, "tokens") / agg(qs, "secs"),
+                                       ^
+NameError: name 'a' is not defined. Did you mean: 'A'?
