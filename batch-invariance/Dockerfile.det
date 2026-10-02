@@ -1,0 +1,8 @@
+# Final prod image: the batch-invariant image (hook rev 2, see ../deploy) plus determinism across compile/process
+# instances: Inductor's deterministic mode (no timing-based choices that affect numerics) and vLLM's switch that gives every
+# @triton.autotune kernel its first valid config instead of a timed choice (the GDN prefill kernels' BK changes the
+# summation order). Serve args additionally need:
+#   --compilation-config '{"inductor_compile_config":{"combo_kernels":true,"benchmark_combo_kernel":false}}'
+FROM qwen38-flash-next:ple-fp8-pp3-detmoe-inv
+ENV TORCHINDUCTOR_DETERMINISTIC=1 \
+    VLLM_TRITON_FORCE_FIRST_CONFIG=1

@@ -1,0 +1,324 @@
+{
+ "device": "NVIDIA CMP 170HX",
+ "sms": 74,
+ "marlin": {
+  "stock": {
+   "invariance_rows_differing": 24,
+   "us": {
+    "1": 79.0,
+    "4": 178.6,
+    "8": 282.7,
+    "16": 488.6,
+    "32": 829.1,
+    "2040": 3540.7
+   }
+  },
+  "k64 s(n64,b1) l(n64,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n64,b1) l(n64,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n64,b2) l(n64,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n64,b2) l(n64,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n64,b1) l(n128,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n64,b1) l(n128,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n64,b2) l(n128,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n64,b2) l(n128,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n64,b1) l(n256,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n64,b1) l(n256,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n64,b2) l(n256,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n64,b2) l(n256,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n128,b1) l(n64,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n128,b1) l(n64,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n128,b2) l(n64,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n128,b2) l(n64,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n128,b1) l(n128,b1)": {
+   "us": {
+    "1": 129.6,
+    "4": 244.6,
+    "8": 376.3,
+    "16": 662.1,
+    "32": 1118.2,
+    "2040": 4318.7
+   },
+   "small": {
+    "thread_k": 64,
+    "thread_n": 128,
+    "blocks_per_sm": 1
+   },
+   "large": {
+    "thread_k": 64,
+    "thread_n": 128,
+    "blocks_per_sm": 1
+   }
+  },
+  "k64 s(n128,b1) l(n128,b2)": {
+   "us": {
+    "1": 120.1,
+    "4": 242.7,
+    "8": 374.1,
+    "16": 659.6,
+    "32": 1128.0,
+    "2040": 3115.9
+   },
+   "small": {
+    "thread_k": 64,
+    "thread_n": 128,
+    "blocks_per_sm": 1
+   },
+   "large": {
+    "thread_k": 64,
+    "thread_n": 128,
+    "blocks_per_sm": 2
+   }
+  },
+  "k64 s(n128,b2) l(n128,b1)": {
+   "us": {
+    "1": 107.7,
+    "4": 206.0,
+    "8": 311.3,
+    "16": 555.1,
+    "32": 938.5,
+    "2040": 4690.8
+   },
+   "small": {
+    "thread_k": 64,
+    "thread_n": 128,
+    "blocks_per_sm": 2
+   },
+   "large": {
+    "thread_k": 64,
+    "thread_n": 128,
+    "blocks_per_sm": 1
+   },
+   "invariance_rows_differing": 0
+  },
+  "k64 s(n128,b2) l(n128,b2)": {
+   "us": {
+    "1": 111.4,
+    "4": 206.8,
+    "8": 311.5,
+    "16": 559.6,
+    "32": 926.7,
+    "2040": 3540.3
+   },
+   "small": {
+    "thread_k": 64,
+    "thread_n": 128,
+    "blocks_per_sm": 2
+   },
+   "large": {
+    "thread_k": 64,
+    "thread_n": 128,
+    "blocks_per_sm": 2
+   },
+   "invariance_rows_differing": 0
+  },
+  "k64 s(n128,b1) l(n256,b1)": {
+   "us": {
+    "1": 138.0,
+    "4": 246.6,
+    "8": 375.2,
+    "16": 660.9,
+    "32": 1122.5,
+    "2040": 3443.5
+   },
+   "small": {
+    "thread_k": 64,
+    "thread_n": 128,
+    "blocks_per_sm": 1
+   },
+   "large": {
+    "thread_k": 64,
+    "thread_n": 256,
+    "blocks_per_sm": 1
+   }
+  },
+  "k64 s(n128,b1) l(n256,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k64 s(n128,b2) l(n256,b1)": {
+   "us": {
+    "1": 106.1,
+    "4": 206.0,
+    "8": 311.3,
+    "16": 555.4,
+    "32": 920.3,
+    "2040": 3709.5
+   },
+   "small": {
+    "thread_k": 64,
+    "thread_n": 128,
+    "blocks_per_sm": 2
+   },
+   "large": {
+    "thread_k": 64,
+    "thread_n": 256,
+    "blocks_per_sm": 1
+   },
+   "invariance_rows_differing": 0
+  },
+  "k64 s(n128,b2) l(n256,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n64,b1) l(n64,b1)": {
+   "us": {
+    "1": 126.4,
+    "4": 262.0,
+    "8": 433.7,
+    "16": 771.7,
+    "32": 1281.7,
+    "2040": 5550.9
+   },
+   "small": {
+    "thread_k": 128,
+    "thread_n": 64,
+    "blocks_per_sm": 1
+   },
+   "large": {
+    "thread_k": 128,
+    "thread_n": 64,
+    "blocks_per_sm": 1
+   }
+  },
+  "k128 s(n64,b1) l(n64,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n64,b2) l(n64,b1)": {
+   "us": {
+    "1": 107.8,
+    "4": 217.9,
+    "8": 330.5,
+    "16": 576.0,
+    "32": 981.4,
+    "2040": 5885.4
+   },
+   "small": {
+    "thread_k": 128,
+    "thread_n": 64,
+    "blocks_per_sm": 2
+   },
+   "large": {
+    "thread_k": 128,
+    "thread_n": 64,
+    "blocks_per_sm": 1
+   },
+   "invariance_rows_differing": 0
+  },
+  "k128 s(n64,b2) l(n64,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n64,b1) l(n128,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:520, Unsupported shapes: MNK = [204"
+  },
+  "k128 s(n64,b1) l(n128,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n64,b2) l(n128,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:520, Unsupported shapes: MNK = [204"
+  },
+  "k128 s(n64,b2) l(n128,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n64,b1) l(n256,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n64,b1) l(n256,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n64,b2) l(n256,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n64,b2) l(n256,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n128,b1) l(n64,b1)": {
+   "us": {
+    "1": 122.5,
+    "4": 227.5,
+    "8": 341.1,
+    "16": 595.6,
+    "32": 1014.2,
+    "2040": 6031.0
+   },
+   "small": {
+    "thread_k": 128,
+    "thread_n": 128,
+    "blocks_per_sm": 1
+   },
+   "large": {
+    "thread_k": 128,
+    "thread_n": 64,
+    "blocks_per_sm": 1
+   }
+  },
+  "k128 s(n128,b1) l(n64,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n128,b2) l(n64,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n128,b2) l(n64,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n128,b1) l(n128,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:520, Unsupported shapes: MNK = [204"
+  },
+  "k128 s(n128,b1) l(n128,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n128,b2) l(n128,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n128,b2) l(n128,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n128,b1) l(n256,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n128,b1) l(n256,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n128,b2) l(n256,b1)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "k128 s(n128,b2) l(n256,b2)": {
+   "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_"
+  },
+  "best": [
+   "k64 s(n128,b2) l(n256,b1)",
+   "k64 s(n128,b2) l(n128,b2)",
+   "k64 s(n128,b2) l(n128,b1)",
+   "k128 s(n64,b2) l(n64,b1)"
+  ]
+ }
+}

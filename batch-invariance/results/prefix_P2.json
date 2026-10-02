@@ -1,0 +1,39 @@
+{
+ "tag": "P2",
+ "cases": [
+  {
+   "prompt_len": 5000,
+   "cached_tokens": [
+    0,
+    0,
+    0
+   ],
+   "run2_identical": true,
+   "run3_identical": true,
+   "max_abs_dlogprob_run2": 0.0
+  },
+  {
+   "prompt_len": 5000,
+   "cached_tokens": [
+    0,
+    0,
+    0
+   ],
+   "run2_identical": true,
+   "run3_identical": true,
+   "max_abs_dlogprob_run2": 0.0
+  },
+  {
+   "prompt_len": 5000,
+   "cached_tokens": [
+    0,
+    0,
+    0
+   ],
+   "run2_identical": true,
+   "run3_identical": true,
+   "max_abs_dlogprob_run2": 0.0
+  }
+ ],
+ "all_identical": true
+}

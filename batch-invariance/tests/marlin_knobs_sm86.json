@@ -1,0 +1,108 @@
+{
+ "default": {
+  "vsM2040": {
+   "elems": 2.8e-05,
+   "rows": 0.0064
+  },
+  "vsM2048": {
+   "elems": 5.2e-05,
+   "rows": 0.0108
+  }
+ },
+ "blocks_per_sm=1": {
+  "vsM2040": {
+   "elems": 2.8e-05,
+   "rows": 0.0064
+  },
+  "vsM2048": {
+   "elems": 5.2e-05,
+   "rows": 0.0108
+  }
+ },
+ "blocks_per_sm=2": {
+  "vsM2040": {
+   "elems": 2.8e-05,
+   "rows": 0.0064
+  },
+  "vsM2048": {
+   "elems": 5.2e-05,
+   "rows": 0.0108
+  }
+ },
+ "thread_k=64,thread_n=256": {
+  "vsM2040": {
+   "elems": 2.8e-05,
+   "rows": 0.0064
+  },
+  "vsM2048": {
+   "elems": 5.2e-05,
+   "rows": 0.0108
+  }
+ },
+ "thread_k=64,thread_n=256,blocks_per_sm=1": {
+  "vsM2040": {
+   "elems": 2.8e-05,
+   "rows": 0.0064
+  },
+  "vsM2048": {
+   "elems": 5.2e-05,
+   "rows": 0.0108
+  }
+ },
+ "thread_k=128,thread_n=128": {
+  "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_m_blocks = 3, thread_k = 128, thread_n ="
+ },
+ "thread_k=128,thread_n=128,blocks_per_sm=1": {
+  "error": "RuntimeError('marlin_mm, /workspace/csrc/libtorch_stable/moe/marlin_moe_wna16/ops.cu:495, Invalid thread config: thread_m_blocks = 3, thread_k = 128, thread_n ="
+ },
+ "thread_k=128,thread_n=64": {
+  "vsM2040": {
+   "elems": 6e-06,
+   "rows": 0.0005
+  },
+  "vsM2048": {
+   "elems": 0.0,
+   "rows": 0.001
+  }
+ },
+ "thread_k=128,thread_n=64,blocks_per_sm=1": {
+  "vsM2040": {
+   "elems": 6e-06,
+   "rows": 0.0005
+  },
+  "vsM2048": {
+   "elems": 0.0,
+   "rows": 0.001
+  }
+ },
+ "thread_k=64,thread_n=128": {
+  "vsM2040": {
+   "elems": 2.6e-05,
+   "rows": 0.0049
+  },
+  "vsM2048": {
+   "elems": 1.8e-05,
+   "rows": 0.0044
+  }
+ },
+ "thread_k=64,thread_n=128,blocks_per_sm=1": {
+  "vsM2040": {
+   "elems": 2.6e-05,
+   "rows": 0.0049
+  },
+  "vsM2048": {
+   "elems": 1.8e-05,
+   "rows": 0.0044
+  }
+ },
+ "use_fp32_reduce=False": {
+  "vsM2040": {
+   "elems": 0.07646,
+   "rows": 0.2776
+  },
+  "vsM2048": {
+   "elems": 0.074629,
+   "rows": 0.2776
+  }
+ }
+}

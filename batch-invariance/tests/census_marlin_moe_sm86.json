@@ -1,0 +1,20 @@
+{
+ "device": "NVIDIA GeForce RTX 3080",
+ "repeat_same_M_identical": true,
+ "M2032vsM2040": {
+  "frac_elems_differ": 3e-05,
+  "frac_rows_differ": 0.0064,
+  "max_ulps": 64,
+  "median_ulps_of_differing": 1.0,
+  "rel_l2_row_diff_mean": 1.1010919251930318e-06,
+  "rel_l2_row_diff_max": 0.0004584829730447382
+ },
+ "M2032vsM2048": {
+  "frac_elems_differ": 5e-05,
+  "frac_rows_differ": 0.0108,
+  "max_ulps": 128,
+  "median_ulps_of_differing": 1.0,
+  "rel_l2_row_diff_mean": 1.8126060012946255e-06,
+  "rel_l2_row_diff_max": 0.0005500116385519505
+ }
+}

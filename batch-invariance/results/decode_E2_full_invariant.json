@@ -1,0 +1,10 @@
+{
+ "tag": "E2_full_invariant",
+ "seconds": 174,
+ "seq2_identical_to_seq1": 16,
+ "seq2_first_diff_chars": [],
+ "conc8_identical_to_seq1": 16,
+ "conc8_first_diff_chars": [],
+ "conc4+load_identical_to_seq1": 16,
+ "conc4+load_first_diff_chars": []
+}

@@ -1,0 +1,401 @@
+{
+ "device": "NVIDIA GeForce RTX 3080",
+ "sm": [
+  8,
+  6
+ ],
+ "allow_bf16_reduced_precision_reduction=True": {
+  "gdn in_proj_qkvz": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "gdn in_proj_ba": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "gdn out_proj": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "moe router gate": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "shared expert gate_up": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "shared expert down": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "shared_expert_gate": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "hc down+inject": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "hc up": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "ple key_proj": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "attn q_proj": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "attn k/v_proj": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "qsa index_qk_proj": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "attn o_proj": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "lm_head": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  }
+ },
+ "allow_bf16_reduced_precision_reduction=False": {
+  "gdn in_proj_qkvz": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "gdn in_proj_ba": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "gdn out_proj": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "moe router gate": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "shared expert gate_up": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "shared expert down": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "shared_expert_gate": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "hc down+inject": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "hc up": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "ple key_proj": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "attn q_proj": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "attn k/v_proj": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "qsa index_qk_proj": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "attn o_proj": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  },
+  "lm_head": {
+   "M2032vsM2040": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "M2032vsM2048": {
+    "frac_elems_differ": 0.0,
+    "max_ulps": 0,
+    "frac_rows_differ": 0.0
+   },
+   "repeat_same_M_identical": true
+  }
+ }
+}

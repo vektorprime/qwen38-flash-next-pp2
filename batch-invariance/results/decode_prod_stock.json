@@ -1,0 +1,30 @@
+{
+ "tag": "prod_stock",
+ "seconds": 163,
+ "seq2_identical_to_seq1": 16,
+ "seq2_first_diff_chars": [],
+ "conc8_identical_to_seq1": 7,
+ "conc8_first_diff_chars": [
+  550,
+  605,
+  42,
+  0,
+  828,
+  398,
+  152,
+  210,
+  413
+ ],
+ "conc4+load_identical_to_seq1": 7,
+ "conc4+load_first_diff_chars": [
+  49,
+  889,
+  408,
+  0,
+  386,
+  828,
+  56,
+  152,
+  0
+ ]
+}

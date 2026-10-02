@@ -1,0 +1,39 @@
+{
+ "tag": "E3",
+ "cases": [
+  {
+   "prompt_len": 5000,
+   "cached_tokens": [
+    0,
+    0,
+    0
+   ],
+   "run2_identical": false,
+   "run3_identical": false,
+   "max_abs_dlogprob_run2": null
+  },
+  {
+   "prompt_len": 5000,
+   "cached_tokens": [
+    0,
+    0,
+    0
+   ],
+   "run2_identical": false,
+   "run3_identical": false,
+   "max_abs_dlogprob_run2": null
+  },
+  {
+   "prompt_len": 5000,
+   "cached_tokens": [
+    0,
+    0,
+    0
+   ],
+   "run2_identical": false,
+   "run3_identical": false,
+   "max_abs_dlogprob_run2": null
+  }
+ ],
+ "all_identical": false
+}

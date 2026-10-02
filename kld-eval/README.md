@@ -144,6 +144,23 @@ Nondeterminism alone changed the sampled token with probability 3.2%, against
 5.7-6.0% for INT4 quantization. It widened the spread but hardly moved the
 averages (compare with the results table).
 
+## Re-run on the serving stack, 2026-10-02 (`../batch-invariance/`)
+
+The same corpus, metrics and sampler, re-run on prod's own serving stack: PP=3 19/20/9, MTP k=3, prefix caching, async
+scheduling and max-num-seqs 8. The stack carries the batch-invariance fixes plus the instance-determinism switches. Every
+config ran in its own freshly compiled container, and **both sides use the original BF16 PLE table** (the table above used
+FP8 PLE on both sides).
+
+| Pair | KLD mean [95% CI] | Top-1 same | Sampling set identical | Same-token chance | ppl ref / test |
+|---|---|---|---|---|---|
+| INT8 vs INT8, two fresh containers (noise floor) | **0** (bit-identical) | 100% | 100% | 100% | 3.927 / 3.927 |
+| INT4 vs INT8 (both BF16 PLE) | 0.0404 [0.0338, 0.0479] | 93.41% | 63.4% | 94.09% | 3.927 / 3.906 |
+| INT8 + FP8 PLE vs INT8 + BF16 PLE | 0.0163 [0.0132, 0.0200] | 95.98% | 71.4% | 96.38% | 3.927 / 3.931 |
+
+* INT4 vs INT8 agrees with the table above (0.0413 / 93.27% / 94.01%).
+* FP8 vs BF16 PLE is a real shift, but it is the size of any 1-ulp-class seed on this model: two separately compiled
+  containers *without* the determinism switches already differ by 0.0140. Perplexity is unchanged.
+
 ## Gotcha: custom checkpoint layouts with FP8 PLE offload
 
 A per-layer checkpoint layout (hardlinked PLE shards plus new `base-*` /

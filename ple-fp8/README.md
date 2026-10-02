@@ -93,3 +93,14 @@ positions 2-3 are net-negative), `--max-num-seqs 16` (2x the validated max
 - The docker commit of a container created with a custom --entrypoint must
   reset `ENTRYPOINT ["vllm"]` (same trap as documented in findings.md).
 - Disk: needs ~52 GiB free in the HF volume for the repacked dir.
+
+## Fidelity vs the BF16 table (2026-10-02, `../batch-invariance/`)
+
+Measured on prod's serving stack with the batch-invariance and instance-determinism fixes, where the noise floor between
+two freshly started containers is exactly 0:
+
+* FP8 PLE vs BF16 PLE, both with INT8 experts: KLD **0.0163** [0.0132, 0.0200], top-1 same **95.98%**, same-token
+  chance **96.38%**.
+* Perplexity 3.931 vs 3.927; the ΔNLL CI includes 0.
+* This is a real but minimal shift, the same size as any 1-ulp-class perturbation amplified by MoE routing (0.014).
+* Prod uses the BF16 table since 2026-10-02.

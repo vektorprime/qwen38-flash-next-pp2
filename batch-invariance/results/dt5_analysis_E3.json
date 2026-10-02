@@ -1,0 +1,479 @@
+{
+ "E3": {
+  "lengths": [
+   2048,
+   2047,
+   2040,
+   2001,
+   1985,
+   1984,
+   1983,
+   1600,
+   1100
+  ],
+  "pairs_bit_identical": "10/36",
+  "pairs": {
+   "2048 vs 2047": {
+    "chunk_boundaries": [
+     1984,
+     1984
+    ],
+    "positions": 2046,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 14,
+    "first_differing_position": 2033,
+    "top1_flips": 8
+   },
+   "2048 vs 2040": {
+    "chunk_boundaries": [
+     1984,
+     1984
+    ],
+    "positions": 2039,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 7,
+    "first_differing_position": 2033,
+    "top1_flips": 5
+   },
+   "2048 vs 2001": {
+    "chunk_boundaries": [
+     1984,
+     1984
+    ],
+    "positions": 2000,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 8,
+    "first_differing_position": 1993,
+    "top1_flips": 9
+   },
+   "2048 vs 1985": {
+    "chunk_boundaries": [
+     1984,
+     1920
+    ],
+    "positions": 1984,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 8,
+    "first_differing_position": 1977,
+    "top1_flips": 11
+   },
+   "2048 vs 1984": {
+    "chunk_boundaries": [
+     1984,
+     1920
+    ],
+    "positions": 1983,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 7,
+    "first_differing_position": 1977,
+    "top1_flips": 9
+   },
+   "2048 vs 1983": {
+    "chunk_boundaries": [
+     1984,
+     1920
+    ],
+    "positions": 1982,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 14,
+    "first_differing_position": 1969,
+    "top1_flips": 13
+   },
+   "2048 vs 1600": {
+    "chunk_boundaries": [
+     1984,
+     1536
+    ],
+    "positions": 1599,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 7,
+    "first_differing_position": 1593,
+    "top1_flips": 5
+   },
+   "2048 vs 1100": {
+    "chunk_boundaries": [
+     1984,
+     1088
+    ],
+    "positions": 1099,
+    "bit_identical_all_positions": true,
+    "n_positions_differing": 0,
+    "first_differing_position": null,
+    "top1_flips": 0
+   },
+   "2047 vs 2040": {
+    "chunk_boundaries": [
+     1984,
+     1984
+    ],
+    "positions": 2039,
+    "bit_identical_all_positions": true,
+    "n_positions_differing": 0,
+    "first_differing_position": null,
+    "top1_flips": 0
+   },
+   "2047 vs 2001": {
+    "chunk_boundaries": [
+     1984,
+     1984
+    ],
+    "positions": 2000,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 8,
+    "first_differing_position": 1993,
+    "top1_flips": 9
+   },
+   "2047 vs 1985": {
+    "chunk_boundaries": [
+     1984,
+     1920
+    ],
+    "positions": 1984,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 8,
+    "first_differing_position": 1977,
+    "top1_flips": 11
+   },
+   "2047 vs 1984": {
+    "chunk_boundaries": [
+     1984,
+     1920
+    ],
+    "positions": 1983,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 7,
+    "first_differing_position": 1977,
+    "top1_flips": 9
+   },
+   "2047 vs 1983": {
+    "chunk_boundaries": [
+     1984,
+     1920
+    ],
+    "positions": 1982,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 14,
+    "first_differing_position": 1969,
+    "top1_flips": 13
+   },
+   "2047 vs 1600": {
+    "chunk_boundaries": [
+     1984,
+     1536
+    ],
+    "positions": 1599,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 7,
+    "first_differing_position": 1593,
+    "top1_flips": 5
+   },
+   "2047 vs 1100": {
+    "chunk_boundaries": [
+     1984,
+     1088
+    ],
+    "positions": 1099,
+    "bit_identical_all_positions": true,
+    "n_positions_differing": 0,
+    "first_differing_position": null,
+    "top1_flips": 0
+   },
+   "2040 vs 2001": {
+    "chunk_boundaries": [
+     1984,
+     1984
+    ],
+    "positions": 2000,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 8,
+    "first_differing_position": 1993,
+    "top1_flips": 9
+   },
+   "2040 vs 1985": {
+    "chunk_boundaries": [
+     1984,
+     1920
+    ],
+    "positions": 1984,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 8,
+    "first_differing_position": 1977,
+    "top1_flips": 11
+   },
+   "2040 vs 1984": {
+    "chunk_boundaries": [
+     1984,
+     1920
+    ],
+    "positions": 1983,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 7,
+    "first_differing_position": 1977,
+    "top1_flips": 9
+   },
+   "2040 vs 1983": {
+    "chunk_boundaries": [
+     1984,
+     1920
+    ],
+    "positions": 1982,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 14,
+    "first_differing_position": 1969,
+    "top1_flips": 13
+   },
+   "2040 vs 1600": {
+    "chunk_boundaries": [
+     1984,
+     1536
+    ],
+    "positions": 1599,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 7,
+    "first_differing_position": 1593,
+    "top1_flips": 5
+   },
+   "2040 vs 1100": {
+    "chunk_boundaries": [
+     1984,
+     1088
+    ],
+    "positions": 1099,
+    "bit_identical_all_positions": true,
+    "n_positions_differing": 0,
+    "first_differing_position": null,
+    "top1_flips": 0
+   },
+   "2001 vs 1985": {
+    "chunk_boundaries": [
+     1984,
+     1920
+    ],
+    "positions": 1984,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 8,
+    "first_differing_position": 1977,
+    "top1_flips": 11
+   },
+   "2001 vs 1984": {
+    "chunk_boundaries": [
+     1984,
+     1920
+    ],
+    "positions": 1983,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 7,
+    "first_differing_position": 1977,
+    "top1_flips": 9
+   },
+   "2001 vs 1983": {
+    "chunk_boundaries": [
+     1984,
+     1920
+    ],
+    "positions": 1982,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 14,
+    "first_differing_position": 1969,
+    "top1_flips": 13
+   },
+   "2001 vs 1600": {
+    "chunk_boundaries": [
+     1984,
+     1536
+    ],
+    "positions": 1599,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 7,
+    "first_differing_position": 1593,
+    "top1_flips": 5
+   },
+   "2001 vs 1100": {
+    "chunk_boundaries": [
+     1984,
+     1088
+    ],
+    "positions": 1099,
+    "bit_identical_all_positions": true,
+    "n_positions_differing": 0,
+    "first_differing_position": null,
+    "top1_flips": 0
+   },
+   "1985 vs 1984": {
+    "chunk_boundaries": [
+     1920,
+     1920
+    ],
+    "positions": 1983,
+    "bit_identical_all_positions": true,
+    "n_positions_differing": 0,
+    "first_differing_position": null,
+    "top1_flips": 0
+   },
+   "1985 vs 1983": {
+    "chunk_boundaries": [
+     1920,
+     1920
+    ],
+    "positions": 1982,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 14,
+    "first_differing_position": 1969,
+    "top1_flips": 12
+   },
+   "1985 vs 1600": {
+    "chunk_boundaries": [
+     1920,
+     1536
+    ],
+    "positions": 1599,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 7,
+    "first_differing_position": 1593,
+    "top1_flips": 5
+   },
+   "1985 vs 1100": {
+    "chunk_boundaries": [
+     1920,
+     1088
+    ],
+    "positions": 1099,
+    "bit_identical_all_positions": true,
+    "n_positions_differing": 0,
+    "first_differing_position": null,
+    "top1_flips": 0
+   },
+   "1984 vs 1983": {
+    "chunk_boundaries": [
+     1920,
+     1920
+    ],
+    "positions": 1982,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 14,
+    "first_differing_position": 1969,
+    "top1_flips": 12
+   },
+   "1984 vs 1600": {
+    "chunk_boundaries": [
+     1920,
+     1536
+    ],
+    "positions": 1599,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 7,
+    "first_differing_position": 1593,
+    "top1_flips": 5
+   },
+   "1984 vs 1100": {
+    "chunk_boundaries": [
+     1920,
+     1088
+    ],
+    "positions": 1099,
+    "bit_identical_all_positions": true,
+    "n_positions_differing": 0,
+    "first_differing_position": null,
+    "top1_flips": 0
+   },
+   "1983 vs 1600": {
+    "chunk_boundaries": [
+     1920,
+     1536
+    ],
+    "positions": 1599,
+    "bit_identical_all_positions": false,
+    "n_positions_differing": 7,
+    "first_differing_position": 1593,
+    "top1_flips": 5
+   },
+   "1983 vs 1100": {
+    "chunk_boundaries": [
+     1920,
+     1088
+    ],
+    "positions": 1099,
+    "bit_identical_all_positions": true,
+    "n_positions_differing": 0,
+    "first_differing_position": null,
+    "top1_flips": 0
+   },
+   "1600 vs 1100": {
+    "chunk_boundaries": [
+     1536,
+     1088
+    ],
+    "positions": 1099,
+    "bit_identical_all_positions": true,
+    "n_positions_differing": 0,
+    "first_differing_position": null,
+    "top1_flips": 0
+   }
+  },
+  "prefix": {
+   "tag": "E3",
+   "cases": [
+    {
+     "prompt_len": 5000,
+     "cached_tokens": [
+      0,
+      0,
+      0
+     ],
+     "run2_identical": false,
+     "run3_identical": false,
+     "max_abs_dlogprob_run2": null
+    },
+    {
+     "prompt_len": 5000,
+     "cached_tokens": [
+      0,
+      0,
+      0
+     ],
+     "run2_identical": false,
+     "run3_identical": false,
+     "max_abs_dlogprob_run2": null
+    },
+    {
+     "prompt_len": 5000,
+     "cached_tokens": [
+      0,
+      0,
+      0
+     ],
+     "run2_identical": false,
+     "run3_identical": false,
+     "max_abs_dlogprob_run2": null
+    }
+   ],
+   "all_identical": false
+  },
+  "decode": {
+   "tag": "E3",
+   "seconds": 171,
+   "seq2_identical_to_seq1": 16,
+   "seq2_first_diff_chars": [],
+   "conc8_identical_to_seq1": 16,
+   "conc8_first_diff_chars": [],
+   "conc4+load_identical_to_seq1": 16,
+   "conc4+load_first_diff_chars": []
+  },
+  "bench": [
+   {
+    "tag": "E3_a",
+    "acceptance": 0.7282051282051282,
+    "accepted_per_step": 2.1846153846153844,
+    "tok_per_s": 72.09959944856882,
+    "tokens": 3928
+   },
+   {
+    "tag": "E3_b",
+    "acceptance": 0.7282051282051282,
+    "accepted_per_step": 2.1846153846153844,
+    "tok_per_s": 72.69145652954369,
+    "tokens": 3928
+   }
+  ]
+ }
+}

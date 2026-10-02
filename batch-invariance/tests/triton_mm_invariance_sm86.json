@@ -1,0 +1,219 @@
+{
+ "device": "NVIDIA GeForce RTX 3080",
+ "gdn in_proj_qkvz": {
+  "configs_x_M_checked": 45,
+  "differing_from_reference": 0,
+  "small_cfg": [
+   16,
+   128,
+   64,
+   4,
+   3
+  ],
+  "large_cfg": [
+   64,
+   128,
+   64,
+   4,
+   3
+  ],
+  "triton_us_M4": 123.2,
+  "cublas_us_M4": 127.9,
+  "triton_us_M32": 127.2,
+  "cublas_us_M32": 160.5,
+  "triton_us_M2048": 2911.3,
+  "cublas_us_M2048": 3071.3
+ },
+ "gdn in_proj_ba": {
+  "configs_x_M_checked": 45,
+  "differing_from_reference": 0,
+  "small_cfg": [
+   32,
+   128,
+   64,
+   4,
+   3
+  ],
+  "large_cfg": [
+   64,
+   128,
+   64,
+   4,
+   3
+  ],
+  "triton_us_M4": 39.0,
+  "cublas_us_M4": 21.8,
+  "triton_us_M32": 39.0,
+  "cublas_us_M32": 22.1,
+  "triton_us_M2048": 60.0,
+  "cublas_us_M2048": 53.3
+ },
+ "gdn out_proj": {
+  "configs_x_M_checked": 45,
+  "differing_from_reference": 0,
+  "small_cfg": [
+   16,
+   64,
+   64,
+   4,
+   4
+  ],
+  "large_cfg": [
+   64,
+   128,
+   64,
+   4,
+   3
+  ],
+  "triton_us_M4": 50.7,
+  "cublas_us_M4": 59.0,
+  "triton_us_M32": 54.6,
+  "cublas_us_M32": 65.2,
+  "triton_us_M2048": 1191.5,
+  "cublas_us_M2048": 1316.7
+ },
+ "moe router gate": {
+  "configs_x_M_checked": 45,
+  "differing_from_reference": 0,
+  "small_cfg": [
+   16,
+   64,
+   64,
+   4,
+   4
+  ],
+  "large_cfg": [
+   128,
+   128,
+   64,
+   8,
+   3
+  ],
+  "triton_us_M4": 37.8,
+  "cublas_us_M4": 20.1,
+  "triton_us_M32": 38.5,
+  "cublas_us_M32": 21.5,
+  "triton_us_M2048": 102.7,
+  "cublas_us_M2048": 102.0
+ },
+ "shared_expert_gate": {
+  "configs_x_M_checked": 45,
+  "differing_from_reference": 0,
+  "small_cfg": [
+   32,
+   128,
+   64,
+   4,
+   3
+  ],
+  "large_cfg": [
+   64,
+   128,
+   64,
+   4,
+   3
+  ],
+  "triton_us_M4": 48.2,
+  "cublas_us_M4": 24.8,
+  "triton_us_M32": 48.8,
+  "cublas_us_M32": 25.0,
+  "triton_us_M2048": 62.7,
+  "cublas_us_M2048": 29.2
+ },
+ "hc down+inject": {
+  "configs_x_M_checked": 45,
+  "differing_from_reference": 0,
+  "small_cfg": [
+   16,
+   64,
+   64,
+   4,
+   4
+  ],
+  "large_cfg": [
+   128,
+   128,
+   64,
+   8,
+   3
+  ],
+  "triton_us_M4": 56.7,
+  "cublas_us_M4": 27.2,
+  "triton_us_M32": 56.4,
+  "cublas_us_M32": 29.0,
+  "triton_us_M2048": 428.9,
+  "cublas_us_M2048": 405.1
+ },
+ "hc up": {
+  "configs_x_M_checked": 45,
+  "differing_from_reference": 0,
+  "small_cfg": [
+   16,
+   128,
+   64,
+   4,
+   3
+  ],
+  "large_cfg": [
+   64,
+   128,
+   64,
+   4,
+   3
+  ],
+  "triton_us_M4": 49.7,
+  "cublas_us_M4": 23.9,
+  "triton_us_M32": 49.4,
+  "cublas_us_M32": 23.6,
+  "triton_us_M2048": 261.0,
+  "cublas_us_M2048": 307.5
+ },
+ "attn q_proj": {
+  "configs_x_M_checked": 45,
+  "differing_from_reference": 0,
+  "small_cfg": [
+   16,
+   64,
+   64,
+   4,
+   4
+  ],
+  "large_cfg": [
+   64,
+   128,
+   64,
+   4,
+   3
+  ],
+  "triton_us_M4": 92.9,
+  "cublas_us_M4": 99.5,
+  "triton_us_M32": 99.5,
+  "cublas_us_M32": 121.3,
+  "triton_us_M2048": 2231.1,
+  "cublas_us_M2048": 2350.5
+ },
+ "lm_head": {
+  "configs_x_M_checked": 45,
+  "differing_from_reference": 0,
+  "small_cfg": [
+   16,
+   64,
+   64,
+   4,
+   4
+  ],
+  "large_cfg": [
+   128,
+   256,
+   64,
+   8,
+   3
+  ],
+  "triton_us_M4": 1778.9,
+  "cublas_us_M4": 1789.1,
+  "triton_us_M32": 1849.5,
+  "cublas_us_M32": 1871.7,
+  "triton_us_M2048": 46033.2,
+  "cublas_us_M2048": 43303.3
+ }
+}

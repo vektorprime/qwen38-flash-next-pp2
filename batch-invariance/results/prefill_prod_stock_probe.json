@@ -1,0 +1,13 @@
+{
+ "tag": "prod_stock_probe",
+ "latency_s": [
+  1.177,
+  0.543,
+  0.548,
+  0.548,
+  0.545,
+  0.537
+ ],
+ "median_s": 0.546,
+ "prefill_tok_per_s": 3750.4
+}

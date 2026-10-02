@@ -1,0 +1,30 @@
+{
+ "tag": "E1_inv_moe",
+ "seconds": 170,
+ "seq2_identical_to_seq1": 16,
+ "seq2_first_diff_chars": [],
+ "conc8_identical_to_seq1": 6,
+ "conc8_first_diff_chars": [
+  92,
+  273,
+  288,
+  217,
+  386,
+  56,
+  152,
+  210,
+  191,
+  68
+ ],
+ "conc4+load_identical_to_seq1": 8,
+ "conc4+load_first_diff_chars": [
+  381,
+  804,
+  42,
+  288,
+  0,
+  56,
+  741,
+  68
+ ]
+}

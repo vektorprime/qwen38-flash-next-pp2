@@ -1,0 +1,171 @@
+{
+ "device": "NVIDIA CMP 170HX",
+ "sms": 74,
+ "marlin_moe": {
+  "L_small": 37,
+  "L_large": 74,
+  "stock": {
+   "rows_differing_across_batches": 24,
+   "us_graph_M1_32__eager_M2040": {
+    "1": 78.4,
+    "4": 176.1,
+    "8": 282.0,
+    "16": 500.0,
+    "32": 851.2,
+    "2040": 3616.8
+   }
+  },
+  "invariant": {
+   "rows_differing_across_batches": 0,
+   "us_graph_M1_32__eager_M2040": {
+    "1": 212.0,
+    "4": 363.2,
+    "8": 383.9,
+    "16": 702.4,
+    "32": 1193.7,
+    "2040": 3663.1
+   }
+  }
+ },
+ "dense_gemm": {
+  "per_shape_us": {
+   "gdn in_proj_qkvz": {
+    "cublas_M4": 63.0,
+    "inv_M4": 62.7,
+    "cublas_M32": 66.3,
+    "inv_M32": 63.7,
+    "cublas_M2048": 1138.9,
+    "inv_M2048": 1480.3
+   },
+   "gdn in_proj_ba": {
+    "cublas_M4": 7.1,
+    "inv_M4": 5.4,
+    "cublas_M32": 6.4,
+    "inv_M32": 6.1,
+    "cublas_M2048": 22.6,
+    "inv_M2048": 107.4
+   },
+   "gdn out_proj": {
+    "cublas_M4": 30.9,
+    "inv_M4": 40.1,
+    "cublas_M32": 33.9,
+    "inv_M32": 65.4,
+    "cublas_M2048": 559.6,
+    "inv_M2048": 665.7
+   },
+   "moe router gate": {
+    "cublas_M4": 9.3,
+    "inv_M4": 7.6,
+    "cublas_M32": 9.2,
+    "inv_M32": 8.7,
+    "cublas_M2048": 50.1,
+    "inv_M2048": 136.0
+   },
+   "shared expert gate_up": {
+    "cublas_M4": 11.5,
+    "inv_M4": 16.3,
+    "cublas_M32": 12.2,
+    "inv_M32": 24.0,
+    "cublas_M2048": 133.3,
+    "inv_M2048": 164.7
+   },
+   "shared expert down": {
+    "cublas_M4": 6.8,
+    "inv_M4": 6.0,
+    "cublas_M32": 7.2,
+    "inv_M32": 8.1,
+    "cublas_M2048": 71.9,
+    "inv_M2048": 85.1
+   },
+   "shared_expert_gate": {
+    "cublas_M4": 5.0,
+    "inv_M4": 5.6,
+    "cublas_M32": 5.2,
+    "inv_M32": 6.0,
+    "cublas_M2048": 16.3,
+    "inv_M2048": 92.8
+   },
+   "hc down+inject": {
+    "cublas_M4": 10.5,
+    "inv_M4": 11.5,
+    "cublas_M32": 12.0,
+    "inv_M32": 14.2,
+    "cublas_M2048": 120.0,
+    "inv_M2048": 310.5
+   },
+   "hc up": {
+    "cublas_M4": 8.1,
+    "inv_M4": 7.7,
+    "cublas_M32": 10.6,
+    "inv_M32": 8.3,
+    "cublas_M2048": 115.1,
+    "inv_M2048": 165.6
+   },
+   "ple key_proj": {
+    "cublas_M4": 52.7,
+    "inv_M4": 36.9,
+    "cublas_M32": 57.0,
+    "inv_M32": 45.8,
+    "cublas_M2048": 678.4,
+    "inv_M2048": 877.9
+   },
+   "attn q_proj": {
+    "cublas_M4": 55.2,
+    "inv_M4": 43.0,
+    "cublas_M32": 58.7,
+    "inv_M32": 50.5,
+    "cublas_M2048": 822.6,
+    "inv_M2048": 1066.8
+   },
+   "attn k/v_proj": {
+    "cublas_M4": 8.5,
+    "inv_M4": 6.9,
+    "cublas_M32": 8.2,
+    "inv_M32": 7.1,
+    "cublas_M2048": 41.5,
+    "inv_M2048": 111.9
+   },
+   "qsa index_qk_proj": {
+    "cublas_M4": 7.4,
+    "inv_M4": 6.7,
+    "cublas_M32": 8.2,
+    "inv_M32": 7.8,
+    "cublas_M2048": 61.3,
+    "inv_M2048": 102.7
+   },
+   "attn o_proj": {
+    "cublas_M4": 28.2,
+    "inv_M4": 33.5,
+    "cublas_M32": 30.8,
+    "inv_M32": 54.5,
+    "cublas_M2048": 437.2,
+    "inv_M2048": 521.3
+   },
+   "lm_head": {
+    "cublas_M4": 802.7,
+    "inv_M4": 795.5,
+    "cublas_M32": 899.3,
+    "inv_M32": 879.2,
+    "cublas_M2048": 15982.1,
+    "inv_M2048": 19338.8
+   },
+   "mtp fc": {
+    "cublas_M4": 13.8,
+    "inv_M4": 14.7,
+    "cublas_M32": 13.4,
+    "inv_M32": 21.3,
+    "cublas_M2048": 196.0,
+    "inv_M2048": 232.9
+   }
+  },
+  "invariance_failures": 0,
+  "per_forward_total_us (x layer counts)": {
+   "cublas_M4": 10143,
+   "inv_M4": 10435,
+   "cublas_M32": 11074,
+   "inv_M32": 12863,
+   "cublas_M2048": 149596,
+   "inv_M2048": 216143
+  }
+ }
+}

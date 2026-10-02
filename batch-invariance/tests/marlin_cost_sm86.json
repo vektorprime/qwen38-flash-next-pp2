@@ -1,0 +1,78 @@
+{
+ "device": "NVIDIA GeForce RTX 3080",
+ "sms": 68,
+ "P": {
+  "stock": null,
+  "pad-only(auto cfg)": 20,
+  "pin-only": null,
+  "pin+pad": 11
+ },
+ "stock": {
+  "invariance": {
+   "4 tokens in 10 batch sizes (rows differing, of 40)": 0,
+   "1000 tokens in 5 batch sizes (rows differing, of 5000)": 41
+  },
+  "time_ms": {
+   "1": 0.358,
+   "2": 0.35,
+   "4": 0.353,
+   "8": 0.584,
+   "16": 1.042,
+   "32": 1.776,
+   "64": 2.747,
+   "256": 4.099,
+   "2040": 5.982
+  }
+ },
+ "pad-only(auto cfg)": {
+  "invariance": {
+   "4 tokens in 10 batch sizes (rows differing, of 40)": 0,
+   "1000 tokens in 5 batch sizes (rows differing, of 5000)": 0
+  },
+  "time_ms": {
+   "1": 0.559,
+   "2": 0.551,
+   "4": 0.554,
+   "8": 0.665,
+   "16": 1.135,
+   "32": 1.885,
+   "64": 2.858,
+   "256": 4.217,
+   "2040": 6.069
+  }
+ },
+ "pin-only": {
+  "invariance": {
+   "4 tokens in 10 batch sizes (rows differing, of 40)": 0,
+   "1000 tokens in 5 batch sizes (rows differing, of 5000)": 11
+  },
+  "time_ms": {
+   "1": 0.351,
+   "2": 0.34,
+   "4": 0.346,
+   "8": 0.585,
+   "16": 1.044,
+   "32": 1.767,
+   "64": 2.724,
+   "256": 3.926,
+   "2040": 6.642
+  }
+ },
+ "pin+pad": {
+  "invariance": {
+   "4 tokens in 10 batch sizes (rows differing, of 40)": 0,
+   "1000 tokens in 5 batch sizes (rows differing, of 5000)": 0
+  },
+  "time_ms": {
+   "1": 0.553,
+   "2": 0.557,
+   "4": 0.552,
+   "8": 0.657,
+   "16": 1.116,
+   "32": 1.839,
+   "64": 2.802,
+   "256": 4.007,
+   "2040": 6.784
+  }
+ }
+}

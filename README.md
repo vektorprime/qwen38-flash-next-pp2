@@ -17,7 +17,7 @@ Verified on 2026-08-29:
 | PLE | 95 GiB ngram/PLE table offloaded to host RAM (`layers.1.ple`) |
 | API | OpenAI-compatible on `:8001` — reasoning + tool-call parsers live |
 
-**Part 1** gets you running in three commands. **Part 2** details the 6-site PP enablement; **Part 3** documents the P0 prefix-caching hardening (ported from `zebgop-ops/qwen38-flashnext-pp` — `mamba_utils req_idx` is the ablation-proven necessary+s sufficient fix). **Part 5** covers the deterministic-MoE patch (0015) and the INT4 / INT4+8 / INT8 quality eval.
+**Part 1** gets you running in three commands. **Part 2** details the 6-site PP enablement; **Part 3** documents the P0 prefix-caching hardening (ported from `zebgop-ops/qwen38-flashnext-pp` — `mamba_utils req_idx` is the ablation-proven necessary+s sufficient fix). **Part 5** covers the deterministic-MoE patch (0015) and the INT4 / INT4+8 / INT8 quality eval. **Part 6** makes serving batch- and instance-invariant (bit-identical logprobs under any load and across containers) and re-measures INT4 and FP8 PLE on that stack.
 what upstream guards exist, why each is removable, and the exact wall you'll
 hit if something moves under us.
 
@@ -37,6 +37,7 @@ hit if something moves under us.
 | `ple-fp8/` | FP8 PLE table (host RAM 97 -> 48 GiB): repack script, `VLLM_PLE_FP8_TABLE` gate, `ple-fp8-ring` build + results |
 | `detmoe/` | Patch 0015: deterministic MoE token order (bit-reproducible logprobs); diff, apply script, Dockerfile, tests (Part 5) |
 | `kld-eval/` | INT4 vs INT4+8 vs INT8 output-distribution eval: KLD, top-1/top-k, sampling-set agreement, perplexity (Part 5) |
+| `batch-invariance/` | Batch- and instance-invariant serving on PP3 (hook, Dockerfiles, tuning/validation scripts, results); INT4 vs INT8 and FP8 vs BF16 PLE on a zero-noise stack (Part 6) |
 
 ## Prerequisites
 
@@ -679,6 +680,41 @@ reference.
 INT4+8 closes 7.3% [5.2-9.3%] of INT4's KLD gap and is better on every fidelity
 measure (paired over windows, all significant). Perplexity doesn't separate the
 two, and is not a fidelity measure here.
+
+# Part 6 — Batch and instance invariance on the PP3 serving stack (2026-10-02)
+
+**Why equivalent runs disagreed by 4–6% on top-1.** Two independent sources of 1-ulp differences, both amplified by MoE
+routing, explain it:
+
+1. **Batch and chunk shape.** A request's logprobs depended on what else was in the forward step and on where its prompt
+   was split into steps:
+   - the Marlin MoE stream-K split;
+   - cuBLAS kernel choice by M;
+   - the QSA split-K profile;
+   - prefill chunk boundaries;
+   - above 2048 tokens of context, the QSA indexer's top-k order.
+2. **Container instance.** Every fresh container re-autotunes vLLM's GDN prefill kernels. `chunk_fwd_kernel_o` picked
+   BK 64 in one container and BK 128 in another, which is a different summation order. Two separately started
+   containers of the same config therefore differed by KLD 0.014 and top-1 96.3%.
+
+**Fix:**
+- `batch-invariance/` is a `sitecustomize` hook baked into `qwen38-flash-next:ple-fp8-pp3-detmoe-inv`. It provides an
+  invariant Marlin config with device-side padding, a Triton GEMM for all dense linears, a pinned QSA split profile with
+  deterministic top-k, and 64-aligned prefill chunks.
+- Determinism across instances needs `VLLM_TRITON_FORCE_FIRST_CONFIG=1` and `TORCHINDUCTOR_DETERMINISTIC=1` (both in
+  the `-inv-det` image ENV), plus `--compilation-config '{"inductor_compile_config":{"combo_kernels":true,"benchmark_combo_kernel":false}}'`.
+
+**Validated on PP3 + MTP + async + prefix caching:**
+- The same request gives the same logprobs under any load, on every prompt position. That held for 36/36 prompt-length
+  pairs, 16/16 greedy decodes under concurrency, and 3/3 5000-token prompts.
+- Two separately compiled containers are bit-identical on the full KLD corpus.
+- Decode speed is unchanged (73 tok/s); prefill is +6%.
+
+On that stack (noise floor exactly 0), with BF16 PLE:
+- **INT4 vs INT8:** KLD 0.040, top-1 93.4%.
+- **FP8 PLE vs BF16 PLE:** KLD 0.016, top-1 96.0%, perplexity unchanged.
+
+Details: [`batch-invariance/README.md`](batch-invariance/README.md).
 
 ## Dockerfile
 
